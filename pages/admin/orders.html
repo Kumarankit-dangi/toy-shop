@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Manage Orders</title>
+
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+<a href="dashboard.html">🧸 Toyland Admin</a>
+</div>
+<button onclick="window.print()">
+
+Print Invoice
+
+</button>
+</nav>
+
+</header>
+
+<main>
+
+<section class="manage-orders">
+
+<div class="section-title">
+
+<h2>Manage Orders</h2>
+
+<p>Manage customer orders</p>
+
+</div>
+
+<input
+type="text"
+id="search-order"
+placeholder="Search by customer name..."
+>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Total</th>
+
+<th>Payment</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="orders-table">
+
+</tbody>
+
+</table>
+
+</section>
+
+</main>
+
+<script src="../../assets/js/admin.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Add Product</title>
+
+<link rel="stylesheet" href="../../assets/css/style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+
+<a href="dashboard.html">🧸 Toyland Admin</a>
+
+</div>
+
+</nav>
+
+</header>
+
+<main>
+
+<section class="admin-form">
+
+<div class="section-title">
+
+<h2>Add New Product</h2>
+
+<p>Create a new product for your store</p>
+
+
+</div>
+<h3 id="form-title">
+    Add New Product
+</h3>
+
+
+<form id="product-form">
+
+<input
+type="text"
+id="product-name"
+placeholder="Product Name"
+required
+>
+
+<input
+type="number"
+id="product-price"
+placeholder="Product Price"
+required
+>
+
+<input
+type="number"
+id="product-discount"
+placeholder="Discount (%)"
+required
+>
+
+<input
+type="number"
+id="product-stock"
+placeholder="Stock"
+required
+>
+
+<select id="product-category">
+
+<option>Teddy Bears</option>
+<option>Toy Cars</option>
+<option>Dolls</option>
+<option>Building Blocks</option>
+<option>Construction Toys</option>
+
+</select>
+
+<input
+type="text"
+id="product-image"
+placeholder="Image Path (assets/images/...)"
+required
+>
+
+<textarea
+id="product-description"
+placeholder="Product Description"
+></textarea>
+
+<button class="btn-primary" type="submit">
+
+Save Product
+
+</button>
+
+</form>
+
+</section>
+
+</main>
+
+<script src="../../assets/js/admin.js"></script>
+
+</body>
+
+</html>

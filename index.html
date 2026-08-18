@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Shop</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <header>
+            <nav class="navbar">
+
+    <div class="logo">
+        <a href="index.html">🧸 Toyland</a>
+    </div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="pages/shop.html">Shop</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="pages/about.html">About</a></li>
+        <li><a href="pages/contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-icons">
+
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search toys...">
+        <button>🔍</button>
+    </div>
+
+    <a href="#">❤️</a>
+
+    <a href="pages/cart.html" class="cart-icon">
+    🛒
+    <span id="cart-count">0</span>
+</a>
+
+    <a href="pages/login.html">Login</a>
+
+</div>
+    <div class="menu-toggle">
+    ☰
+</div>
+
+</nav>
+
+    </header>
+    
+<main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <span class="hero-tag">
+                🎉 Up to 40% OFF on New Arrivals
+            </span>
+
+            <h1>
+                Discover the <span>Magic</span> of Toys
+            </h1>
+
+            <p class="hero-description">
+                Premium toys designed to inspire creativity,
+                learning, and endless fun for every child.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="pages/shop.html" class="btn-primary">Shop Now</a>
+                <a href="#categories" class="btn-secondary">Explore</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories" id="categories">
+
+        <div class="section-title">
+            <h2>Shop by Category</h2>
+            <p>Choose your favorite toys</p>
+        </div>
+
+        <div class="category-container">
+
+            <div class="category-card">
+                <a href="pages/product.html">
+                <img src="assets/images/teddy-bear.png" alt="Teddy Bear">
+                </a>
+                <h3>Teddy Bears</h3>
+            </div>
+
+            <div class="category-card">
+                <a href="pages/product.html">
+                <img src="assets/images/toy-car.png" alt="Toy Car">
+                </a>
+                <h3>Toy Cars</h3>
+            </div>
+
+            <div class="category-card">
+                <a href="pages/product.html">
+                <img src="assets/images/doll.png" alt="Dolls">
+                </a>
+                <h3>Dolls</h3>
+            </div>
+
+            <div class="category-card">
+                <a href="pages/product.html">
+                <img src="assets/images/building-blocks.png"
+                 alt="Building Blocks"
+                 class="building-blocks">
+                 </a>
+                <h3>Building Blocks</h3>
+            </div>
+            <div class="category-card">
+                <a href="pages/product.html">
+    <img src="assets/images/construction toys.png" alt="Construction Toys">
+    </a>
+    <h3>Construction Toys</h3>
+</div>
+
+        </div>
+
+    </section>
+    <section class="products">
+
+    <div class="section-title">
+        <h2>Featured Products</h2>
+        <p>Best Selling Toys</p>
+    </div>
+
+    <div class="product-container">
+
+        <!-- Product Card -->
+
+        <div class="product-card" data-name="Teddy Bear">
+
+            <span class="discount">-20%</span>
+            <div class="wishlist">
+    ❤️
+</div>
+
+            <img src="assets/images/teddy-bear.png" alt="Teddy Bear">
+
+            <h3>Teddy Bear</h3>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <div class="price">
+                <span class="new-price">$19.99</span>
+                <span class="old-price">$24.99</span>
+            </div>
+
+            <button
+    class="cart-btn"
+    data-id="1"
+    data-name="Teddy Bear"
+    data-price="19.99"
+    data-image="../assets/images/teddy-bear.png">
+
+    Add to Cart
+</button>
+
+        </div>
+       <div class="product-card" data-name="Toy Car">
+
+            <span class="discount">-20%</span>
+            <div class="wishlist">
+    ❤️
+</div>
+
+            <img src="assets/images/toy-car.png" alt="Toy Car">
+
+            <h3>Toy Car</h3>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <div class="price">
+                <span class="new-price">$30.99</span>
+                <span class="old-price">$35.99</span>
+            </div>
+
+            <button
+    class="cart-btn"
+    data-id="2"
+    data-name="Toy Car"
+    data-price="29.99"
+    data-image="../assets/images/toy-car.png">
+
+    Add to Cart
+</button>
+    </div>
+    <div class="product-card" data-name="Building Blocks">
+
+            <span class="discount">-20%</span>
+            <div class="wishlist">
+    ❤️
+</div>
+
+            <img src="assets/images/building-blocks.png" 
+            alt="Building Blocks"
+              class="building-blocks">
+
+            <h3>Building Blocks</h3>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <div class="price">
+                <span class="new-price">$40.99</span>
+                <span class="old-price">$45.99</span>
+            </div>
+
+            <button
+    class="cart-btn"
+    data-id="3"
+    data-name="Building Blocks"
+    data-price="39.99"
+    data-image="../assets/images/building-blocks.png">
+    
+
+    Add to Cart
+</button>
+
+    </div>
+    <div class="product-card" data-name="Doll">
+
+            <span class="discount">-20%</span>
+            <div class="wishlist">
+    ❤️
+</div>
+
+            <img src="assets/images/doll.png" alt="Dolls">
+
+            <h3>Dolls</h3>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <div class="price">
+                <span class="new-price">$40.99</span>
+                <span class="old-price">$45.99</span>
+            </div>
+<button
+    class="cart-btn"
+    data-id="4"
+    data-name="Doll"
+    data-price="24.99"
+    data-image="../assets/images/doll.png">
+
+    Add to Cart
+</button>
+
+    </div>
+    <div class="product-card" data-name="Construction Toys">
+
+            <span class="discount">-20%</span>
+            <div class="wishlist">
+    ❤️
+</div>
+
+            <img src="assets/images/construction toys.png" alt="Construction Toys">
+
+            <h3>Construction Toys</h3>
+
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+            </div>
+
+            <div class="price">
+                <span class="new-price">$50.99</span>
+                <span class="old-price">$55.99</span>
+            </div>
+
+            <button
+    class="cart-btn"
+    data-id="5"
+    data-name="Construction Toys"
+    data-price="49.99"
+    data-image="../assets/images/construction toys.png">
+
+    Add to Cart
+</button>
+
+    </div>
+    
+    
+</section>
+
+<!-- ==========================
+     SPECIAL OFFER
+========================== -->
+
+<section class="offer">
+
+    <div class="offer-content">
+
+        <span>🔥 Limited Time Offer</span>
+
+        <h2>Summer Sale <br> Up To 50% OFF</h2>
+
+        <p>
+            Discover amazing toys at unbeatable prices.
+            Shop now before the offer ends.
+        </p>
+
+        <a href="pages/shop.html" class="offer-btn">
+            Shop Now →
+        </a>
+
+    </div>
+
+    <div class="offer-image">
+
+        <img src="assets/images/hero-toy.png" alt="Offer">
+
+    </div>
+
+</section>
+<!-- ==========================
+     NEWSLETTER
+========================== -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <h2>Subscribe to Our Newsletter</h2>
+
+        <p>
+            Get the latest toy collections, exclusive offers,
+            and special discounts directly in your inbox.
+        </p>
+
+        <form class="newsletter-form">
+
+            <input
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================
+     WHY CHOOSE US
+========================== -->
+
+<section class="features">
+
+    <div class="section-title">
+        <h2>Why Choose Toyland?</h2>
+        <p>We make shopping fun, safe and easy.</p>
+    </div>
+
+    <div class="feature-container">
+
+        <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h3>Free Shipping</h3>
+            <p>Free delivery on all orders over $50.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3>Secure Payment</h3>
+            <p>100% safe and encrypted payment.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">⭐</div>
+            <h3>Premium Quality</h3>
+            <p>High-quality toys from trusted brands.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📞</div>
+            <h3>24/7 Support</h3>
+            <p>Our team is always here to help you.</p>
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================
+     TESTIMONIALS
+========================== -->
+
+<section class="testimonials">
+
+    <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p>Trusted by thousands of happy parents.</p>
+    </div>
+
+    <div class="testimonial-container">
+
+        <div class="testimonial-card">
+            <img src="https://i.pravatar.cc/100?img=12" alt="Customer">
+            <h3>Emily Johnson</h3>
+            <span>⭐⭐⭐⭐⭐</span>
+
+            <p>
+                Amazing quality toys! My kids absolutely love them.
+                Fast delivery and great customer service.
+            </p>
+        </div>
+
+        <div class="testimonial-card">
+            <img src="https://i.pravatar.cc/100?img=32" alt="Customer">
+            <h3>Michael Brown</h3>
+            <span>⭐⭐⭐⭐⭐</span>
+
+            <p>
+                Best toy store I've ever shopped from.
+                Highly recommended for every parent.
+            </p>
+        </div>
+
+        <div class="testimonial-card">
+            <img src="https://i.pravatar.cc/100?img=48" alt="Customer">
+            <h3>Sophia Wilson</h3>
+            <span>⭐⭐⭐⭐⭐</span>
+
+            <p>
+                Premium quality products and secure payment.
+                Will definitely buy again.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================
+     NEWSLETTER
+========================== -->
+
+<section class="newsletter">
+
+    <div class="newsletter-content">
+
+        <h2>Subscribe to Our Newsletter</h2>
+
+        <p>
+            Get the latest offers, new arrivals, and exclusive discounts.
+        </p>
+
+        <form class="newsletter-form">
+
+            <input
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+<!-- ==========================
+     FOOTER
+========================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <!-- Company Info -->
+        <div class="footer-box">
+
+            <h2>🧸 Toyland</h2>
+
+            <p>
+                Bringing smiles to children with safe,
+                fun and educational toys.
+            </p>
+
+        </div>
+
+
+        <!-- Quick Links -->
+        <div class="footer-box">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="pages/shop.html">Shop</a></li>
+                <li><a href="pages/about.html">About</a></li>
+                <li><a href="pages/contact.html">Contact</a></li>
+            </ul>
+
+        </div>
+         <div class="footer-box">
+            <h3>Customer Service</h3>
+
+            <a href="#">FAQ</a>
+            <a href="#">Shipping</a>
+            <a href="#">Returns</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+
+        <div class="footer-box">
+            <h3>Follow Us</h3>
+
+            <p>📧 support@toyland.com</p>
+            <p>📱 +91 9876543210</p>
+
+            <div class="social-icons">
+                <a href="#">🌐</a>
+                <a href="#">📘</a>
+                <a href="#">📷</a>
+                <a href="#">▶️</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Toyland. All Rights Reserved.
+    </div>
+
+</footer>
+
+        <!-- Categories -->
+        <div class="footer-box">
+
+            <h3>Categories</h3>
+
+            <ul>
+                <li>Teddy Bears</li>
+                <li>Toy Cars</li>
+                <li>Dolls</li>
+                <li>Building Blocks</li>
+            </ul>
+
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-box">
+
+            <h3>Contact</h3>
+
+            <p>📍 Kolkata, India</p>
+            <p>📞 +91 98765 43210</p>
+            <p>📧 support@toyland.com</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 Toyland. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+</main>
+    <footer>
+
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

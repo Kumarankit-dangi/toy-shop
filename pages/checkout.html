@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout - Toyland</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1 style="text-align:center; padding:30px;">
+            Checkout
+        </h1>
+    </header>
+
+    <main>
+
+        <section class="checkout">
+
+            <!-- BILLING DETAILS -->
+            <h2>Billing Details</h2>
+
+            <form id="checkoutForm">
+
+                <input
+                    type="text"
+                    id="fullName"
+                    placeholder="Full Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Phone Number"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Address"
+                    required
+                >
+
+                <!-- ORDER SUMMARY -->
+                <div class="order-summary">
+
+                    <h2>Order Summary</h2>
+
+                    <div id="checkout-products"></div>
+
+                    <hr>
+
+                    <p>
+                        Subtotal
+                        <span id="subtotal">$0.00</span>
+                    </p>
+
+                    <p>
+                        Shipping
+                        <span>$5.00</span>
+                    </p>
+
+                    <p>
+                        Discount
+                        <span id="discount">$0.00</span>
+                    </p>
+
+                    <h3>
+                        Total
+                        <span id="grand-total">$0.00</span>
+                    </h3>
+
+                </div>
+
+
+                <!-- COUPON -->
+                <div class="coupon-box">
+
+                    <input
+                        type="text"
+                        id="coupon"
+                        placeholder="Coupon"
+                    >
+
+                    <button type="button" id="apply-coupon">
+                        Apply
+                    </button>
+
+                </div>
+
+
+                <!-- PAYMENT METHOD -->
+<section class="payment-section">
+
+    <h2>Payment Method</h2>
+
+    <!-- COD -->
+    <div class="payment-option">
+
+        <input
+            type="radio"
+            id="cod"
+            name="payment"
+            value="COD"
+            checked
+        >
+
+        <label for="cod">
+            💵 Cash on Delivery
+        </label>
+
+    </div>
+
+
+    <!-- UPI -->
+    <div class="payment-option">
+
+        <input
+            type="radio"
+            id="upi"
+            name="payment"
+            value="UPI"
+        >
+
+        <label for="upi">
+            📱 UPI
+        </label>
+
+    </div>
+
+
+    <!-- CARD -->
+    <div class="payment-option">
+
+        <input
+            type="radio"
+            id="card"
+            name="payment"
+            value="Card"
+        >
+
+        <label for="card">
+            💳 Credit / Debit Card
+        </label>
+
+    </div>
+
+</section>
+
+                    <!-- PLACE ORDER -->
+                    <button
+                        type="submit"
+                        id="placeOrderBtn"
+                        class="place-order-btn"
+                    >
+                        🛒 Place Order
+                    </button>
+
+                </section>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <!-- CHECKOUT JAVASCRIPT -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="../assets/js/checkout.js"></script>
+
+</body>
+
+</html>
