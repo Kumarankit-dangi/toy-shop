@@ -1,3 +1,4 @@
+const API_URL = "https://toy-shop-backend.onrender.com";
 document
     .getElementById("placeOrderBtn")
     .addEventListener("click", async function (event) {

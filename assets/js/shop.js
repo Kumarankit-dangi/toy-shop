@@ -3,7 +3,7 @@ let products = [];
 
 async function loadProducts() {
     try {
-        const response = await fetch(API_URL);
+       const response = await fetch(`${API_URL}/api/products`);
 
         if (!response.ok) {
             throw new Error("Server response error: " + response.status);
