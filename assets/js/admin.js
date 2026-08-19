@@ -1,7 +1,6 @@
 let editIndex = -1;
 
-const API_URL = "http://127.0.0.1:5000";
-
+const API_URL = "https://toy-shop-backend.onrender.com";
 // =====================================================
 // PRODUCT MANAGEMENT
 // =====================================================

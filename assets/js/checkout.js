@@ -190,7 +190,7 @@ async function placeCODOrder(
 
         const response =
             await fetch(
-                "http://127.0.0.1:5000/api/orders",
+    `${API_URL}/api/orders`,
                 {
                     method: "POST",
 
@@ -295,8 +295,9 @@ async function startRazorpayPayment(
 
         const keyResponse =
             await fetch(
-                "http://127.0.0.1:5000/api/payment/key"
-            );
+    `${API_URL}/api/payment/key`
+);
+            
 
 
         const keyData =
@@ -321,8 +322,8 @@ async function startRazorpayPayment(
         // ==========================================
 
         const orderResponse =
-            await fetch(
-                "http://127.0.0.1:5000/api/payment/create-order",
+           await fetch(
+    `${API_URL}/api/payment/create-order`,
                 {
                     method: "POST",
 
@@ -433,8 +434,8 @@ const options = {
 
         try {
 
-            const saveResponse = await fetch(
-                "http://127.0.0.1:5000/api/orders",
+            await fetch(
+    `${API_URL}/api/orders`,
                 {
                     method: "POST",
 
@@ -565,12 +566,6 @@ razorpay.on(
 // ==========================================
 
 razorpay.open();
-// ==========================================
-// OPEN RAZORPAY
-// ==========================================
-
-razorpay.open();
-
 
 // ==========================================
 // RAZORPAY TRY-CATCH
