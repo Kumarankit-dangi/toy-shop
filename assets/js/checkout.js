@@ -1,9 +1,20 @@
 const API_URL = "https://toy-shop-backend.onrender.com";
+let orderProcessing = false;
 document
     .getElementById("placeOrderBtn")
     .addEventListener("click", async function (event) {
 
         event.preventDefault();
+        if (orderProcessing) {
+    return;
+}
+
+orderProcessing = true;
+
+const orderButton = document.getElementById("placeOrderBtn");
+
+orderButton.disabled = true;
+orderButton.textContent = "Processing...";
 
         // ==========================================
         // CUSTOMER DETAILS
@@ -42,6 +53,7 @@ document
         if (!paymentElement) {
 
             alert("Please select a payment method.");
+            orderProcessing = false;
 
             return;
         }
@@ -80,6 +92,7 @@ document
         ) {
 
             alert("Please fill all details.");
+            orderProcessing = false;
 
             return;
         }
@@ -138,7 +151,8 @@ document
         if (
             paymentMethod.toLowerCase().includes("online") ||
             paymentMethod.toLowerCase().includes("razorpay") ||
-            paymentMethod.toLowerCase().includes("upi")
+            paymentMethod.toLowerCase().includes("upi") ||
+            paymentMethod.toLowerCase().includes("card")
         ) {
 
             await startRazorpayPayment(
@@ -435,7 +449,7 @@ const options = {
 
         try {
 
-            await fetch(
+            const saveResponse = await fetch(
     `${API_URL}/api/orders`,
                 {
                     method: "POST",
