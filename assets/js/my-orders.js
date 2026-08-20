@@ -109,6 +109,11 @@ async function loadMyOrders() {
 
         data.orders.forEach(order => {
 
+
+            // ==================================
+            // ORDER DATE
+            // ==================================
+
             const orderDate =
                 new Date(
                     order.createdAt
@@ -121,6 +126,10 @@ async function loadMyOrders() {
                     }
                 );
 
+
+            // ==================================
+            // ORDER ITEMS
+            // ==================================
 
             const itemsHTML =
                 order.items.map(item => `
@@ -153,17 +162,63 @@ async function loadMyOrders() {
                 `).join("");
 
 
+            // ==================================
+            // ORDER STATUS
+            // ==================================
+
+            const status =
+                order.status || "Pending";
+
+
+            // ==================================
+            // TRACKING STATUS
+            // ==================================
+
+            const pendingCompleted =
+                [
+                    "Pending",
+                    "Confirmed",
+                    "Shipped",
+                    "Delivered"
+                ].includes(status);
+
+
+            const confirmedCompleted =
+                [
+                    "Confirmed",
+                    "Shipped",
+                    "Delivered"
+                ].includes(status);
+
+
+            const shippedCompleted =
+                [
+                    "Shipped",
+                    "Delivered"
+                ].includes(status);
+
+
+            const deliveredCompleted =
+                status === "Delivered";
+
+
+            // ==================================
+            // ORDER CARD
+            // ==================================
+
             ordersContainer.innerHTML += `
 
                 <div class="order-card">
+
+
+                    <!-- ORDER HEADER -->
 
                     <div class="order-header">
 
                         <div>
 
                             <h2>
-                                Order #${order._id
-                                    .slice(-8)}
+                                Order #${order._id.slice(-8)}
                             </h2>
 
                             <p>
@@ -172,12 +227,17 @@ async function loadMyOrders() {
 
                         </div>
 
+
                         <span class="order-status">
-                            ${order.status}
+
+                            ${status}
+
                         </span>
 
                     </div>
 
+
+                    <!-- ORDER ITEMS -->
 
                     <div class="order-items">
 
@@ -186,23 +246,158 @@ async function loadMyOrders() {
                     </div>
 
 
+                    <!-- ORDER TRACKING -->
+
+                    <div class="order-tracking">
+
+                        <h3>
+                            Order Tracking
+                        </h3>
+
+
+                        <div class="tracking-line">
+
+
+                            <!-- PENDING -->
+
+                            <div
+                                class="tracking-step ${
+                                    pendingCompleted
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                <div class="tracking-dot">
+
+                                    ${
+                                        pendingCompleted
+                                            ? "✓"
+                                            : ""
+                                    }
+
+                                </div>
+
+                                <span>
+                                    Pending
+                                </span>
+
+                            </div>
+
+
+                            <!-- CONFIRMED -->
+
+                            <div
+                                class="tracking-step ${
+                                    confirmedCompleted
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                <div class="tracking-dot">
+
+                                    ${
+                                        confirmedCompleted
+                                            ? "✓"
+                                            : ""
+                                    }
+
+                                </div>
+
+                                <span>
+                                    Confirmed
+                                </span>
+
+                            </div>
+
+
+                            <!-- SHIPPED -->
+
+                            <div
+                                class="tracking-step ${
+                                    shippedCompleted
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                <div class="tracking-dot">
+
+                                    ${
+                                        shippedCompleted
+                                            ? "✓"
+                                            : ""
+                                    }
+
+                                </div>
+
+                                <span>
+                                    Shipped
+                                </span>
+
+                            </div>
+
+
+                            <!-- DELIVERED -->
+
+                            <div
+                                class="tracking-step ${
+                                    deliveredCompleted
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                <div class="tracking-dot">
+
+                                    ${
+                                        deliveredCompleted
+                                            ? "✓"
+                                            : ""
+                                    }
+
+                                </div>
+
+                                <span>
+                                    Delivered
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ORDER FOOTER -->
+
                     <div class="order-footer">
 
                         <span>
+
                             Payment:
+
                             <strong>
                                 ${order.paymentMethod}
                             </strong>
+
                         </span>
 
+
                         <strong>
+
                             Total:
+
                             ₹${Number(
                                 order.total
                             ).toFixed(2)}
+
                         </strong>
 
                     </div>
+
 
                 </div>
 
