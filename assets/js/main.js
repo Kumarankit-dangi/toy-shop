@@ -618,6 +618,8 @@ if (ordersContainer) {
         });
     }
 }
+
+
 // ==========================
 // LOGIN / USER / LOGOUT
 // ==========================
@@ -631,39 +633,143 @@ function updateLoginUI() {
     const token =
         localStorage.getItem("token");
 
-    // Find Login link
+
+    // ==========================================
+    // FIND NAVBAR
+    // ==========================================
+
+    const navIcons =
+        document.querySelector(".nav-icons");
+
+    if (!navIcons) return;
+
+
+    // ==========================================
+    // ADD MY ORDERS LINK
+    // ==========================================
+
+    let myOrdersLink =
+        navIcons.querySelector(".my-orders-link");
+
+
+    if (!myOrdersLink) {
+
+        myOrdersLink =
+            document.createElement("a");
+
+        myOrdersLink.className =
+            "my-orders-link";
+
+        myOrdersLink.textContent =
+            "📦 My Orders";
+
+
+        // Homepage vs pages folder
+        const currentPath =
+            window.location.pathname;
+
+        if (
+            currentPath.includes("/pages/")
+        ) {
+
+            myOrdersLink.href =
+                "my-orders.html";
+
+        } else {
+
+            myOrdersLink.href =
+                "pages/my-orders.html";
+
+        }
+
+
+        // Put My Orders before Login
+        const loginLinks =
+            navIcons.querySelectorAll(
+                'a[href$="login.html"], .user-profile-link'
+            );
+
+
+        if (loginLinks.length > 0) {
+
+            loginLinks[loginLinks.length - 1]
+                .before(myOrdersLink);
+
+        } else {
+
+            navIcons.appendChild(myOrdersLink);
+
+        }
+
+    }
+
+
+    // ==========================================
+    // FIND LOGIN LINK
+    // ==========================================
+
     const loginLinks =
         document.querySelectorAll(
             'a[href$="login.html"]'
         );
 
+
     loginLinks.forEach(link => {
 
         if (user && token) {
+
+            // Avoid adding multiple click handlers
+            if (
+                link.dataset.loggedIn === "true"
+            ) {
+                return;
+            }
+
+            link.dataset.loggedIn = "true";
+
+            link.classList.add(
+                "user-profile-link"
+            );
 
             link.textContent =
                 "👤 " + user.name;
 
             link.href = "#";
 
-            link.addEventListener("click", function (e) {
 
-                e.preventDefault();
+            link.addEventListener(
+                "click",
+                function (e) {
 
-                const confirmLogout =
-                    confirm("Do you want to logout?");
+                    e.preventDefault();
 
-                if (confirmLogout) {
 
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("user");
+                    const confirmLogout =
+                        confirm(
+                            "Do you want to logout?"
+                        );
 
-                    alert("👋 Logged out successfully!");
 
-                    window.location.reload();
+                    if (confirmLogout) {
+
+                        localStorage.removeItem(
+                            "token"
+                        );
+
+                        localStorage.removeItem(
+                            "user"
+                        );
+
+                        alert(
+                            "👋 Logged out successfully!"
+                        );
+
+                        window.location.reload();
+
+                    }
+
                 }
-
-            });
+            );
 
         }
 
@@ -672,6 +778,8 @@ function updateLoginUI() {
 }
 
 updateLoginUI();
+
+
 // ==========================
 // LOGIN REQUIRED
 // ==========================
@@ -680,16 +788,25 @@ const token = localStorage.getItem("token");
 
 const currentPage = window.location.pathname;
 
+
 // Login/Register pages ko allow karo
+
 const isLoginPage =
     currentPage.endsWith("/login.html");
 
 const isRegisterPage =
     currentPage.endsWith("/register.html");
 
-// Agar login nahi hai aur login/register page par bhi nahi hai
-if (!token && !isLoginPage && !isRegisterPage) {
 
-    window.location.href = "/pages/login.html";
+// Agar login nahi hai aur login/register page par bhi nahi hai
+
+if (
+    !token &&
+    !isLoginPage &&
+    !isRegisterPage
+) {
+
+    window.location.href =
+        "/pages/login.html";
 
 }
