@@ -3,14 +3,14 @@ const express = require("express");
 const router = express.Router();
 
 const Order = require("../models/Order");
+const auth = require("../middleware/authMiddleware");
 
 
 // =====================================================
 // PLACE ORDER
 // =====================================================
 
-router.post("/", async (req, res) => {
-
+router.post("/", auth, async (req, res) => {
   try {
 
     console.log("🔥 Order request received");
@@ -60,6 +60,8 @@ router.post("/", async (req, res) => {
       phone,
 
       address,
+       
+      userId: req.user.userId,
 
       items,
 
