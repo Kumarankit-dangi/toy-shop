@@ -14,43 +14,61 @@ router.post("/register", async (req, res) => {
 
     try {
 
-        const { name, email, password } = req.body;
+        const {
+            name,
+            email,
+            password
+        } = req.body;
 
 
         if (!name || !email || !password) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Name, email and password are required"
+
+                message:
+                    "Name, email and password are required"
+
             });
 
         }
 
 
-        const existingUser = await User.findOne({
-            email: email.toLowerCase()
-        });
+        const existingUser =
+            await User.findOne({
+
+                email:
+                    email.toLowerCase()
+
+            });
 
 
         if (existingUser) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "User already exists"
+
+                message:
+                    "User already exists"
+
             });
 
         }
 
 
-        const user = new User({
+        const user =
+            new User({
 
-            name,
+                name,
 
-            email: email.toLowerCase(),
+                email:
+                    email.toLowerCase(),
 
-            password
+                password
 
-        });
+            });
 
 
         await user.save();
@@ -60,17 +78,22 @@ router.post("/register", async (req, res) => {
 
             success: true,
 
-            message: "User registered successfully",
+            message:
+                "User registered successfully",
 
             user: {
 
-                id: user._id,
+                id:
+                    user._id,
 
-                name: user.name,
+                name:
+                    user.name,
 
-                email: user.email,
+                email:
+                    user.email,
 
-                role: user.role
+                role:
+                    user.role
 
             }
 
@@ -89,7 +112,8 @@ router.post("/register", async (req, res) => {
 
             success: false,
 
-            message: "Server error"
+            message:
+                "Server error"
 
         });
 
@@ -126,12 +150,13 @@ router.post("/login", async (req, res) => {
         }
 
 
-        const user = await User.findOne({
+        const user =
+            await User.findOne({
 
-            email:
-                email.toLowerCase()
+                email:
+                    email.toLowerCase()
 
-        });
+            });
 
 
         if (!user) {
@@ -169,25 +194,29 @@ router.post("/login", async (req, res) => {
         }
 
 
-        const token = jwt.sign(
+        const token =
+            jwt.sign(
 
-            {
+                {
 
-                userId: user._id,
+                    userId:
+                        user._id,
 
-                role: user.role
+                    role:
+                        user.role
 
-            },
+                },
 
-            process.env.JWT_SECRET,
+                process.env.JWT_SECRET,
 
-            {
+                {
 
-                expiresIn: "7d"
+                    expiresIn:
+                        "7d"
 
-            }
+                }
 
-        );
+            );
 
 
         res.json({
@@ -201,13 +230,17 @@ router.post("/login", async (req, res) => {
 
             user: {
 
-                id: user._id,
+                id:
+                    user._id,
 
-                name: user.name,
+                name:
+                    user.name,
 
-                email: user.email,
+                email:
+                    user.email,
 
-                role: user.role
+                role:
+                    user.role
 
             }
 
@@ -226,7 +259,147 @@ router.post("/login", async (req, res) => {
 
             success: false,
 
-            message: "Server error"
+            message:
+                "Server error"
+
+        });
+
+    }
+
+});
+
+
+// ==========================================
+// GET ALL USERS
+// ADMIN ONLY
+// ==========================================
+
+router.get("/users", async (req, res) => {
+
+    try {
+
+        // Get token
+        const authHeader =
+            req.headers.authorization;
+
+
+        if (
+            !authHeader ||
+            !authHeader.startsWith("Bearer ")
+        ) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "Authentication required"
+
+            });
+
+        }
+
+
+        const token =
+            authHeader.split(" ")[1];
+
+
+        // Verify token
+        const decoded =
+            jwt.verify(
+                token,
+                process.env.JWT_SECRET
+            );
+
+
+        // Check admin role
+        if (
+            decoded.role !== "admin"
+        ) {
+
+            return res.status(403).json({
+
+                success: false,
+
+                message:
+                    "Admin access required"
+
+            });
+
+        }
+
+
+        // Get users from MongoDB
+        const users =
+            await User.find({})
+                .select(
+                    "_id name email role createdAt"
+                )
+                .sort({
+                    createdAt: -1
+                });
+
+
+        res.json({
+
+            success: true,
+
+            count:
+                users.length,
+
+            users
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Get Users Error:",
+            error
+        );
+
+
+        if (
+            error.name ===
+            "JsonWebTokenError"
+        ) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "Invalid token"
+
+            });
+
+        }
+
+
+        if (
+            error.name ===
+            "TokenExpiredError"
+        ) {
+
+            return res.status(401).json({
+
+                success: false,
+
+                message:
+                    "Token expired"
+
+            });
+
+        }
+
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Failed to get users"
 
         });
 
@@ -262,7 +435,8 @@ router.post("/setup-admin", async (req, res) => {
 
                 success: false,
 
-                message: "Unauthorized"
+                message:
+                    "Unauthorized"
 
             });
 
@@ -280,14 +454,17 @@ router.post("/setup-admin", async (req, res) => {
         // Check whether admin already exists
         let user =
             await User.findOne({
+
                 email
+
             });
 
 
         if (user) {
 
-            // Promote existing account
-            user.role = "admin";
+            user.role =
+                "admin";
+
 
             await user.save();
 
@@ -298,20 +475,20 @@ router.post("/setup-admin", async (req, res) => {
 
         } else {
 
-            // Create new admin
-            user = new User({
+            user =
+                new User({
 
-                name:
-                    "Toyland Admin",
+                    name:
+                        "Toyland Admin",
 
-                email,
+                    email,
 
-                password,
+                    password,
 
-                role:
-                    "admin"
+                    role:
+                        "admin"
 
-            });
+                });
 
 
             await user.save();
@@ -333,13 +510,17 @@ router.post("/setup-admin", async (req, res) => {
 
             user: {
 
-                id: user._id,
+                id:
+                    user._id,
 
-                name: user.name,
+                name:
+                    user.name,
 
-                email: user.email,
+                email:
+                    user.email,
 
-                role: user.role
+                role:
+                    user.role
 
             }
 
