@@ -7,7 +7,8 @@
 // AUTH
 // =====================================================
 
-const token = localStorage.getItem("token");
+const authToken =
+    localStorage.getItem("token");
 
 const currentPage =
     window.location.pathname.toLowerCase();
@@ -18,17 +19,41 @@ const isLoginPage =
 const isRegisterPage =
     currentPage.includes("register.html");
 
+const isPreview =
+    new URLSearchParams(
+        window.location.search
+    ).get("preview") === "true";
 
-// Redirect if login is required
+
+// =====================================================
+// REQUIRE LOGIN
+// =====================================================
+
 if (
-    !token &&
+    !authToken &&
     !isLoginPage &&
-    !isRegisterPage
+    !isRegisterPage &&
+    !isPreview
 ) {
 
-    // Don't redirect wishlist/cart/shop pages
-    // if your project allows guest shopping.
-    // Remove this block later if guest access is desired.
+    if (
+        currentPage.endsWith("/") ||
+        currentPage.endsWith("index.html")
+    ) {
+
+        window.location.href =
+            "pages/login.html";
+
+    }
+
+    else if (
+        currentPage.includes("/pages/")
+    ) {
+
+        window.location.href =
+            "login.html";
+
+    }
 
 }
 
@@ -37,8 +62,6 @@ if (
 // WISHLIST
 // =====================================================
 
-
-// Get wishlist
 function getWishlist() {
 
     return JSON.parse(
@@ -48,7 +71,6 @@ function getWishlist() {
 }
 
 
-// Save wishlist
 function saveWishlist(wishlist) {
 
     localStorage.setItem(
@@ -94,7 +116,9 @@ function toggleWishlist(button) {
         button.dataset.name;
 
     const productPrice =
-        Number(button.dataset.price || 0);
+        Number(
+            button.dataset.price || 0
+        );
 
     const productImage =
         button.dataset.image || "";
@@ -122,10 +146,6 @@ function toggleWishlist(button) {
         );
 
 
-    // =================================================
-    // REMOVE
-    // =================================================
-
     if (existingIndex !== -1) {
 
         wishlist.splice(
@@ -146,11 +166,6 @@ function toggleWishlist(button) {
         );
 
     }
-
-
-    // =================================================
-    // ADD
-    // =================================================
 
     else {
 
@@ -199,7 +214,7 @@ function toggleWishlist(button) {
 
 
 // =====================================================
-// INITIALIZE WISHLIST BUTTONS
+// INITIALIZE WISHLIST
 // =====================================================
 
 function initializeWishlist() {
@@ -213,7 +228,6 @@ function initializeWishlist() {
             ".wishlist"
         )
         .forEach(button => {
-
 
             const productId =
                 button.dataset.id;
@@ -253,7 +267,6 @@ function initializeWishlist() {
             }
 
 
-            // Prevent duplicate listeners
             button.onclick =
                 function () {
 
@@ -294,10 +307,6 @@ function loadWishlist() {
         "";
 
 
-    // =================================================
-    // EMPTY WISHLIST
-    // =================================================
-
     if (wishlist.length === 0) {
 
         container.innerHTML = `
@@ -335,16 +344,13 @@ function loadWishlist() {
     }
 
 
-    // =================================================
-    // DISPLAY PRODUCTS
-    // =================================================
-
     wishlist.forEach(
         product => {
 
-
             const price =
-                Number(product.price || 0);
+                Number(
+                    product.price || 0
+                );
 
 
             container.innerHTML += `
@@ -375,21 +381,16 @@ function loadWishlist() {
 
 
                         <div class="wishlist-rating">
-
                             ⭐⭐⭐⭐⭐
-
                         </div>
 
 
                         <p class="wishlist-price">
-
                             ₹${price.toFixed(2)}
-
                         </p>
 
 
                         <div class="wishlist-actions">
-
 
                             <button
                                 class="cart-btn"
@@ -399,9 +400,7 @@ function loadWishlist() {
                                     )
                                 "
                             >
-
                                 🛒 Add to Cart
-
                             </button>
 
 
@@ -413,11 +412,8 @@ function loadWishlist() {
                                     )
                                 "
                             >
-
                                 ❤️ Remove
-
                             </button>
-
 
                         </div>
 
@@ -481,7 +477,6 @@ function addWishlistProductToCart(
         );
 
 
-    // Increase quantity
     if (existingProduct) {
 
         existingProduct.quantity =
@@ -491,8 +486,6 @@ function addWishlistProductToCart(
 
     }
 
-
-    // Add new product
     else {
 
         cart.push({
@@ -560,11 +553,8 @@ function removeFromWishlist(
 
     loadWishlist();
 
-
     updateWishlistCount();
 
-
-    // Update hearts if they exist
     initializeWishlist();
 
 }
@@ -624,9 +614,6 @@ function initializeCartButtons() {
         )
         .forEach(button => {
 
-
-            // Don't override buttons already
-            // controlled by another script.
             if (
                 button.dataset.cartInitialized
             ) {
@@ -644,20 +631,16 @@ function initializeCartButtons() {
                 "click",
                 function () {
 
-
                     const id =
                         this.dataset.id;
 
-
                     const name =
                         this.dataset.name;
-
 
                     const price =
                         Number(
                             this.dataset.price
                         );
-
 
                     const image =
                         this.dataset.image;
@@ -751,6 +734,292 @@ function initializeCartButtons() {
 
 
 // =====================================================
+// PROFILE / AUTH UI
+// =====================================================
+
+function updateAuthUI() {
+
+    const authArea =
+        document.getElementById(
+            "auth-area"
+        );
+
+
+    if (!authArea) return;
+
+
+    const userToken =
+        localStorage.getItem("token");
+
+
+    const userData =
+        localStorage.getItem("user");
+
+
+    // =================================================
+    // NOT LOGGED IN
+    // =================================================
+
+    if (
+        !userToken ||
+        !userData
+    ) {
+
+        authArea.innerHTML = `
+
+            <a href="pages/login.html">
+                Login
+            </a>
+
+        `;
+
+        return;
+
+    }
+
+
+    // =================================================
+    // READ USER
+    // =================================================
+
+    let user;
+
+
+    try {
+
+        user =
+            JSON.parse(
+                userData
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Invalid user data"
+        );
+
+
+        localStorage.removeItem(
+            "token"
+        );
+
+
+        localStorage.removeItem(
+            "user"
+        );
+
+
+        authArea.innerHTML = `
+
+            <a href="pages/login.html">
+                Login
+            </a>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // EMAIL
+    // =================================================
+
+    const email =
+        user.email ||
+        "User";
+
+
+    const firstLetter =
+        email
+            .charAt(0)
+            .toUpperCase();
+
+
+    // =================================================
+    // PROFILE HTML
+    // =================================================
+
+    authArea.innerHTML = `
+
+        <div class="profile-wrapper">
+
+            <button
+                type="button"
+                class="profile-letter"
+                id="profile-button"
+                title="My Profile"
+            >
+                ${firstLetter}
+            </button>
+
+
+            <div
+                class="profile-dropdown"
+                id="profile-dropdown"
+            >
+
+                <div class="profile-info">
+
+                    <div class="profile-big-letter">
+                        ${firstLetter}
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ${email}
+                        </strong>
+
+
+                        <p>
+                            Logged in
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <hr>
+
+
+                <button
+                    type="button"
+                    id="logout-btn"
+                    class="logout-btn"
+                >
+                    🚪 Logout
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    // =================================================
+    // PROFILE BUTTON
+    // =================================================
+
+    const profileButton =
+        document.getElementById(
+            "profile-button"
+        );
+
+
+    const profileDropdown =
+        document.getElementById(
+            "profile-dropdown"
+        );
+
+
+    if (
+        profileButton &&
+        profileDropdown
+    ) {
+
+        profileButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                profileDropdown.classList.toggle(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // LOGOUT
+    // =================================================
+
+    const logoutButton =
+        document.getElementById(
+            "logout-btn"
+        );
+
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                // Remove login information
+
+                localStorage.removeItem(
+                    "token"
+                );
+
+
+                localStorage.removeItem(
+                    "user"
+                );
+
+
+                // Show logout message
+
+                alert(
+                    "✅ Logout Successful!"
+                );
+
+
+                // Go to blurred login screen
+
+                window.location.href =
+                    "pages/login.html";
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // CLOSE DROPDOWN
+    // =================================================
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            if (
+                profileDropdown
+            ) {
+
+                profileDropdown.classList.remove(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
 // INITIALIZE EVERYTHING
 // =====================================================
 
@@ -767,6 +1036,8 @@ document.addEventListener(
         updateWishlistCount();
 
         updateCartCount();
+
+        updateAuthUI();
 
     }
 );

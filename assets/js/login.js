@@ -1,6 +1,16 @@
 const API_URL =
     "https://toy-shop-backend.onrender.com";
+// =====================================================
+// WAKE UP BACKEND
+// =====================================================
 
+fetch(`${API_URL}/`)
+    .then(() => {
+        console.log("✅ Backend is ready");
+    })
+    .catch(() => {
+        console.log("⏳ Backend is waking up...");
+    });
 
 const loginForm =
     document.getElementById("login-form");
