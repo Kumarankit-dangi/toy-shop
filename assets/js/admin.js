@@ -1,14 +1,36 @@
 let editIndex = -1;
 
-const API_URL = "https://toy-shop-backend.onrender.com";
+const API_URL =
+    "https://toy-shop-backend.onrender.com";
+
+
+// =====================================================
+// AUTH HELPER
+// =====================================================
+
+function getAuthHeaders() {
+
+    const token =
+        localStorage.getItem("token");
+
+    return {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+    };
+}
+
+
 // =====================================================
 // PRODUCT MANAGEMENT
 // =====================================================
 
-const form = document.getElementById("product-form");
+const form =
+    document.getElementById("product-form");
 
 const editProductData =
-    JSON.parse(localStorage.getItem("editProduct"));
+    JSON.parse(
+        localStorage.getItem("editProduct")
+    );
 
 if (editProductData && form) {
 
@@ -38,7 +60,9 @@ if (editProductData && form) {
 }
 
 
+// =====================================================
 // ADD / UPDATE PRODUCT
+// =====================================================
 
 if (form) {
 
@@ -72,20 +96,23 @@ if (form) {
         };
 
         let products =
-            JSON.parse(localStorage.getItem("products")) || [];
+            JSON.parse(
+                localStorage.getItem("products")
+            ) || [];
 
         const editing =
-            JSON.parse(localStorage.getItem("editProduct"));
+            JSON.parse(
+                localStorage.getItem("editProduct")
+            );
 
         if (editing) {
 
-            const index = products.findIndex(
-
-                p =>
-                    p.name === editing.name &&
-                    p.price === editing.price
-
-            );
+            const index =
+                products.findIndex(
+                    p =>
+                        p.name === editing.name &&
+                        p.price === editing.price
+                );
 
             if (index !== -1) {
 
@@ -93,7 +120,9 @@ if (form) {
 
             }
 
-            localStorage.removeItem("editProduct");
+            localStorage.removeItem(
+                "editProduct"
+            );
 
         } else {
 
@@ -106,87 +135,110 @@ if (form) {
             JSON.stringify(products)
         );
 
-        alert("Product Saved Successfully");
+        alert(
+            "Product Saved Successfully"
+        );
 
         form.reset();
 
-        window.location.href = "products.html";
+        window.location.href =
+            "products.html";
 
     });
 
 }
 
 
+// =====================================================
 // LOAD PRODUCTS
+// =====================================================
 
 function loadProducts() {
 
     const table =
-        document.getElementById("product-table");
+        document.getElementById(
+            "product-table"
+        );
 
     if (!table) return;
 
     let products =
-        JSON.parse(localStorage.getItem("products")) || [];
+        JSON.parse(
+            localStorage.getItem("products")
+        ) || [];
 
     table.innerHTML = "";
 
-    products.forEach((product, index) => {
+    products.forEach(
+        (product, index) => {
 
-        table.innerHTML += `
+            table.innerHTML += `
 
-        <tr>
+                <tr>
 
-            <td>
-                <img
-                    src="../../${product.image}"
-                    width="60"
-                >
-            </td>
+                    <td>
+                        <img
+                            src="../../${product.image}"
+                            width="60"
+                        >
+                    </td>
 
-            <td>${product.name}</td>
+                    <td>
+                        ${product.name}
+                    </td>
 
-            <td>${product.category}</td>
+                    <td>
+                        ${product.category}
+                    </td>
 
-            <td>₹${product.price}</td>
+                    <td>
+                        ₹${product.price}
+                    </td>
 
-            <td>${product.stock}</td>
+                    <td>
+                        ${product.stock}
+                    </td>
 
-            <td>
+                    <td>
 
-                <button
-                    class="action-btn edit-btn"
-                    onclick="editProduct(${index})"
-                >
-                    Edit
-                </button>
+                        <button
+                            class="action-btn edit-btn"
+                            onclick="editProduct(${index})"
+                        >
+                            Edit
+                        </button>
 
-                <button
-                    class="action-btn delete-btn"
-                    onclick="deleteProduct(${index})"
-                >
-                    Delete
-                </button>
+                        <button
+                            class="action-btn delete-btn"
+                            onclick="deleteProduct(${index})"
+                        >
+                            Delete
+                        </button>
 
-            </td>
+                    </td>
 
-        </tr>
+                </tr>
 
-        `;
+            `;
 
-    });
+        }
+    );
 
 }
 
 loadProducts();
 
 
+// =====================================================
 // DELETE PRODUCT
+// =====================================================
 
 function deleteProduct(index) {
 
     let products =
-        JSON.parse(localStorage.getItem("products")) || [];
+        JSON.parse(
+            localStorage.getItem("products")
+        ) || [];
 
     products.splice(index, 1);
 
@@ -200,12 +252,16 @@ function deleteProduct(index) {
 }
 
 
+// =====================================================
 // EDIT PRODUCT
+// =====================================================
 
 function editProduct(index) {
 
     const products =
-        JSON.parse(localStorage.getItem("products")) || [];
+        JSON.parse(
+            localStorage.getItem("products")
+        ) || [];
 
     editIndex = index;
 
@@ -227,51 +283,101 @@ function editProduct(index) {
 async function loadOrders() {
 
     const table =
-        document.getElementById("orders-table");
+        document.getElementById(
+            "orders-table"
+        );
 
     if (!table) return;
 
     table.innerHTML = `
 
         <tr>
+
             <td colspan="6">
                 Loading orders...
             </td>
+
         </tr>
 
     `;
 
     try {
 
-        console.log("📦 Getting all orders...");
+        console.log(
+            "📦 Getting all orders..."
+        );
+
+        const token =
+            localStorage.getItem("token");
+
+        if (!token) {
+
+            table.innerHTML = `
+
+                <tr>
+
+                    <td colspan="6">
+
+                        ❌ Please login as admin.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
 
         const response =
-            await fetch(`${API_URL}/api/orders`);
+            await fetch(
+                `${API_URL}/api/orders`,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
+            );
+
 
         console.log(
             "Orders HTTP Status:",
             response.status
         );
 
+
         const data =
             await response.json();
+
 
         console.log(
             "Orders Response:",
             data
         );
 
+
         if (!response.ok || !data.success) {
 
             throw new Error(
-                data.message || "Failed to load orders"
+                data.message ||
+                "Failed to load orders"
             );
 
         }
 
+
         table.innerHTML = "";
 
-        if (!data.orders || data.orders.length === 0) {
+
+        if (
+            !data.orders ||
+            data.orders.length === 0
+        ) {
 
             table.innerHTML = `
 
@@ -290,117 +396,164 @@ async function loadOrders() {
         }
 
 
-        data.orders.forEach((order) => {
+        data.orders.forEach(
+            (order) => {
 
-            const orderId =
-                order._id.substring(
-                    order._id.length - 8
-                );
+                const orderId =
+                    order._id.substring(
+                        order._id.length - 8
+                    );
 
 
-            table.innerHTML += `
+                const total =
+                    Number(order.total) || 0;
 
-            <tr>
 
-                <td>
-                    #${orderId}
-                </td>
+                const status =
+                    order.status ||
+                    "Pending";
 
-                <td>
 
-                    <strong>
-                        ${order.name}
-                    </strong>
+                table.innerHTML += `
 
-                    <br>
+                    <tr>
 
-                    <small>
-                        ${order.email}
-                    </small>
+                        <td>
 
-                    <br>
+                            #${orderId}
 
-                    <small>
-                        ${order.phone}
-                    </small>
+                        </td>
 
-                </td>
 
-                <td>
-                    —
-                </td>
+                        <td>
 
-                <td>
-                    ${order.paymentMethod}
-                </td>
+                            <strong>
+                                ${order.name}
+                            </strong>
 
-                <td>
+                            <br>
 
-                    <select
-                        onchange="changeOrderStatus(
-                            '${order._id}',
-                            this.value
-                        )"
-                    >
+                            <small>
+                                ${order.email}
+                            </small>
 
-                        <option
-                            value="Pending"
-                            ${order.status === "Pending"
-                                ? "selected"
-                                : ""}
-                        >
-                            Pending
-                        </option>
+                            <br>
 
-                        <option
-                            value="Confirmed"
-                            ${order.status === "Confirmed"
-                                ? "selected"
-                                : ""}
-                        >
-                            Confirmed
-                        </option>
+                            <small>
+                                ${order.phone}
+                            </small>
 
-                        <option
-                            value="Shipped"
-                            ${order.status === "Shipped"
-                                ? "selected"
-                                : ""}
-                        >
-                            Shipped
-                        </option>
+                        </td>
 
-                        <option
-                            value="Delivered"
-                            ${order.status === "Delivered"
-                                ? "selected"
-                                : ""}
-                        >
-                            Delivered
-                        </option>
 
-                    </select>
+                        <td>
 
-                </td>
+                            <strong>
+                                ₹${total.toFixed(2)}
+                            </strong>
 
-                <td>
+                        </td>
 
-                    <button
-                        class="action-btn delete-btn"
-                        onclick="deleteOrder(
-                            '${order._id}'
-                        )"
-                    >
-                        Cancel
-                    </button>
 
-                </td>
+                        <td>
 
-            </tr>
+                            ${order.paymentMethod}
 
-            `;
+                        </td>
 
-        });
+
+                        <td>
+
+                            <select
+                                onchange="
+                                    changeOrderStatus(
+                                        '${order._id}',
+                                        this.value
+                                    )
+                                "
+                            >
+
+                                <option
+                                    value="Pending"
+                                    ${
+                                        status ===
+                                        "Pending"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option
+                                    value="Confirmed"
+                                    ${
+                                        status ===
+                                        "Confirmed"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Confirmed
+                                </option>
+
+
+                                <option
+                                    value="Shipped"
+                                    ${
+                                        status ===
+                                        "Shipped"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Shipped
+                                </option>
+
+
+                                <option
+                                    value="Delivered"
+                                    ${
+                                        status ===
+                                        "Delivered"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Delivered
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="
+                                    action-btn
+                                    delete-btn
+                                "
+                                onclick="
+                                    deleteOrder(
+                                        '${order._id}'
+                                    )
+                                "
+                            >
+                                Cancel
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
 
     } catch (error) {
 
@@ -408,6 +561,7 @@ async function loadOrders() {
             "❌ Load Orders Error:",
             error
         );
+
 
         table.innerHTML = `
 
@@ -417,10 +571,9 @@ async function loadOrders() {
 
                     ❌ Unable to load orders.
 
-                    <br>
+                    <br><br>
 
-                    Make sure backend server
-                    is running on port 5000.
+                    ${error.message}
 
                 </td>
 
@@ -439,7 +592,10 @@ loadOrders();
 // CHANGE ORDER STATUS
 // =====================================================
 
-async function changeOrderStatus(orderId, status) {
+async function changeOrderStatus(
+    orderId,
+    status
+) {
 
     try {
 
@@ -449,32 +605,60 @@ async function changeOrderStatus(orderId, status) {
             status
         );
 
+
+        const token =
+            localStorage.getItem("token");
+
+
+        if (!token) {
+
+            alert(
+                "Please login first."
+            );
+
+            return;
+
+        }
+
+
         const response =
             await fetch(
                 `${API_URL}/api/orders/${orderId}/status`,
                 {
+
                     method: "PUT",
 
                     headers: {
                         "Content-Type":
-                            "application/json"
+                            "application/json",
+
+                        "Authorization":
+                            `Bearer ${token}`
                     },
 
-                    body: JSON.stringify({
-                        status: status
-                    })
+                    body:
+                        JSON.stringify({
+                            status: status
+                        })
+
                 }
             );
 
+
         const data =
             await response.json();
+
 
         console.log(
             "Status Update Response:",
             data
         );
 
-        if (!response.ok || !data.success) {
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
@@ -483,11 +667,14 @@ async function changeOrderStatus(orderId, status) {
 
         }
 
+
         alert(
             `Order status updated to ${status}`
         );
 
+
         loadOrders();
+
 
     } catch (error) {
 
@@ -496,8 +683,10 @@ async function changeOrderStatus(orderId, status) {
             error
         );
 
+
         alert(
-            "Failed to update order status"
+            "Failed to update order status: " +
+            error.message
         );
 
     }
@@ -509,29 +698,60 @@ async function changeOrderStatus(orderId, status) {
 // DELETE / CANCEL ORDER
 // =====================================================
 
-async function deleteOrder(orderId) {
+async function deleteOrder(
+    orderId
+) {
 
     const confirmDelete =
         confirm(
             "Are you sure you want to cancel this order?"
         );
 
+
     if (!confirmDelete) return;
 
+
     try {
+
+        const token =
+            localStorage.getItem("token");
+
+
+        if (!token) {
+
+            alert(
+                "Please login first."
+            );
+
+            return;
+
+        }
+
 
         const response =
             await fetch(
                 `${API_URL}/api/orders/${orderId}`,
                 {
-                    method: "DELETE"
+
+                    method: "DELETE",
+
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+
                 }
             );
+
 
         const data =
             await response.json();
 
-        if (!response.ok || !data.success) {
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
@@ -540,11 +760,14 @@ async function deleteOrder(orderId) {
 
         }
 
+
         alert(
             "Order cancelled successfully"
         );
 
+
         loadOrders();
+
 
     } catch (error) {
 
@@ -553,8 +776,10 @@ async function deleteOrder(orderId) {
             error
         );
 
+
         alert(
-            "Failed to cancel order"
+            "Failed to cancel order: " +
+            error.message
         );
 
     }
@@ -567,7 +792,10 @@ async function deleteOrder(orderId) {
 // =====================================================
 
 const searchOrder =
-    document.getElementById("search-order");
+    document.getElementById(
+        "search-order"
+    );
+
 
 if (searchOrder) {
 
@@ -579,6 +807,7 @@ if (searchOrder) {
                 searchOrder.value
                     .toLowerCase();
 
+
             document
                 .querySelectorAll(
                     "#orders-table tr"
@@ -588,7 +817,9 @@ if (searchOrder) {
                     const customer =
                         row.children[1]
                             ?.innerText
-                            .toLowerCase() || "";
+                            .toLowerCase() ||
+                        "";
+
 
                     row.style.display =
                         customer.includes(value)
@@ -610,111 +841,160 @@ if (searchOrder) {
 function loadUsers() {
 
     const table =
-        document.getElementById("users-table");
+        document.getElementById(
+            "users-table"
+        );
 
     if (!table) return;
 
+
     let users =
-        JSON.parse(localStorage.getItem("users")) || [];
+        JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
+
 
     table.innerHTML = "";
 
-    users.forEach((user, index) => {
 
-        table.innerHTML += `
+    users.forEach(
+        (user, index) => {
 
-        <tr>
+            table.innerHTML += `
 
-            <td>${user.name}</td>
+                <tr>
 
-            <td>${user.email}</td>
+                    <td>
+                        ${user.name}
+                    </td>
 
-            <td>${user.phone || "-"}</td>
+                    <td>
+                        ${user.email}
+                    </td>
 
-            <td>
+                    <td>
+                        ${user.phone || "-"}
+                    </td>
 
-                <span class="${
-                    user.blocked
-                        ? "status-blocked"
-                        : "status-active"
-                }">
+                    <td>
 
-                    ${
-                        user.blocked
-                            ? "Blocked"
-                            : "Active"
-                    }
+                        <span class="${
+                            user.blocked
+                                ? "status-blocked"
+                                : "status-active"
+                        }">
 
-                </span>
+                            ${
+                                user.blocked
+                                    ? "Blocked"
+                                    : "Active"
+                            }
 
-            </td>
+                        </span>
 
-            <td>
+                    </td>
 
-                <button
-                    class="action-btn edit-btn"
-                    onclick="toggleBlock(${index})"
-                >
-                    ${
-                        user.blocked
-                            ? "Unblock"
-                            : "Block"
-                    }
-                </button>
+                    <td>
 
-                <button
-                    class="action-btn delete-btn"
-                    onclick="deleteUser(${index})"
-                >
-                    Delete
-                </button>
+                        <button
+                            class="
+                                action-btn
+                                edit-btn
+                            "
+                            onclick="
+                                toggleBlock(
+                                    ${index}
+                                )
+                            "
+                        >
 
-                <button
-                    class="action-btn"
-                    onclick="viewUser(${index})"
-                >
-                    View
-                </button>
+                            ${
+                                user.blocked
+                                    ? "Unblock"
+                                    : "Block"
+                            }
 
-            </td>
+                        </button>
 
-        </tr>
 
-        `;
+                        <button
+                            class="
+                                action-btn
+                                delete-btn
+                            "
+                            onclick="
+                                deleteUser(
+                                    ${index}
+                                )
+                            "
+                        >
+                            Delete
+                        </button>
 
-    });
+
+                        <button
+                            class="action-btn"
+                            onclick="
+                                viewUser(
+                                    ${index}
+                                )
+                            "
+                        >
+                            View
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+    );
 
 }
 
 loadUsers();
 
 
+// =====================================================
 // BLOCK / UNBLOCK
+// =====================================================
 
 function toggleBlock(index) {
 
     let users =
-        JSON.parse(localStorage.getItem("users")) || [];
+        JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
+
 
     users[index].blocked =
         !users[index].blocked;
+
 
     localStorage.setItem(
         "users",
         JSON.stringify(users)
     );
 
+
     loadUsers();
 
 }
 
 
+// =====================================================
 // DELETE USER
+// =====================================================
 
 function deleteUser(index) {
 
     let users =
-        JSON.parse(localStorage.getItem("users")) || [];
+        JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
+
 
     if (
         confirm(
@@ -722,12 +1002,17 @@ function deleteUser(index) {
         )
     ) {
 
-        users.splice(index, 1);
+        users.splice(
+            index,
+            1
+        );
+
 
         localStorage.setItem(
             "users",
             JSON.stringify(users)
         );
+
 
         loadUsers();
 
@@ -736,20 +1021,29 @@ function deleteUser(index) {
 }
 
 
+// =====================================================
 // VIEW USER
+// =====================================================
 
 function viewUser(index) {
 
     let users =
-        JSON.parse(localStorage.getItem("users")) || [];
+        JSON.parse(
+            localStorage.getItem("users")
+        ) || [];
 
-    const user = users[index];
+
+    const user =
+        users[index];
+
 
     alert(
 
-        "Name : " + user.name +
+        "Name : " +
+        user.name +
 
-        "\nEmail : " + user.email +
+        "\nEmail : " +
+        user.email +
 
         "\nPhone : " +
         (user.phone || "-")
@@ -759,10 +1053,15 @@ function viewUser(index) {
 }
 
 
+// =====================================================
 // USER SEARCH
+// =====================================================
 
 const searchUser =
-    document.getElementById("search-user");
+    document.getElementById(
+        "search-user"
+    );
+
 
 if (searchUser) {
 
@@ -774,6 +1073,7 @@ if (searchUser) {
                 searchUser.value
                     .toLowerCase();
 
+
             document
                 .querySelectorAll(
                     "#users-table tr"
@@ -783,12 +1083,16 @@ if (searchUser) {
                     const name =
                         row.children[0]
                             ?.innerText
-                            .toLowerCase() || "";
+                            .toLowerCase() ||
+                        "";
+
 
                     const email =
                         row.children[1]
                             ?.innerText
-                            .toLowerCase() || "";
+                            .toLowerCase() ||
+                        "";
+
 
                     row.style.display =
                         name.includes(value) ||
@@ -815,87 +1119,118 @@ function loadDashboard() {
             "total-products"
         );
 
+
     const totalOrders =
         document.getElementById(
             "total-orders"
         );
+
 
     const totalUsers =
         document.getElementById(
             "total-users"
         );
 
+
     const totalRevenue =
         document.getElementById(
             "total-revenue"
         );
 
+
     if (!totalProducts) return;
+
 
     const products =
         JSON.parse(
-            localStorage.getItem("products")
+            localStorage.getItem(
+                "products"
+            )
         ) || [];
+
 
     const users =
         JSON.parse(
-            localStorage.getItem("users")
+            localStorage.getItem(
+                "users"
+            )
         ) || [];
+
 
     totalProducts.innerText =
         products.length;
 
+
     totalUsers.innerText =
         users.length;
 
-    // Get real MongoDB orders
 
-    fetch(`${API_URL}/api/orders`)
-        .then(response =>
-            response.json()
+    fetch(
+        `${API_URL}/api/orders`
+    )
+
+        .then(
+            response =>
+                response.json()
         )
-        .then(data => {
 
-            if (!data.success) return;
+        .then(
+            data => {
 
-            const orders =
-                data.orders || [];
+                if (!data.success)
+                    return;
 
-            totalOrders.innerText =
-                orders.length;
 
-            let revenue = 0;
+                const orders =
+                    data.orders || [];
 
-            orders.forEach(order => {
 
-                if (
-                    order.status ===
-                    "Delivered"
-                ) {
+                totalOrders.innerText =
+                    orders.length;
 
-                    revenue +=
-                        Number(order.total) || 0;
+
+                let revenue = 0;
+
+
+                orders.forEach(
+                    order => {
+
+                        if (
+                            order.status ===
+                            "Delivered"
+                        ) {
+
+                            revenue +=
+                                Number(
+                                    order.total
+                                ) || 0;
+
+                        }
+
+                    }
+                );
+
+
+                if (totalRevenue) {
+
+                    totalRevenue.innerText =
+                        "₹" + revenue;
 
                 }
 
-            });
+            }
+        )
 
-            if (totalRevenue) {
+        .catch(
+            error => {
 
-                totalRevenue.innerText =
-                    "₹" + revenue;
+                console.error(
+                    "Dashboard order error:",
+                    error
+                );
 
             }
-
-        })
-        .catch(error => {
-
-            console.error(
-                "Dashboard order error:",
-                error
-            );
-
-        });
+        );
 
 }
 
@@ -913,47 +1248,56 @@ function loadSalesChart() {
             "salesChart"
         );
 
+
     if (!chart) return;
 
-    if (typeof Chart === "undefined") {
+
+    if (
+        typeof Chart ===
+        "undefined"
+    ) {
 
         return;
 
     }
 
-    new Chart(chart, {
 
-        type: "bar",
+    new Chart(
+        chart,
+        {
 
-        data: {
+            type: "bar",
 
-            labels: [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun"
-            ],
+            data: {
 
-            datasets: [{
+                labels: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun"
+                ],
 
-                label: "Sales",
+                datasets: [{
 
-                data: [
-                    1200,
-                    2400,
-                    1800,
-                    3100,
-                    2600,
-                    4000
-                ]
+                    label: "Sales",
 
-            }]
+                    data: [
+                        1200,
+                        2400,
+                        1800,
+                        3100,
+                        2600,
+                        4000
+                    ]
+
+                }]
+
+            }
 
         }
-
-    });
+    );
 
 }
 
@@ -971,28 +1315,36 @@ function loadTopProducts() {
             "top-products"
         );
 
+
     if (!list) return;
+
 
     const products =
         JSON.parse(
-            localStorage.getItem("products")
+            localStorage.getItem(
+                "products"
+            )
         ) || [];
+
 
     list.innerHTML = "";
 
+
     products
         .slice(0, 5)
-        .forEach(product => {
+        .forEach(
+            product => {
 
-            list.innerHTML += `
+                list.innerHTML += `
 
-                <li>
-                    ${product.name}
-                </li>
+                    <li>
+                        ${product.name}
+                    </li>
 
-            `;
+                `;
 
-        });
+            }
+        );
 
 }
 
@@ -1010,34 +1362,44 @@ function loadLowStock() {
             "low-stock"
         );
 
+
     if (!list) return;
+
 
     const products =
         JSON.parse(
-            localStorage.getItem("products")
+            localStorage.getItem(
+                "products"
+            )
         ) || [];
 
+
     list.innerHTML = "";
+
 
     products
 
         .filter(
             product =>
-                Number(product.stock) <= 5
+                Number(
+                    product.stock
+                ) <= 5
         )
 
-        .forEach(product => {
+        .forEach(
+            product => {
 
-            list.innerHTML += `
+                list.innerHTML += `
 
-                <li>
-                    ${product.name}
-                    (${product.stock})
-                </li>
+                    <li>
+                        ${product.name}
+                        (${product.stock})
+                    </li>
 
-            `;
+                `;
 
-        });
+            }
+        );
 
 }
 
@@ -1055,7 +1417,9 @@ async function loadRecentOrders() {
             "recent-orders"
         );
 
+
     if (!list) return;
+
 
     try {
 
@@ -1064,29 +1428,37 @@ async function loadRecentOrders() {
                 `${API_URL}/api/orders`
             );
 
+
         const data =
             await response.json();
 
-        if (!data.success) return;
+
+        if (!data.success)
+            return;
+
 
         list.innerHTML = "";
+
 
         data.orders
             .slice(-5)
             .reverse()
-            .forEach(order => {
+            .forEach(
+                order => {
 
-                list.innerHTML += `
+                    list.innerHTML += `
 
-                    <li>
-                        ${order.name}
-                        -
-                        ${order.status}
-                    </li>
+                        <li>
+                            ${order.name}
+                            -
+                            ${order.status}
+                        </li>
 
-                `;
+                    `;
 
-            });
+                }
+            );
+
 
     } catch (error) {
 
@@ -1113,30 +1485,46 @@ function loadCategoryRevenue() {
             "category-revenue"
         );
 
+
     if (!table) return;
+
 
     const products =
         JSON.parse(
-            localStorage.getItem("products")
+            localStorage.getItem(
+                "products"
+            )
         ) || [];
+
 
     const revenue = {};
 
-    products.forEach(product => {
 
-        const category =
-            product.category;
+    products.forEach(
+        product => {
 
-        const amount =
-            Number(product.price) || 0;
+            const category =
+                product.category;
 
-        revenue[category] =
-            (revenue[category] || 0) +
-            amount;
 
-    });
+            const amount =
+                Number(
+                    product.price
+                ) || 0;
+
+
+            revenue[category] =
+                (
+                    revenue[category] ||
+                    0
+                ) + amount;
+
+        }
+    );
+
 
     table.innerHTML = "";
+
 
     for (
         let category in revenue
@@ -1176,28 +1564,36 @@ function loadBestProducts() {
             "best-products"
         );
 
+
     if (!list) return;
+
 
     const products =
         JSON.parse(
-            localStorage.getItem("products")
+            localStorage.getItem(
+                "products"
+            )
         ) || [];
+
 
     list.innerHTML = "";
 
+
     products
         .slice(0, 5)
-        .forEach(product => {
+        .forEach(
+            product => {
 
-            list.innerHTML += `
+                list.innerHTML += `
 
-                <li>
-                    ⭐ ${product.name}
-                </li>
+                    <li>
+                        ⭐ ${product.name}
+                    </li>
 
-            `;
+                `;
 
-        });
+            }
+        );
 
 }
 
@@ -1215,29 +1611,37 @@ function loadLatestUsers() {
             "latest-users"
         );
 
+
     if (!list) return;
+
 
     const users =
         JSON.parse(
-            localStorage.getItem("users")
+            localStorage.getItem(
+                "users"
+            )
         ) || [];
 
+
     list.innerHTML = "";
+
 
     users
         .slice(-5)
         .reverse()
-        .forEach(user => {
+        .forEach(
+            user => {
 
-            list.innerHTML += `
+                list.innerHTML += `
 
-                <li>
-                    ${user.name}
-                </li>
+                    <li>
+                        ${user.name}
+                    </li>
 
-            `;
+                `;
 
-        });
+            }
+        );
 
 }
 
@@ -1252,13 +1656,38 @@ async function exportOrders() {
 
     try {
 
+        const token =
+            localStorage.getItem(
+                "token"
+            );
+
+
+        if (!token) {
+
+            alert(
+                "Please login first."
+            );
+
+            return;
+
+        }
+
+
         const response =
             await fetch(
-                `${API_URL}/api/orders`
+                `${API_URL}/api/orders`,
+                {
+                    headers: {
+                        "Authorization":
+                            `Bearer ${token}`
+                    }
+                }
             );
+
 
         const data =
             await response.json();
+
 
         if (!data.success) {
 
@@ -1270,21 +1699,27 @@ async function exportOrders() {
 
         }
 
+
         let csv =
-            "OrderID,Customer,Email,Phone,Address,Payment,Status\n";
+            "OrderID,Customer,Email,Phone,Address,Payment,Status,Total\n";
 
-        data.orders.forEach(order => {
 
-            csv +=
-                `"${order._id}",` +
-                `"${order.name}",` +
-                `"${order.email}",` +
-                `"${order.phone}",` +
-                `"${order.address}",` +
-                `"${order.paymentMethod}",` +
-                `"${order.status}"\n`;
+        data.orders.forEach(
+            order => {
 
-        });
+                csv +=
+                    `"${order._id}",` +
+                    `"${order.name}",` +
+                    `"${order.email}",` +
+                    `"${order.phone}",` +
+                    `"${order.address}",` +
+                    `"${order.paymentMethod}",` +
+                    `"${order.status}",` +
+                    `"${order.total}"\n`;
+
+            }
+        );
+
 
         const blob =
             new Blob(
@@ -1294,20 +1729,30 @@ async function exportOrders() {
                 }
             );
 
+
         const a =
-            document.createElement("a");
+            document.createElement(
+                "a"
+            );
+
 
         a.href =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
+
 
         a.download =
             "toyland-orders.csv";
 
+
         a.click();
+
 
     } catch (error) {
 
         console.error(error);
+
 
         alert(
             "Failed to export orders"
@@ -1326,6 +1771,7 @@ const dark =
     document.getElementById(
         "dark-mode"
     );
+
 
 if (dark) {
 
@@ -1348,6 +1794,7 @@ const language =
     document.getElementById(
         "language"
     );
+
 
 if (language) {
 
