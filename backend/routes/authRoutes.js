@@ -5,6 +5,7 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+
 // ==========================================
 // REGISTER USER
 // ==========================================
@@ -15,7 +16,7 @@ router.post("/register", async (req, res) => {
 
         const { name, email, password } = req.body;
 
-        // Check required fields
+
         if (!name || !email || !password) {
 
             return res.status(400).json({
@@ -25,10 +26,11 @@ router.post("/register", async (req, res) => {
 
         }
 
-        // Check existing user
+
         const existingUser = await User.findOne({
             email: email.toLowerCase()
         });
+
 
         if (existingUser) {
 
@@ -39,40 +41,63 @@ router.post("/register", async (req, res) => {
 
         }
 
-        // Create user
+
         const user = new User({
+
             name,
+
             email: email.toLowerCase(),
+
             password
+
         });
 
-        // User.js ka pre-save hook
-        // password ko automatically hash karega
+
         await user.save();
 
+
         res.status(201).json({
+
             success: true,
+
             message: "User registered successfully",
+
             user: {
+
                 id: user._id,
+
                 name: user.name,
+
                 email: user.email,
+
                 role: user.role
+
             }
+
         });
+
 
     } catch (error) {
 
-        console.error("Register Error:", error);
+        console.error(
+            "Register Error:",
+            error
+        );
+
 
         res.status(500).json({
+
             success: false,
+
             message: "Server error"
+
         });
 
     }
 
 });
+
+
 // ==========================================
 // LOGIN USER
 // ==========================================
@@ -81,88 +106,266 @@ router.post("/login", async (req, res) => {
 
     try {
 
-        const { email, password } = req.body;
+        const {
+            email,
+            password
+        } = req.body;
 
-        // Check fields
+
         if (!email || !password) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Email and password are required"
+
+                message:
+                    "Email and password are required"
+
             });
 
         }
 
-        // Find user
+
         const user = await User.findOne({
-            email: email.toLowerCase()
+
+            email:
+                email.toLowerCase()
+
         });
+
 
         if (!user) {
 
             return res.status(401).json({
+
                 success: false,
-                message: "Invalid email or password"
+
+                message:
+                    "Invalid email or password"
+
             });
 
         }
 
-        // Compare password
+
         const isPasswordCorrect =
             await bcrypt.compare(
                 password,
                 user.password
             );
 
+
         if (!isPasswordCorrect) {
 
             return res.status(401).json({
+
                 success: false,
-                message: "Invalid email or password"
+
+                message:
+                    "Invalid email or password"
+
             });
 
         }
 
-        // Create JWT token
+
         const token = jwt.sign(
+
             {
+
                 userId: user._id,
+
                 role: user.role
+
             },
+
             process.env.JWT_SECRET,
+
             {
+
                 expiresIn: "7d"
+
             }
+
         );
+
 
         res.json({
 
             success: true,
 
-            message: "Login successful",
+            message:
+                "Login successful",
 
             token,
 
             user: {
+
                 id: user._id,
+
                 name: user.name,
+
                 email: user.email,
+
                 role: user.role
+
             }
 
         });
 
+
     } catch (error) {
 
-        console.error("Login Error:", error);
+        console.error(
+            "Login Error:",
+            error
+        );
+
 
         res.status(500).json({
+
             success: false,
+
             message: "Server error"
+
         });
 
     }
 
 });
+
+
+// ==========================================
+// TEMPORARY ADMIN SETUP
+// ==========================================
+// USE THIS ONLY ONCE
+// REMOVE THIS ROUTE AFTER ADMIN IS CREATED
+// ==========================================
+
+router.post("/setup-admin", async (req, res) => {
+
+    try {
+
+        const {
+            setupKey
+        } = req.body;
+
+
+        // Check secret key
+        if (
+            !setupKey ||
+            setupKey !==
+                process.env.ADMIN_SETUP_KEY
+        ) {
+
+            return res.status(403).json({
+
+                success: false,
+
+                message: "Unauthorized"
+
+            });
+
+        }
+
+
+        const email =
+            "admin@toyland.com";
+
+
+        const password =
+            "Admin@12345";
+
+
+        // Check whether admin already exists
+        let user =
+            await User.findOne({
+                email
+            });
+
+
+        if (user) {
+
+            // Promote existing account
+            user.role = "admin";
+
+            await user.save();
+
+
+            console.log(
+                "👑 Existing user promoted to admin"
+            );
+
+        } else {
+
+            // Create new admin
+            user = new User({
+
+                name:
+                    "Toyland Admin",
+
+                email,
+
+                password,
+
+                role:
+                    "admin"
+
+            });
+
+
+            await user.save();
+
+
+            console.log(
+                "👑 New admin account created"
+            );
+
+        }
+
+
+        res.json({
+
+            success: true,
+
+            message:
+                "Admin account created/updated successfully",
+
+            user: {
+
+                id: user._id,
+
+                name: user.name,
+
+                email: user.email,
+
+                role: user.role
+
+            }
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin Setup Error:",
+            error
+        );
+
+
+        res.status(500).json({
+
+            success: false,
+
+            message:
+                "Admin setup failed"
+
+        });
+
+    }
+
+});
+
 
 module.exports = router;
