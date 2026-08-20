@@ -1,44 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Wishlist - Toyland</title>
 
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+
+    <style>
+
+        /* =========================================
+           WISHLIST PAGE
+        ========================================= */
+
+        .wishlist-page {
+
+            padding: 80px 7%;
+
+            min-height: 70vh;
+
+        }
+
+
+        .wishlist-header {
+
+            text-align: center;
+
+            margin-bottom: 50px;
+
+        }
+
+
+        .wishlist-header h1 {
+
+            font-size: 48px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .wishlist-header h1 span {
+
+            color: #ff6469;
+
+        }
+
+
+        .wishlist-header p {
+
+            font-size: 18px;
+
+            color: #666;
+
+        }
+
+
+        /* =========================================
+           WISHLIST GRID
+        ========================================= */
+
+        #wishlist-items {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
+
+            gap: 30px;
+
+            max-width: 1200px;
+
+            margin: auto;
+
+        }
+
+
+        /* =========================================
+           WISHLIST CARD
+        ========================================= */
+
+        .wishlist-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.3s ease;
+
+        }
+
+
+        .wishlist-card:hover {
+
+            transform:
+                translateY(-6px);
+
+        }
+
+
+        /* =========================================
+           IMAGE
+        ========================================= */
+
+        .wishlist-image-box {
+
+            height: 230px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #fafafa;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .wishlist-image-box img {
+
+            width: 80%;
+
+            height: 200px;
+
+            object-fit: contain;
+
+        }
+
+
+        /* =========================================
+           DETAILS
+        ========================================= */
+
+        .wishlist-details {
+
+            text-align: center;
+
+        }
+
+
+        .wishlist-details h3 {
+
+            font-size: 22px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .wishlist-rating {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .wishlist-price {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: #ff6469;
+
+            margin-bottom: 18px;
+
+        }
+
+
+        /* =========================================
+           BUTTONS
+        ========================================= */
+
+        .wishlist-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+        }
+
+
+        .wishlist-actions button {
+
+            flex: 1;
+
+            border: none;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+        }
+
+
+        .wishlist-actions .cart-btn {
+
+            background:
+                #ff6469;
+
+            color: white;
+
+        }
+
+
+        .wishlist-remove {
+
+            background: #f1f1f1;
+
+            color: #333;
+
+        }
+
+
+        .wishlist-remove:hover {
+
+            background: #ffdede;
+
+            color: #ff4d55;
+
+        }
+
+
+        /* =========================================
+           EMPTY WISHLIST
+        ========================================= */
+
+        .wishlist-empty {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 80px 20px;
+
+        }
+
+
+        .empty-heart {
+
+            font-size: 90px;
+
+            color: #ff6469;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .wishlist-empty h2 {
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .wishlist-empty p {
+
+            color: #777;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .wishlist-empty .btn-primary {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 14px 25px;
+
+            background: #ff6469;
+
+            color: white;
+
+            border-radius: 8px;
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 600px) {
+
+            .wishlist-page {
+
+                padding: 50px 5%;
+
+            }
+
+
+            .wishlist-header h1 {
+
+                font-size: 34px;
+
+            }
+
+
+            .wishlist-actions {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
 
+
+<!-- =========================================
+     NAVBAR
+========================================= -->
+
 <header>
+
     <nav class="navbar">
 
+
         <div class="logo">
-            <a href="../index.html">🧸 Toyland</a>
+
+            <a href="../index.html">
+                🧸 Toyland
+            </a>
+
         </div>
 
+
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="contact.html">Contact</a></li>
+
+            <li>
+                <a href="../index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="shop.html">
+                    Shop
+                </a>
+            </li>
+
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
+
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
+
         </ul>
 
+
+        <div class="nav-icons">
+
+
+            <a
+                href="wishlist.html"
+                class="wishlist-link"
+            >
+
+                ❤️
+
+                <span id="wishlist-count">
+                    0
+                </span>
+
+            </a>
+
+
+            <a
+                href="cart.html"
+                class="cart-icon"
+            >
+
+                🛒
+
+                <span id="cart-count">
+                    0
+                </span>
+
+            </a>
+
+
+        </div>
+
+
     </nav>
+
 </header>
 
-<section class="products">
 
-    <div class="section-title">
-        <h2>❤️ My Wishlist</h2>
-        <p>Your favourite toys will appear here.</p>
-    </div>
 
-    <div id="wishlist-items" class="product-container">
+<!-- =========================================
+     WISHLIST
+========================================= -->
 
-    </div>
+<main>
 
-</section>
+    <section class="wishlist-page">
 
-<script src="../assets/js/main.js"></script>
+
+        <div class="wishlist-header">
+
+            <h1>
+
+                ❤️ My
+                <span>Wishlist</span>
+
+            </h1>
+
+
+            <p>
+
+                Your favourite toys
+                will appear here.
+
+            </p>
+
+        </div>
+
+
+        <div
+            id="wishlist-items"
+        >
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================================
+     JAVASCRIPT
+========================================= -->
+
+<script
+    src="../assets/js/main.js"
+></script>
+
 
 </body>
+
 </html>

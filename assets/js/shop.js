@@ -70,9 +70,35 @@ async function loadProducts() {
         );
 
 
-        // Show all products initially
+        const categoryFromURL =
+    loadCategoryFromURL();
 
-        displayProducts(products);
+if (categoryFromURL) {
+
+    const filteredProducts =
+        products.filter(product => {
+
+            return (
+                String(product.category || "")
+                    .trim()
+                    .toLowerCase()
+                ===
+                String(categoryFromURL)
+                    .trim()
+                    .toLowerCase()
+            );
+
+        });
+
+    displayProducts(filteredProducts);
+
+} else {
+
+    applyFilters();
+
+}
+
+updateWishlistCount();
 
 
     } catch (error) {
@@ -108,6 +134,186 @@ function getImageName(product) {
 
 
 // =====================================================
+// WISHLIST
+// =====================================================
+
+function getWishlist() {
+
+    return JSON.parse(
+        localStorage.getItem("wishlist")
+    ) || [];
+
+}
+
+
+// =====================================================
+// UPDATE WISHLIST COUNT
+// =====================================================
+
+function updateWishlistCount() {
+
+    const count =
+        document.getElementById(
+            "wishlist-count"
+        );
+
+
+    if (!count) return;
+
+
+    count.textContent =
+        getWishlist().length;
+
+}
+
+
+// =====================================================
+// TOGGLE WISHLIST
+// =====================================================
+
+function toggleWishlist(button) {
+
+    const productId =
+        button.dataset.id;
+
+
+    const productName =
+        button.dataset.name;
+
+
+    const productPrice =
+        Number(
+            button.dataset.price
+        );
+
+
+    const productImage =
+        button.dataset.image;
+
+
+    if (!productId) {
+
+        console.error(
+            "Wishlist product ID missing"
+        );
+
+        return;
+
+    }
+
+
+    let wishlist =
+        getWishlist();
+
+
+    const existingIndex =
+        wishlist.findIndex(
+            item =>
+                String(item.id) ===
+                String(productId)
+        );
+
+
+    // =================================================
+    // REMOVE
+    // =================================================
+
+    if (existingIndex !== -1) {
+
+        wishlist.splice(
+            existingIndex,
+            1
+        );
+
+
+        button.textContent =
+            "♡";
+
+
+        button.classList.remove(
+            "active"
+        );
+
+
+        console.log(
+            "Removed from wishlist:",
+            productName
+        );
+
+    }
+
+
+    // =================================================
+    // ADD
+    // =================================================
+
+    else {
+
+        wishlist.push({
+
+            id:
+                productId,
+
+            name:
+                productName || "Product",
+
+            price:
+                productPrice,
+
+            image:
+                productImage || ""
+
+        });
+
+
+        button.textContent =
+            "❤️";
+
+
+        button.classList.add(
+            "active"
+        );
+
+
+        console.log(
+            "Added to wishlist:",
+            productName
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "wishlist",
+        JSON.stringify(wishlist)
+    );
+
+
+    updateWishlistCount();
+
+}
+
+
+// =====================================================
+// CHECK WISHLIST STATUS
+// =====================================================
+
+function isInWishlist(productId) {
+
+    const wishlist =
+        getWishlist();
+
+
+    return wishlist.some(
+        item =>
+            String(item.id) ===
+            String(productId)
+    );
+
+}
+
+
+// =====================================================
 // DISPLAY PRODUCTS
 // =====================================================
 
@@ -133,7 +339,9 @@ function displayProducts(productList) {
     container.innerHTML = "";
 
 
-    // No products
+    // =================================================
+    // NO PRODUCTS
+    // =================================================
 
     if (
         productList.length === 0
@@ -164,26 +372,71 @@ function displayProducts(productList) {
     }
 
 
-    // Create products
+    // =================================================
+    // CREATE PRODUCTS
+    // =================================================
 
     productList.forEach(product => {
+
+
+        const wishlistActive =
+            isInWishlist(
+                product._id
+            );
+
+
+        const wishlistIcon =
+            wishlistActive
+                ? "❤️"
+                : "♡";
+
 
         container.innerHTML += `
 
             <div class="product-card">
+
+
+                <!-- WISHLIST -->
+
+                <div
+                    class="wishlist ${wishlistActive ? "active" : ""}"
+                    data-id="${product._id}"
+                    data-name="${product.name}"
+                    data-price="${product.price}"
+                    data-image="${getImageName(product)}"
+                    onclick="toggleWishlist(this)"
+                >
+
+                    ${wishlistIcon}
+
+                </div>
+
+
+                <!-- PRODUCT IMAGE -->
 
                 <img
                     src="../assets/images/${getImageName(product)}"
                     alt="${product.name}"
                 >
 
+
+                <!-- PRODUCT NAME -->
+
                 <h3>
                     ${product.name}
                 </h3>
 
+
+                <!-- RATING -->
+
                 <div class="rating">
+
                     ⭐⭐⭐⭐⭐
+
                 </div>
+
+
+                <!-- PRICE -->
 
                 <div class="price">
 
@@ -195,6 +448,9 @@ function displayProducts(productList) {
 
                 </div>
 
+
+                <!-- CART -->
+
                 <button
                     class="cart-btn"
                     onclick="addToCart('${product._id}')"
@@ -204,11 +460,55 @@ function displayProducts(productList) {
 
                 </button>
 
+
             </div>
 
         `;
 
     });
+
+
+    updateWishlistCount();
+
+}
+// =====================================================
+// CATEGORY FROM HOMEPAGE
+// =====================================================
+
+function loadCategoryFromURL() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const categoryFromURL =
+        params.get("category");
+
+    console.log(
+        "CATEGORY FROM URL:",
+        categoryFromURL
+    );
+
+    if (!categoryFromURL) {
+
+        return null;
+
+    }
+
+    const categoryInput =
+        document.getElementById(
+            "category-filter"
+        );
+
+    if (categoryInput) {
+
+        categoryInput.value =
+            categoryFromURL;
+
+    }
+
+    return categoryFromURL;
 
 }
 
@@ -267,10 +567,12 @@ function applyFilters() {
         search
     );
 
+
     console.log(
         "CATEGORY:",
         category
     );
+
 
     console.log(
         "SORT:",
@@ -286,7 +588,7 @@ function applyFilters() {
         products.filter(product => {
 
 
-            // Search
+            // SEARCH
 
             const name =
                 String(
@@ -305,7 +607,7 @@ function applyFilters() {
                 description.includes(search);
 
 
-            // Category
+            // CATEGORY
 
             let categoryMatch = true;
 
@@ -317,7 +619,9 @@ function applyFilters() {
                 categoryMatch =
                     String(
                         product.category || ""
-                    ).trim().toLowerCase()
+                    )
+                        .trim()
+                        .toLowerCase()
                     ===
                     String(category)
                         .trim()
@@ -388,7 +692,9 @@ function applyFilters() {
     );
 
 
-    displayProducts(result);
+    displayProducts(
+        result
+    );
 
 }
 
@@ -493,9 +799,52 @@ function addToCart(productId) {
     );
 
 
+    // UPDATE CART COUNT
+
+    updateCartCount();
+
+
     alert(
         `${product.name} added to cart 🛒`
     );
+
+}
+
+
+// =====================================================
+// CART COUNT
+// =====================================================
+
+function updateCartCount() {
+
+    const cartCount =
+        document.getElementById(
+            "cart-count"
+        );
+
+
+    if (!cartCount) return;
+
+
+    const cart =
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || [];
+
+
+    const totalQuantity =
+        cart.reduce(
+            (total, item) =>
+                total +
+                Number(
+                    item.quantity || 0
+                ),
+            0
+        );
+
+
+    cartCount.textContent =
+        totalQuantity;
 
 }
 
@@ -505,3 +854,7 @@ function addToCart(productId) {
 // =====================================================
 
 loadProducts();
+
+updateCartCount();
+
+updateWishlistCount();
