@@ -1,20 +1,51 @@
 const API_URL = "https://toy-shop-backend.onrender.com";
+
 let orderProcessing = false;
+
 document
     .getElementById("placeOrderBtn")
     .addEventListener("click", async function (event) {
 
         event.preventDefault();
+
+        // ==========================================
+        // PREVENT DOUBLE CLICK
+        // ==========================================
+
         if (orderProcessing) {
-    return;
-}
+            return;
+        }
 
-orderProcessing = true;
+        orderProcessing = true;
 
-const orderButton = document.getElementById("placeOrderBtn");
+        const orderButton =
+            document.getElementById("placeOrderBtn");
 
-orderButton.disabled = true;
-orderButton.textContent = "Processing...";
+        orderButton.disabled = true;
+        orderButton.textContent = "Processing...";
+
+
+        // ==========================================
+        // CHECK LOGIN TOKEN
+        // ==========================================
+
+        const token =
+            localStorage.getItem("token");
+
+        if (!token) {
+
+            alert("❌ Please login first.");
+
+            orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
+
+            window.location.href = "login.html";
+
+            return;
+        }
+
 
         // ==========================================
         // CUSTOMER DETAILS
@@ -22,22 +53,30 @@ orderButton.textContent = "Processing...";
 
         const name =
             document
-                .querySelector('input[placeholder="Full Name"]')
+                .querySelector(
+                    'input[placeholder="Full Name"]'
+                )
                 .value.trim();
 
         const email =
             document
-                .querySelector('input[placeholder="Email"]')
+                .querySelector(
+                    'input[placeholder="Email"]'
+                )
                 .value.trim();
 
         const phone =
             document
-                .querySelector('input[placeholder="Phone Number"]')
+                .querySelector(
+                    'input[placeholder="Phone Number"]'
+                )
                 .value.trim();
 
         const address =
             document
-                .querySelector('input[placeholder="Address"]')
+                .querySelector(
+                    'input[placeholder="Address"]'
+                )
                 .value.trim();
 
 
@@ -52,8 +91,14 @@ orderButton.textContent = "Processing...";
 
         if (!paymentElement) {
 
-            alert("Please select a payment method.");
+            alert(
+                "Please select a payment method."
+            );
+
             orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
 
             return;
         }
@@ -74,7 +119,14 @@ orderButton.textContent = "Processing...";
 
         if (cart.length === 0) {
 
-            alert("Your cart is empty.");
+            alert(
+                "Your cart is empty."
+            );
+
+            orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
 
             return;
         }
@@ -91,8 +143,14 @@ orderButton.textContent = "Processing...";
             !address
         ) {
 
-            alert("Please fill all details.");
+            alert(
+                "Please fill all details."
+            );
+
             orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
 
             return;
         }
@@ -102,46 +160,61 @@ orderButton.textContent = "Processing...";
         // CART ITEMS
         // ==========================================
 
-        const items = cart.map(product => ({
+        const items =
+            cart.map(product => ({
 
-            name: product.name,
+                name:
+                    product.name,
 
-            price:
-                Number(product.price) || 0,
+                price:
+                    Number(product.price) || 0,
 
-            quantity:
-                Number(product.quantity) || 1,
+                quantity:
+                    Number(product.quantity) || 1,
 
-            image:
-                product.image || ""
+                image:
+                    product.image || ""
 
-        }));
+            }));
 
 
         // ==========================================
         // TOTAL
         // ==========================================
 
-        const total = items.reduce(
+        const total =
+            items.reduce(
 
-            (sum, item) => {
+                (sum, item) => {
 
-                return sum +
-                    (
-                        item.price *
-                        item.quantity
+                    return (
+                        sum +
+                        (
+                            item.price *
+                            item.quantity
+                        )
                     );
 
-            },
+                },
 
-            0
+                0
+            );
 
+
+        console.log(
+            "📦 Cart Items:",
+            items
         );
 
+        console.log(
+            "💰 Order Total:",
+            total
+        );
 
-        console.log("📦 Cart Items:", items);
-        console.log("💰 Order Total:", total);
-        console.log("💳 Payment:", paymentMethod);
+        console.log(
+            "💳 Payment:",
+            paymentMethod
+        );
 
 
         // ==========================================
@@ -149,19 +222,33 @@ orderButton.textContent = "Processing...";
         // ==========================================
 
         if (
-            paymentMethod.toLowerCase().includes("online") ||
-            paymentMethod.toLowerCase().includes("razorpay") ||
-            paymentMethod.toLowerCase().includes("upi") ||
-            paymentMethod.toLowerCase().includes("card")
+            paymentMethod
+                .toLowerCase()
+                .includes("online") ||
+
+            paymentMethod
+                .toLowerCase()
+                .includes("razorpay") ||
+
+            paymentMethod
+                .toLowerCase()
+                .includes("upi") ||
+
+            paymentMethod
+                .toLowerCase()
+                .includes("card")
         ) {
 
             await startRazorpayPayment(
+
                 name,
                 email,
                 phone,
                 address,
                 items,
-                total
+                total,
+                token,
+                orderButton
             );
 
             return;
@@ -173,13 +260,16 @@ orderButton.textContent = "Processing...";
         // ==========================================
 
         await placeCODOrder(
+
             name,
             email,
             phone,
             address,
             items,
             total,
-            paymentMethod
+            paymentMethod,
+            token,
+            orderButton
         );
 
     });
@@ -190,44 +280,90 @@ orderButton.textContent = "Processing...";
 // ==================================================
 
 async function placeCODOrder(
+
     name,
     email,
     phone,
     address,
     items,
     total,
-    paymentMethod
+    paymentMethod,
+    token,
+    orderButton
+
 ) {
 
     try {
 
-        console.log("📦 Sending COD order...");
+        console.log(
+            "📦 Sending COD order..."
+        );
+
+
+        // ==========================================
+        // CHECK TOKEN
+        // ==========================================
+
+        if (!token) {
+
+            alert(
+                "❌ Please login first."
+            );
+
+            orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        // ==========================================
+        // SEND ORDER TO BACKEND
+        // ==========================================
 
         const response =
             await fetch(
-    `${API_URL}/api/orders`,
+
+                `${API_URL}/api/orders`,
+
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
-                            "application/json"
+                            "application/json",
+
+                        "Authorization":
+                            `Bearer ${token}`
+
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        name,
-                        email,
-                        phone,
-                        address,
+                            name,
 
-                        items,
+                            email,
 
-                        total,
+                            phone,
 
-                        paymentMethod
+                            address,
 
-                    })
+                            items,
+
+                            total,
+
+                            paymentMethod
+
+                        })
+
                 }
             );
 
@@ -242,6 +378,10 @@ async function placeCODOrder(
         );
 
 
+        // ==========================================
+        // SUCCESS
+        // ==========================================
+
         if (
             response.ok &&
             data.success
@@ -251,22 +391,40 @@ async function placeCODOrder(
                 "🎉 Order Placed Successfully!"
             );
 
-            localStorage.removeItem("cart");
+
+            localStorage.removeItem(
+                "cart"
+            );
+
 
             window.location.href =
                 "../index.html";
 
-        } else {
 
-            alert(
-                "❌ " +
-                (
-                    data.message ||
-                    "Order failed"
-                )
-            );
-
+            return;
         }
+
+
+        // ==========================================
+        // ERROR
+        // ==========================================
+
+        alert(
+
+            "❌ " +
+            (
+                data.message ||
+                "Order failed"
+            )
+
+        );
+
+
+        orderProcessing = false;
+
+        orderButton.disabled = false;
+        orderButton.textContent = "Place Order";
+
 
     } catch (error) {
 
@@ -275,9 +433,16 @@ async function placeCODOrder(
             error
         );
 
+
         alert(
             "❌ Server se connection nahi ho raha."
         );
+
+
+        orderProcessing = false;
+
+        orderButton.disabled = false;
+        orderButton.textContent = "Place Order";
 
     }
 
@@ -289,12 +454,16 @@ async function placeCODOrder(
 // ==================================================
 
 async function startRazorpayPayment(
+
     name,
     email,
     phone,
     address,
     items,
-    total
+    total,
+    token,
+    orderButton
+
 ) {
 
     try {
@@ -305,14 +474,37 @@ async function startRazorpayPayment(
 
 
         // ==========================================
+        // CHECK TOKEN
+        // ==========================================
+
+        if (!token) {
+
+            alert(
+                "❌ Please login first."
+            );
+
+            orderProcessing = false;
+
+            orderButton.disabled = false;
+            orderButton.textContent = "Place Order";
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        // ==========================================
         // GET RAZORPAY KEY
         // ==========================================
 
         const keyResponse =
             await fetch(
-    `${API_URL}/api/payment/key`
-);
-            
+
+                `${API_URL}/api/payment/key`
+
+            );
 
 
         const keyData =
@@ -337,21 +529,31 @@ async function startRazorpayPayment(
         // ==========================================
 
         const orderResponse =
-           await fetch(
-    `${API_URL}/api/payment/create-order`,
+            await fetch(
+
+                `${API_URL}/api/payment/create-order`,
+
                 {
+
                     method: "POST",
 
                     headers: {
+
                         "Content-Type":
-                            "application/json"
+                            "application/json",
+
+                        "Authorization":
+                            `Bearer ${token}`
+
                     },
 
-                    body: JSON.stringify({
+                    body:
+                        JSON.stringify({
 
-                        amount: total
+                            amount: total
 
-                    })
+                        })
+
                 }
             );
 
@@ -372,231 +574,332 @@ async function startRazorpayPayment(
         ) {
 
             throw new Error(
+
                 orderData.message ||
                 "Unable to create Razorpay order"
+
             );
 
         }
 
+
         // ==========================================
-// RAZORPAY CHECKOUT OPTIONS
-// ==========================================
+        // RAZORPAY CHECKOUT OPTIONS
+        // ==========================================
 
-const options = {
+        const options = {
 
-    key: keyData.key,
+            key:
+                keyData.key,
 
-    amount: orderData.order.amount,
+            amount:
+                orderData.order.amount,
 
-    currency: orderData.order.currency,
+            currency:
+                orderData.order.currency,
 
-    name: "Toyland",
+            name:
+                "Toyland",
 
-    description: "Toyland Toy Shop Order",
+            description:
+                "Toyland Toy Shop Order",
 
-    order_id: orderData.order.id,
-    
-    
+            order_id:
+                orderData.order.id,
 
-    // ======================================
-    // CUSTOMER DETAILS
-    // ======================================
 
-    prefill: {
+            // ======================================
+            // CUSTOMER DETAILS
+            // ======================================
 
-        name: name,
+            prefill: {
 
-        email: email,
+                name:
+                    name,
 
-        contact: phone
+                email:
+                    email,
 
-    },
+                contact:
+                    phone
 
-    // ======================================
-    // NOTES
-    // ======================================
+            },
 
-    notes: {
 
-        address: address
+            // ======================================
+            // NOTES
+            // ======================================
 
-    },
+            notes: {
 
-    // ======================================
-    // THEME
-    // ======================================
+                address:
+                    address
 
-    theme: {
+            },
 
-        color: "#ff6b6b"
 
-    },
+            // ======================================
+            // THEME
+            // ======================================
 
-    // ======================================
-    // PAYMENT SUCCESS
-    // ======================================
+            theme: {
 
-    handler: async function (response) {
+                color:
+                    "#ff6b6b"
 
-        console.log(
-            "✅ Razorpay Payment Success:",
-            response
-        );
+            },
 
-        // ==================================
-        // SAVE ORDER AFTER PAYMENT
-        // ==================================
 
-        try {
+            // ======================================
+            // PAYMENT SUCCESS
+            // ======================================
 
-            const saveResponse = await fetch(
-    `${API_URL}/api/orders`,
-                {
-                    method: "POST",
+            handler:
+                async function (response) {
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    console.log(
+                        "✅ Razorpay Payment Success:",
+                        response
+                    );
 
-                    body: JSON.stringify({
 
-                        name: name,
+                    // ==================================
+                    // SAVE ORDER AFTER PAYMENT
+                    // ==================================
 
-                        email: email,
+                    try {
 
-                        phone: phone,
+                        const saveResponse =
+                            await fetch(
 
-                        address: address,
+                                `${API_URL}/api/orders`,
 
-                        items: items,
+                                {
 
-                        total: total,
+                                    method:
+                                        "POST",
 
-                        paymentMethod: "Razorpay",
+                                    headers: {
 
-                        razorpayOrderId:
-                            response.razorpay_order_id,
+                                        "Content-Type":
+                                            "application/json",
 
-                        razorpayPaymentId:
-                            response.razorpay_payment_id
+                                        "Authorization":
+                                            `Bearer ${token}`
 
-                    })
-                }
-            );
+                                    },
 
-            const saveData =
-                await saveResponse.json();
+                                    body:
+                                        JSON.stringify({
 
-            console.log(
-                "Saved Order:",
-                saveData
-            );
+                                            name:
+                                                name,
 
-            if (
-                saveResponse.ok &&
-                saveData.success
-            ) {
+                                            email:
+                                                email,
 
-                alert(
-                    "🎉 Payment Successful! Order Placed!"
-                );
+                                            phone:
+                                                phone,
 
-                localStorage.removeItem("cart");
+                                            address:
+                                                address,
 
-                window.location.href =
-                    "../index.html";
+                                            items:
+                                                items,
 
-            } else {
+                                            total:
+                                                total,
 
-                alert(
-                    "Payment succeeded, but order saving failed."
-                );
+                                            paymentMethod:
+                                                "Razorpay",
+
+                                            razorpayOrderId:
+                                                response
+                                                    .razorpay_order_id,
+
+                                            razorpayPaymentId:
+                                                response
+                                                    .razorpay_payment_id
+
+                                        })
+
+                                }
+
+                            );
+
+
+                        const saveData =
+                            await saveResponse.json();
+
+
+                        console.log(
+                            "Saved Order:",
+                            saveData
+                        );
+
+
+                        // ==================================
+                        // ORDER SAVED
+                        // ==================================
+
+                        if (
+                            saveResponse.ok &&
+                            saveData.success
+                        ) {
+
+                            alert(
+                                "🎉 Payment Successful! Order Placed!"
+                            );
+
+
+                            localStorage.removeItem(
+                                "cart"
+                            );
+
+
+                            window.location.href =
+                                "../index.html";
+
+
+                            return;
+                        }
+
+
+                        // ==================================
+                        // ORDER SAVE FAILED
+                        // ==================================
+
+                        alert(
+                            "Payment succeeded, but order saving failed."
+                        );
+
+
+                        orderProcessing = false;
+
+                        orderButton.disabled = false;
+                        orderButton.textContent =
+                            "Place Order";
+
+
+                    } catch (error) {
+
+                        console.error(
+                            "Order Save Error:",
+                            error
+                        );
+
+
+                        alert(
+                            "Payment successful, but order saving failed."
+                        );
+
+
+                        orderProcessing = false;
+
+                        orderButton.disabled = false;
+                        orderButton.textContent =
+                            "Place Order";
+
+                    }
+
+                },
+
+
+            // ======================================
+            // PAYMENT POPUP CLOSE
+            // ======================================
+
+            modal: {
+
+                ondismiss:
+                    function () {
+
+                        console.log(
+                            "Payment popup closed."
+                        );
+
+                        orderProcessing = false;
+
+                        orderButton.disabled = false;
+                        orderButton.textContent =
+                            "Place Order";
+
+                    }
 
             }
 
-        } catch (error) {
-
-            console.error(
-                "Order Save Error:",
-                error
-            );
-
-            alert(
-                "Payment successful, but order saving failed."
-            );
-
-        }
-
-    },
-
-    // ======================================
-    // PAYMENT POPUP CLOSE
-    // ======================================
-
-    modal: {
-
-        ondismiss: function () {
-
-            console.log(
-                "Payment popup closed."
-            );
-
-        }
-
-    }
-
-};
-
-// ==========================================
-// CREATE RAZORPAY INSTANCE
-// ==========================================
-
-const razorpay = new Razorpay(options);
+        };
 
 
-// ==========================================
-// PAYMENT FAILED
-// ==========================================
+        // ==========================================
+        // CREATE RAZORPAY INSTANCE
+        // ==========================================
 
-razorpay.on(
-    "payment.failed",
-    function (response) {
+        const razorpay =
+            new Razorpay(options);
+
+
+        // ==========================================
+        // PAYMENT FAILED
+        // ==========================================
+
+        razorpay.on(
+
+            "payment.failed",
+
+            function (response) {
+
+                console.error(
+                    "❌ Payment Failed:",
+                    response.error
+                );
+
+
+                alert(
+
+                    "❌ Payment Failed: " +
+                    response.error.description
+
+                );
+
+
+                orderProcessing = false;
+
+                orderButton.disabled = false;
+                orderButton.textContent =
+                    "Place Order";
+
+            }
+
+        );
+
+
+        // ==========================================
+        // OPEN RAZORPAY
+        // ==========================================
+
+        razorpay.open();
+
+
+    } catch (error) {
 
         console.error(
-            "❌ Payment Failed:",
-            response.error
+            "❌ Razorpay Error:",
+            error
         );
+
 
         alert(
-            "❌ Payment Failed: " +
-            response.error.description
+            "❌ Unable to start payment."
         );
 
+
+        orderProcessing = false;
+
+        orderButton.disabled = false;
+        orderButton.textContent =
+            "Place Order";
+
     }
-);
-
-
-// ==========================================
-// OPEN RAZORPAY
-// ==========================================
-
-razorpay.open();
-
-// ==========================================
-// RAZORPAY TRY-CATCH
-// ==========================================
-
-} catch (error) {
-
-    console.error(
-        "❌ Razorpay Error:",
-        error
-    );
-
-    alert(
-        "❌ Unable to start payment."
-    );
-
-}
 
 }
