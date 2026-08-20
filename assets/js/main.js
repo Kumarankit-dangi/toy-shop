@@ -618,3 +618,57 @@ if (ordersContainer) {
         });
     }
 }
+// ==========================
+// LOGIN / USER / LOGOUT
+// ==========================
+
+function updateLoginUI() {
+
+    const user = JSON.parse(
+        localStorage.getItem("user")
+    );
+
+    const token =
+        localStorage.getItem("token");
+
+    // Find Login link
+    const loginLinks =
+        document.querySelectorAll(
+            'a[href$="login.html"]'
+        );
+
+    loginLinks.forEach(link => {
+
+        if (user && token) {
+
+            link.textContent =
+                "👤 " + user.name;
+
+            link.href = "#";
+
+            link.addEventListener("click", function (e) {
+
+                e.preventDefault();
+
+                const confirmLogout =
+                    confirm("Do you want to logout?");
+
+                if (confirmLogout) {
+
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+
+                    alert("👋 Logged out successfully!");
+
+                    window.location.reload();
+                }
+
+            });
+
+        }
+
+    });
+
+}
+
+updateLoginUI();
