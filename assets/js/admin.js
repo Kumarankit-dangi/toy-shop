@@ -1,7 +1,94 @@
-let editIndex = -1;
+// =====================================================
+// API
+// =====================================================
 
 const API_URL =
     "https://toy-shop-backend.onrender.com";
+
+
+// =====================================================
+// ADMIN PAGE PROTECTION
+// =====================================================
+
+(async function protectAdminPage() {
+
+    const token =
+        localStorage.getItem("token");
+
+
+    // User is not logged in
+    if (!token) {
+
+        alert("Please login first.");
+
+        window.location.replace(
+            "../../index.html"
+        );
+
+        return;
+    }
+
+
+    try {
+
+        const response = await fetch(
+            `${API_URL}/api/auth/users`,
+            {
+                method: "GET",
+
+                headers: {
+                    "Authorization":
+                        `Bearer ${token}`
+                }
+            }
+        );
+
+
+        // Backend rejected the user
+        if (!response.ok) {
+
+            alert(
+                "Admin access required."
+            );
+
+            window.location.replace(
+                "../../index.html"
+            );
+
+            return;
+        }
+
+
+        console.log(
+            "✅ Admin access verified"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Admin verification failed:",
+            error
+        );
+
+        alert(
+            "Unable to verify admin access."
+        );
+
+        window.location.replace(
+            "../../index.html"
+        );
+
+    }
+
+})();
+
+
+// =====================================================
+// EXISTING CODE
+// =====================================================
+
+let editIndex = -1;
 
 
 // =====================================================
@@ -17,11 +104,12 @@ function getAuthHeaders() {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`
     };
+
 }
 
 
 // =====================================================
-// PRODUCT MANAGEMENT
+// PRODUCT MANAGEMENT - MONGODB
 // =====================================================
 
 const form =
@@ -32,31 +120,80 @@ const editProductData =
         localStorage.getItem("editProduct")
     );
 
+
+// =====================================================
+// LOAD PRODUCT INTO EDIT FORM
+// =====================================================
+
 if (editProductData && form) {
 
-    document.getElementById("form-title").innerText =
-        "Edit Product";
+    const formTitle =
+        document.getElementById("form-title");
 
-    document.getElementById("product-name").value =
-        editProductData.name;
+    if (formTitle) {
 
-    document.getElementById("product-price").value =
-        editProductData.price;
+        formTitle.innerText =
+            "Edit Product";
 
-    document.getElementById("product-discount").value =
-        editProductData.discount;
+    }
 
-    document.getElementById("product-stock").value =
-        editProductData.stock;
 
-    document.getElementById("product-category").value =
-        editProductData.category;
+    const nameInput =
+        document.getElementById("product-name");
 
-    document.getElementById("product-image").value =
-        editProductData.image;
+    const priceInput =
+        document.getElementById("product-price");
 
-    document.getElementById("product-description").value =
-        editProductData.description;
+    const discountInput =
+        document.getElementById("product-discount");
+
+    const stockInput =
+        document.getElementById("product-stock");
+
+    const categoryInput =
+        document.getElementById("product-category");
+
+    const imageInput =
+        document.getElementById("product-image");
+
+    const descriptionInput =
+        document.getElementById("product-description");
+
+
+    if (nameInput)
+        nameInput.value =
+            editProductData.name || "";
+
+
+    if (priceInput)
+        priceInput.value =
+            editProductData.price || "";
+
+
+    if (discountInput)
+        discountInput.value =
+            editProductData.discount || 0;
+
+
+    if (stockInput)
+        stockInput.value =
+            editProductData.stock || 0;
+
+
+    if (categoryInput)
+        categoryInput.value =
+            editProductData.category || "";
+
+
+    if (imageInput)
+        imageInput.value =
+            editProductData.image || "";
+
+
+    if (descriptionInput)
+        descriptionInput.value =
+            editProductData.description || "";
+
 }
 
 
@@ -66,154 +203,306 @@ if (editProductData && form) {
 
 if (form) {
 
-    form.addEventListener("submit", (e) => {
+    form.addEventListener(
+        "submit",
+        async function (event) {
 
-        e.preventDefault();
+            event.preventDefault();
 
-        const product = {
 
-            name:
-                document.getElementById("product-name").value,
+            try {
 
-            price:
-                document.getElementById("product-price").value,
+                const token =
+                    localStorage.getItem(
+                        "token"
+                    );
 
-            discount:
-                document.getElementById("product-discount").value,
 
-            stock:
-                document.getElementById("product-stock").value,
+                if (!token) {
 
-            category:
-                document.getElementById("product-category").value,
+                    alert(
+                        "Please login as admin."
+                    );
 
-            image:
-                document.getElementById("product-image").value,
+                    return;
 
-            description:
-                document.getElementById("product-description").value
+                }
 
-        };
 
-        let products =
-            JSON.parse(
-                localStorage.getItem("products")
-            ) || [];
+                const product = {
 
-        const editing =
-            JSON.parse(
-                localStorage.getItem("editProduct")
-            );
+                    name:
+                        document.getElementById(
+                            "product-name"
+                        ).value.trim(),
 
-        if (editing) {
+                    price:
+                        Number(
+                            document.getElementById(
+                                "product-price"
+                            ).value
+                        ),
 
-            const index =
-                products.findIndex(
-                    p =>
-                        p.name === editing.name &&
-                        p.price === editing.price
+                    discount:
+                        Number(
+                            document.getElementById(
+                                "product-discount"
+                            ).value
+                        ) || 0,
+
+                    stock:
+                        Number(
+                            document.getElementById(
+                                "product-stock"
+                            ).value
+                        ),
+
+                    category:
+                        document.getElementById(
+                            "product-category"
+                        ).value.trim(),
+
+                    image:
+                        document.getElementById(
+                            "product-image"
+                        ).value.trim(),
+
+                    description:
+                        document.getElementById(
+                            "product-description"
+                        ).value.trim()
+
+                };
+
+
+                const editing =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "editProduct"
+                        )
+                    );
+
+
+                let url =
+                    `${API_URL}/api/products`;
+
+                let method =
+                    "POST";
+
+
+                if (
+                    editing &&
+                    editing._id
+                ) {
+
+                    url =
+                        `${API_URL}/api/products/${editing._id}`;
+
+                    method =
+                        "PUT";
+
+                }
+
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+
+                            method,
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json",
+
+                                "Authorization":
+                                    `Bearer ${token}`
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    product
+                                )
+
+                        }
+                    );
+
+
+                const responseText = await response.text();
+
+console.log(
+    "Product Save HTTP Status:",
+    response.status
+);
+
+console.log(
+    "Product Save Raw Response:",
+    responseText
+);
+
+let data;
+
+try {
+
+    data = JSON.parse(responseText);
+
+} catch (parseError) {
+
+    throw new Error(
+        "Server returned invalid JSON. HTTP " +
+        response.status +
+        ": " +
+        responseText.substring(0, 200)
+    );
+
+}
+
+console.log(
+    "Product Save Response:",
+    data
+);
+
+                if (
+                    !response.ok ||
+                    !data.success
+                ) {
+
+                    throw new Error(
+                        data.message ||
+                        "Product save failed"
+                    );
+
+                }
+
+
+                alert(
+                    editing
+                        ? "Product updated successfully!"
+                        : "Product added successfully!"
                 );
 
-            if (index !== -1) {
 
-                products[index] = product;
+                localStorage.removeItem(
+                    "editProduct"
+                );
+
+
+                form.reset();
+
+
+                window.location.href =
+                    "products.html";
+
+
+            } catch (error) {
+
+                console.error(
+                    "❌ Product Save Error:",
+                    error
+                );
+
+
+                alert(
+                    "Failed to save product: " +
+                    error.message
+                );
 
             }
 
-            localStorage.removeItem(
-                "editProduct"
-            );
-
-        } else {
-
-            products.push(product);
-
         }
-
-        localStorage.setItem(
-            "products",
-            JSON.stringify(products)
-        );
-
-        alert(
-            "Product Saved Successfully"
-        );
-
-        form.reset();
-
-        window.location.href =
-            "products.html";
-
-    });
+    );
 
 }
 
 
 // =====================================================
-// LOAD PRODUCTS
+// LOAD PRODUCTS FROM MONGODB
 // =====================================================
 
-function loadProducts() {
+async function loadProducts() {
 
     const table =
         document.getElementById(
             "product-table"
         );
 
-    if (!table) return;
 
-    let products =
-        JSON.parse(
-            localStorage.getItem("products")
-        ) || [];
+    if (!table)
+        return;
 
-    table.innerHTML = "";
 
-    products.forEach(
-        (product, index) => {
+    table.innerHTML = `
 
-            table.innerHTML += `
+        <tr>
+
+            <td colspan="6">
+
+                Loading products...
+
+            </td>
+
+        </tr>
+
+    `;
+
+
+    try {
+
+        console.log(
+            "📦 Getting products from MongoDB..."
+        );
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Products Response:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load products"
+            );
+
+        }
+
+
+        const products =
+            data.products || [];
+
+
+        table.innerHTML =
+            "";
+
+
+        if (
+            products.length === 0
+        ) {
+
+            table.innerHTML = `
 
                 <tr>
 
-                    <td>
-                        <img
-                            src="../../${product.image}"
-                            width="60"
-                        >
-                    </td>
+                    <td colspan="6">
 
-                    <td>
-                        ${product.name}
-                    </td>
-
-                    <td>
-                        ${product.category}
-                    </td>
-
-                    <td>
-                        ₹${product.price}
-                    </td>
-
-                    <td>
-                        ${product.stock}
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="action-btn edit-btn"
-                            onclick="editProduct(${index})"
-                        >
-                            Edit
-                        </button>
-
-                        <button
-                            class="action-btn delete-btn"
-                            onclick="deleteProduct(${index})"
-                        >
-                            Delete
-                        </button>
+                        No products found.
 
                     </td>
 
@@ -221,10 +510,159 @@ function loadProducts() {
 
             `;
 
+            return;
+
         }
-    );
+
+
+        products.forEach(
+            function (product) {
+
+                const image =
+                    product.image || "";
+
+
+                let imageSrc =
+                    image;
+
+
+                if (
+                    image &&
+                    !image.startsWith(
+                        "http"
+                    )
+                ) {
+
+                    imageSrc =
+                        `../../${image}`;
+
+                }
+
+
+                table.innerHTML += `
+
+                    <tr>
+
+                        <td>
+
+                            <img
+                                src="${imageSrc}"
+                                width="60"
+                                height="60"
+                                style="
+                                    object-fit: contain;
+                                "
+                                alt="${product.name || "Product"}"
+                                onerror="
+                                    this.style.display='none'
+                                "
+                            >
+
+                        </td>
+
+
+                        <td>
+
+                            ${product.name || "-"}
+
+                        </td>
+
+
+                        <td>
+
+                            ${product.category || "-"}
+
+                        </td>
+
+
+                        <td>
+
+                            ₹${Number(
+                                product.price || 0
+                            ).toFixed(2)}
+
+                        </td>
+
+
+                        <td>
+
+                            ${product.stock ?? 0}
+
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="action-btn edit-btn"
+                                onclick="
+                                    editProduct(
+                                        '${product._id}'
+                                    )
+                                "
+                            >
+
+                                Edit
+
+                            </button>
+
+
+                            <button
+                                class="
+                                    action-btn
+                                    delete-btn
+                                "
+                                onclick="
+                                    deleteProduct(
+                                        '${product._id}'
+                                    )
+                                "
+                            >
+
+                                Delete
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Load Products Error:",
+            error
+        );
+
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="6">
+
+                    ❌ Unable to load products.
+
+                    <br><br>
+
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
 
 }
+
 
 loadProducts();
 
@@ -233,21 +671,103 @@ loadProducts();
 // DELETE PRODUCT
 // =====================================================
 
-function deleteProduct(index) {
+async function deleteProduct(
+    productId
+) {
 
-    let products =
-        JSON.parse(
-            localStorage.getItem("products")
-        ) || [];
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this product?"
+        );
 
-    products.splice(index, 1);
 
-    localStorage.setItem(
-        "products",
-        JSON.stringify(products)
-    );
+    if (!confirmed)
+        return;
 
-    loadProducts();
+
+    try {
+
+        const token =
+            localStorage.getItem(
+                "token"
+            );
+
+
+        if (!token) {
+
+            alert(
+                "Please login as admin."
+            );
+
+            return;
+
+        }
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products/${productId}`,
+                {
+
+                    method:
+                        "DELETE",
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Delete Product Response:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Delete failed"
+            );
+
+        }
+
+
+        alert(
+            "Product deleted successfully!"
+        );
+
+
+        loadProducts();
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Delete Product Error:",
+            error
+        );
+
+
+        alert(
+            "Failed to delete product: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -256,22 +776,86 @@ function deleteProduct(index) {
 // EDIT PRODUCT
 // =====================================================
 
-function editProduct(index) {
+async function editProduct(
+    productId
+) {
 
-    const products =
-        JSON.parse(
-            localStorage.getItem("products")
-        ) || [];
+    try {
 
-    editIndex = index;
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
 
-    localStorage.setItem(
-        "editProduct",
-        JSON.stringify(products[index])
-    );
 
-    window.location.href =
-        "add-product.html";
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load product"
+            );
+
+        }
+
+
+        const product =
+            (data.products || [])
+                .find(
+                    function (item) {
+
+                        return (
+                            item._id ===
+                            productId
+                        );
+
+                    }
+                );
+
+
+        if (!product) {
+
+            alert(
+                "Product not found."
+            );
+
+            return;
+
+        }
+
+
+        localStorage.setItem(
+            "editProduct",
+            JSON.stringify(
+                product
+            )
+        );
+
+
+        window.location.href =
+            "add-product.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Edit Product Error:",
+            error
+        );
+
+
+        alert(
+            "Failed to open product: " +
+            error.message
+        );
+
+    }
 
 }
 
@@ -287,7 +871,10 @@ async function loadOrders() {
             "orders-table"
         );
 
-    if (!table) return;
+
+    if (!table)
+        return;
+
 
     table.innerHTML = `
 
@@ -301,14 +888,19 @@ async function loadOrders() {
 
     `;
 
+
     try {
 
         console.log(
             "📦 Getting all orders..."
         );
 
+
         const token =
-            localStorage.getItem("token");
+            localStorage.getItem(
+                "token"
+            );
+
 
         if (!token) {
 
@@ -335,12 +927,17 @@ async function loadOrders() {
             await fetch(
                 `${API_URL}/api/orders`,
                 {
-                    method: "GET",
+
+                    method:
+                        "GET",
 
                     headers: {
+
                         "Authorization":
                             `Bearer ${token}`
+
                     }
+
                 }
             );
 
@@ -361,7 +958,10 @@ async function loadOrders() {
         );
 
 
-        if (!response.ok || !data.success) {
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
             throw new Error(
                 data.message ||
@@ -371,7 +971,8 @@ async function loadOrders() {
         }
 
 
-        table.innerHTML = "";
+        table.innerHTML =
+            "";
 
 
         if (
@@ -397,7 +998,7 @@ async function loadOrders() {
 
 
         data.orders.forEach(
-            (order) => {
+            function (order) {
 
                 const orderId =
                     order._id.substring(
@@ -406,7 +1007,9 @@ async function loadOrders() {
 
 
                 const total =
-                    Number(order.total) || 0;
+                    Number(
+                        order.total
+                    ) || 0;
 
 
                 const status =
@@ -419,32 +1022,28 @@ async function loadOrders() {
                     <tr>
 
                         <td>
-
                             #${orderId}
-
                         </td>
-
 
                         <td>
 
                             <strong>
-                                ${order.name}
+                                ${order.name || "-"}
                             </strong>
 
                             <br>
 
                             <small>
-                                ${order.email}
+                                ${order.email || "-"}
                             </small>
 
                             <br>
 
                             <small>
-                                ${order.phone}
+                                ${order.phone || "-"}
                             </small>
 
                         </td>
-
 
                         <td>
 
@@ -454,13 +1053,9 @@ async function loadOrders() {
 
                         </td>
 
-
                         <td>
-
-                            ${order.paymentMethod}
-
+                            ${order.paymentMethod || "-"}
                         </td>
-
 
                         <td>
 
@@ -476,8 +1071,7 @@ async function loadOrders() {
                                 <option
                                     value="Pending"
                                     ${
-                                        status ===
-                                        "Pending"
+                                        status === "Pending"
                                             ? "selected"
                                             : ""
                                     }
@@ -485,12 +1079,10 @@ async function loadOrders() {
                                     Pending
                                 </option>
 
-
                                 <option
                                     value="Confirmed"
                                     ${
-                                        status ===
-                                        "Confirmed"
+                                        status === "Confirmed"
                                             ? "selected"
                                             : ""
                                     }
@@ -498,12 +1090,10 @@ async function loadOrders() {
                                     Confirmed
                                 </option>
 
-
                                 <option
                                     value="Shipped"
                                     ${
-                                        status ===
-                                        "Shipped"
+                                        status === "Shipped"
                                             ? "selected"
                                             : ""
                                     }
@@ -511,12 +1101,10 @@ async function loadOrders() {
                                     Shipped
                                 </option>
 
-
                                 <option
                                     value="Delivered"
                                     ${
-                                        status ===
-                                        "Delivered"
+                                        status === "Delivered"
                                             ? "selected"
                                             : ""
                                     }
@@ -527,7 +1115,6 @@ async function loadOrders() {
                             </select>
 
                         </td>
-
 
                         <td>
 
@@ -542,7 +1129,9 @@ async function loadOrders() {
                                     )
                                 "
                             >
+
                                 Cancel
+
                             </button>
 
                         </td>
@@ -585,6 +1174,7 @@ async function loadOrders() {
 
 }
 
+
 loadOrders();
 
 
@@ -599,15 +1189,10 @@ async function changeOrderStatus(
 
     try {
 
-        console.log(
-            "🔄 Updating order:",
-            orderId,
-            status
-        );
-
-
         const token =
-            localStorage.getItem("token");
+            localStorage.getItem(
+                "token"
+            );
 
 
         if (!token) {
@@ -626,19 +1211,22 @@ async function changeOrderStatus(
                 `${API_URL}/api/orders/${orderId}/status`,
                 {
 
-                    method: "PUT",
+                    method:
+                        "PUT",
 
                     headers: {
+
                         "Content-Type":
                             "application/json",
 
                         "Authorization":
                             `Bearer ${token}`
+
                     },
 
                     body:
                         JSON.stringify({
-                            status: status
+                            status
                         })
 
                 }
@@ -647,12 +1235,6 @@ async function changeOrderStatus(
 
         const data =
             await response.json();
-
-
-        console.log(
-            "Status Update Response:",
-            data
-        );
 
 
         if (
@@ -708,13 +1290,16 @@ async function deleteOrder(
         );
 
 
-    if (!confirmDelete) return;
+    if (!confirmDelete)
+        return;
 
 
     try {
 
         const token =
-            localStorage.getItem("token");
+            localStorage.getItem(
+                "token"
+            );
 
 
         if (!token) {
@@ -733,11 +1318,14 @@ async function deleteOrder(
                 `${API_URL}/api/orders/${orderId}`,
                 {
 
-                    method: "DELETE",
+                    method:
+                        "DELETE",
 
                     headers: {
+
                         "Authorization":
                             `Bearer ${token}`
+
                     }
 
                 }
@@ -801,7 +1389,7 @@ if (searchOrder) {
 
     searchOrder.addEventListener(
         "keyup",
-        () => {
+        function () {
 
             const value =
                 searchOrder.value
@@ -812,21 +1400,25 @@ if (searchOrder) {
                 .querySelectorAll(
                     "#orders-table tr"
                 )
-                .forEach(row => {
+                .forEach(
+                    function (row) {
 
-                    const customer =
-                        row.children[1]
-                            ?.innerText
-                            .toLowerCase() ||
-                        "";
+                        const customer =
+                            row.children[1]
+                                ?.innerText
+                                .toLowerCase() ||
+                            "";
 
 
-                    row.style.display =
-                        customer.includes(value)
-                            ? ""
-                            : "none";
+                        row.style.display =
+                            customer.includes(
+                                value
+                            )
+                                ? ""
+                                : "none";
 
-                });
+                    }
+                );
 
         }
     );
@@ -835,218 +1427,253 @@ if (searchOrder) {
 
 
 // =====================================================
-// USERS
+// REAL USERS - MONGODB
 // =====================================================
 
-function loadUsers() {
+async function loadUsers() {
 
     const table =
         document.getElementById(
             "users-table"
         );
 
-    if (!table) return;
+
+    if (!table)
+        return;
 
 
-    let users =
-        JSON.parse(
-            localStorage.getItem("users")
-        ) || [];
+    table.innerHTML = `
+
+        <tr>
+
+            <td colspan="5">
+                Loading users...
+            </td>
+
+        </tr>
+
+    `;
 
 
-    table.innerHTML = "";
+    try {
+
+        const token =
+            localStorage.getItem(
+                "token"
+            );
 
 
-    users.forEach(
-        (user, index) => {
+        if (!token) {
 
-            table.innerHTML += `
+            throw new Error(
+                "Please login as admin."
+            );
+
+        }
+
+
+        const response =
+            await fetch(
+                `${API_URL}/api/auth/users`,
+                {
+
+                    method:
+                        "GET",
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Users Response:",
+            data
+        );
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Failed to load users"
+            );
+
+        }
+
+
+        table.innerHTML =
+            "";
+
+
+        if (
+            !data.users ||
+            data.users.length === 0
+        ) {
+
+            table.innerHTML = `
 
                 <tr>
 
-                    <td>
-                        ${user.name}
-                    </td>
-
-                    <td>
-                        ${user.email}
-                    </td>
-
-                    <td>
-                        ${user.phone || "-"}
-                    </td>
-
-                    <td>
-
-                        <span class="${
-                            user.blocked
-                                ? "status-blocked"
-                                : "status-active"
-                        }">
-
-                            ${
-                                user.blocked
-                                    ? "Blocked"
-                                    : "Active"
-                            }
-
-                        </span>
-
-                    </td>
-
-                    <td>
-
-                        <button
-                            class="
-                                action-btn
-                                edit-btn
-                            "
-                            onclick="
-                                toggleBlock(
-                                    ${index}
-                                )
-                            "
-                        >
-
-                            ${
-                                user.blocked
-                                    ? "Unblock"
-                                    : "Block"
-                            }
-
-                        </button>
-
-
-                        <button
-                            class="
-                                action-btn
-                                delete-btn
-                            "
-                            onclick="
-                                deleteUser(
-                                    ${index}
-                                )
-                            "
-                        >
-                            Delete
-                        </button>
-
-
-                        <button
-                            class="action-btn"
-                            onclick="
-                                viewUser(
-                                    ${index}
-                                )
-                            "
-                        >
-                            View
-                        </button>
-
+                    <td colspan="5">
+                        No users found.
                     </td>
 
                 </tr>
 
             `;
 
+            return;
+
         }
-    );
-
-}
-
-loadUsers();
 
 
-// =====================================================
-// BLOCK / UNBLOCK
-// =====================================================
+        data.users.forEach(
+            function (user) {
 
-function toggleBlock(index) {
-
-    let users =
-        JSON.parse(
-            localStorage.getItem("users")
-        ) || [];
-
-
-    users[index].blocked =
-        !users[index].blocked;
+                const createdDate =
+                    user.createdAt
+                        ? new Date(
+                            user.createdAt
+                        ).toLocaleDateString(
+                            "en-IN"
+                        )
+                        : "-";
 
 
-    localStorage.setItem(
-        "users",
-        JSON.stringify(users)
-    );
+                table.innerHTML += `
 
+                    <tr>
 
-    loadUsers();
+                        <td>
+                            ${user.name}
+                        </td>
 
-}
+                        <td>
+                            ${user.email}
+                        </td>
 
+                        <td>
+                            -
+                        </td>
 
-// =====================================================
-// DELETE USER
-// =====================================================
+                        <td>
 
-function deleteUser(index) {
+                            <span class="status-active">
 
-    let users =
-        JSON.parse(
-            localStorage.getItem("users")
-        ) || [];
+                                ${
+                                    user.role === "admin"
+                                        ? "Admin"
+                                        : "Active"
+                                }
 
+                            </span>
 
-    if (
-        confirm(
-            "Delete this user?"
-        )
-    ) {
+                        </td>
 
-        users.splice(
-            index,
-            1
+                        <td>
+
+                            <button
+                                class="action-btn"
+                                onclick="
+                                    viewUser(
+                                        '${user._id}',
+                                        '${user.name}',
+                                        '${user.email}',
+                                        '${user.role}',
+                                        '${createdDate}'
+                                    )
+                                "
+                            >
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
         );
 
 
-        localStorage.setItem(
-            "users",
-            JSON.stringify(users)
+    } catch (error) {
+
+        console.error(
+            "❌ Load Users Error:",
+            error
         );
 
 
-        loadUsers();
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+
+                    ❌ Unable to load users.
+
+                    <br><br>
+
+                    ${error.message}
+
+                </td>
+
+            </tr>
+
+        `;
 
     }
 
 }
 
 
+loadUsers();
+
+
 // =====================================================
 // VIEW USER
 // =====================================================
 
-function viewUser(index) {
-
-    let users =
-        JSON.parse(
-            localStorage.getItem("users")
-        ) || [];
-
-
-    const user =
-        users[index];
-
+function viewUser(
+    id,
+    name,
+    email,
+    role,
+    createdAt
+) {
 
     alert(
 
-        "Name : " +
-        user.name +
+        "User ID : " +
+        id +
+
+        "\nName : " +
+        name +
 
         "\nEmail : " +
-        user.email +
+        email +
 
-        "\nPhone : " +
-        (user.phone || "-")
+        "\nRole : " +
+        role +
+
+        "\nJoined : " +
+        createdAt
 
     );
 
@@ -1067,7 +1694,7 @@ if (searchUser) {
 
     searchUser.addEventListener(
         "keyup",
-        () => {
+        function () {
 
             const value =
                 searchUser.value
@@ -1078,29 +1705,31 @@ if (searchUser) {
                 .querySelectorAll(
                     "#users-table tr"
                 )
-                .forEach(row => {
+                .forEach(
+                    function (row) {
 
-                    const name =
-                        row.children[0]
-                            ?.innerText
-                            .toLowerCase() ||
-                        "";
-
-
-                    const email =
-                        row.children[1]
-                            ?.innerText
-                            .toLowerCase() ||
-                        "";
+                        const name =
+                            row.children[0]
+                                ?.innerText
+                                .toLowerCase() ||
+                            "";
 
 
-                    row.style.display =
-                        name.includes(value) ||
-                        email.includes(value)
-                            ? ""
-                            : "none";
+                        const email =
+                            row.children[1]
+                                ?.innerText
+                                .toLowerCase() ||
+                            "";
 
-                });
+
+                        row.style.display =
+                            name.includes(value) ||
+                            email.includes(value)
+                                ? ""
+                                : "none";
+
+                    }
+                );
 
         }
     );
@@ -1112,7 +1741,7 @@ if (searchUser) {
 // DASHBOARD ANALYTICS
 // =====================================================
 
-function loadDashboard() {
+async function loadDashboard() {
 
     const totalProducts =
         document.getElementById(
@@ -1138,101 +1767,225 @@ function loadDashboard() {
         );
 
 
-    if (!totalProducts) return;
-
-
-    const products =
-        JSON.parse(
-            localStorage.getItem(
-                "products"
-            )
-        ) || [];
-
-
-    const users =
-        JSON.parse(
-            localStorage.getItem(
-                "users"
-            )
-        ) || [];
+    if (!totalProducts)
+        return;
 
 
     totalProducts.innerText =
-        products.length;
+        "...";
 
+    totalOrders.innerText =
+        "...";
 
     totalUsers.innerText =
-        users.length;
+        "...";
 
 
-    fetch(
-        `${API_URL}/api/orders`
-    )
+    if (totalRevenue) {
 
-        .then(
-            response =>
-                response.json()
-        )
+        totalRevenue.innerText =
+            "...";
 
-        .then(
-            data => {
-
-                if (!data.success)
-                    return;
+    }
 
 
-                const orders =
-                    data.orders || [];
+    try {
+
+        const token =
+            localStorage.getItem(
+                "token"
+            );
 
 
-                totalOrders.innerText =
-                    orders.length;
+        if (!token) {
+
+            throw new Error(
+                "Please login as admin."
+            );
+
+        }
 
 
-                let revenue = 0;
+        const productsResponse =
+            await fetch(
+                `${API_URL}/api/products`
+            );
 
 
-                orders.forEach(
-                    order => {
+        const productsData =
+            await productsResponse.json();
 
-                        if (
-                            order.status ===
-                            "Delivered"
-                        ) {
 
-                            revenue +=
-                                Number(
-                                    order.total
-                                ) || 0;
+        let products = [];
 
-                        }
+
+        if (
+            Array.isArray(
+                productsData
+            )
+        ) {
+
+            products =
+                productsData;
+
+        } else if (
+            Array.isArray(
+                productsData.products
+            )
+        ) {
+
+            products =
+                productsData.products;
+
+        }
+
+
+        totalProducts.innerText =
+            products.length;
+
+
+        const ordersResponse =
+            await fetch(
+                `${API_URL}/api/orders`,
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
 
                     }
-                );
+
+                }
+            );
 
 
-                if (totalRevenue) {
+        const ordersData =
+            await ordersResponse.json();
 
-                    totalRevenue.innerText =
-                        "₹" + revenue;
+
+        if (
+            !ordersResponse.ok ||
+            !ordersData.success
+        ) {
+
+            throw new Error(
+                ordersData.message ||
+                "Failed to load orders"
+            );
+
+        }
+
+
+        const orders =
+            ordersData.orders || [];
+
+
+        totalOrders.innerText =
+            orders.length;
+
+
+        const usersResponse =
+            await fetch(
+                `${API_URL}/api/auth/users`,
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
+
+
+        const usersData =
+            await usersResponse.json();
+
+
+        if (
+            !usersResponse.ok ||
+            !usersData.success
+        ) {
+
+            throw new Error(
+                usersData.message ||
+                "Failed to load users"
+            );
+
+        }
+
+
+        const users =
+            usersData.users || [];
+
+
+        totalUsers.innerText =
+            users.length;
+
+
+        let revenue = 0;
+
+
+        orders.forEach(
+            function (order) {
+
+                if (
+                    order.status ===
+                    "Delivered"
+                ) {
+
+                    revenue +=
+                        Number(
+                            order.total
+                        ) || 0;
 
                 }
 
             }
-        )
-
-        .catch(
-            error => {
-
-                console.error(
-                    "Dashboard order error:",
-                    error
-                );
-
-            }
         );
 
+
+        if (totalRevenue) {
+
+            totalRevenue.innerText =
+                "₹" +
+                revenue.toFixed(2);
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ Dashboard Error:",
+            error
+        );
+
+
+        totalProducts.innerText =
+            "0";
+
+        totalOrders.innerText =
+            "0";
+
+        totalUsers.innerText =
+            "0";
+
+
+        if (totalRevenue) {
+
+            totalRevenue.innerText =
+                "₹0";
+
+        }
+
+    }
+
 }
+
 
 loadDashboard();
 
@@ -1249,24 +2002,23 @@ function loadSalesChart() {
         );
 
 
-    if (!chart) return;
+    if (!chart)
+        return;
 
 
     if (
         typeof Chart ===
         "undefined"
-    ) {
-
+    )
         return;
-
-    }
 
 
     new Chart(
         chart,
         {
 
-            type: "bar",
+            type:
+                "bar",
 
             data: {
 
@@ -1281,7 +2033,8 @@ function loadSalesChart() {
 
                 datasets: [{
 
-                    label: "Sales",
+                    label:
+                        "Sales",
 
                     data: [
                         1200,
@@ -1301,6 +2054,7 @@ function loadSalesChart() {
 
 }
 
+
 loadSalesChart();
 
 
@@ -1308,7 +2062,7 @@ loadSalesChart();
 // TOP PRODUCTS
 // =====================================================
 
-function loadTopProducts() {
+async function loadTopProducts() {
 
     const list =
         document.getElementById(
@@ -1316,37 +2070,76 @@ function loadTopProducts() {
         );
 
 
-    if (!list) return;
+    if (!list)
+        return;
 
 
-    const products =
-        JSON.parse(
-            localStorage.getItem(
-                "products"
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        let products = [];
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            products =
+                data;
+
+        } else if (
+            Array.isArray(
+                data.products
             )
-        ) || [];
+        ) {
+
+            products =
+                data.products;
+
+        }
 
 
-    list.innerHTML = "";
+        list.innerHTML =
+            "";
 
 
-    products
-        .slice(0, 5)
-        .forEach(
-            product => {
+        products
+            .slice(0, 5)
+            .forEach(
+                function (product) {
 
-                list.innerHTML += `
+                    list.innerHTML += `
 
-                    <li>
-                        ${product.name}
-                    </li>
+                        <li>
+                            ${product.name}
+                        </li>
 
-                `;
+                    `;
 
-            }
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(
+            "Top products error:",
+            error
         );
 
+    }
+
 }
+
 
 loadTopProducts();
 
@@ -1355,7 +2148,7 @@ loadTopProducts();
 // LOW STOCK
 // =====================================================
 
-function loadLowStock() {
+async function loadLowStock() {
 
     const list =
         document.getElementById(
@@ -1363,45 +2156,88 @@ function loadLowStock() {
         );
 
 
-    if (!list) return;
+    if (!list)
+        return;
 
 
-    const products =
-        JSON.parse(
-            localStorage.getItem(
-                "products"
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        let products = [];
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            products =
+                data;
+
+        } else if (
+            Array.isArray(
+                data.products
             )
-        ) || [];
+        ) {
+
+            products =
+                data.products;
+
+        }
 
 
-    list.innerHTML = "";
+        list.innerHTML =
+            "";
 
 
-    products
+        products
+            .filter(
+                function (product) {
 
-        .filter(
-            product =>
-                Number(
-                    product.stock
-                ) <= 5
-        )
+                    return Number(
+                        product.stock
+                    ) <= 5;
 
-        .forEach(
-            product => {
+                }
+            )
+            .forEach(
+                function (product) {
 
-                list.innerHTML += `
+                    list.innerHTML += `
 
-                    <li>
-                        ${product.name}
-                        (${product.stock})
-                    </li>
+                        <li>
 
-                `;
+                            ${product.name}
 
-            }
+                            (${product.stock})
+
+                        </li>
+
+                    `;
+
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(
+            "Low stock error:",
+            error
         );
 
+    }
+
 }
+
 
 loadLowStock();
 
@@ -1418,14 +2254,31 @@ async function loadRecentOrders() {
         );
 
 
-    if (!list) return;
+    if (!list)
+        return;
 
 
     try {
 
+        const token =
+            localStorage.getItem(
+                "token"
+            );
+
+
         const response =
             await fetch(
-                `${API_URL}/api/orders`
+                `${API_URL}/api/orders`,
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
             );
 
 
@@ -1437,21 +2290,25 @@ async function loadRecentOrders() {
             return;
 
 
-        list.innerHTML = "";
+        list.innerHTML =
+            "";
 
 
         data.orders
-            .slice(-5)
-            .reverse()
+            .slice(0, 5)
             .forEach(
-                order => {
+                function (order) {
 
                     list.innerHTML += `
 
                         <li>
+
                             ${order.name}
+
                             -
+
                             ${order.status}
+
                         </li>
 
                     `;
@@ -1471,6 +2328,7 @@ async function loadRecentOrders() {
 
 }
 
+
 loadRecentOrders();
 
 
@@ -1478,7 +2336,7 @@ loadRecentOrders();
 // CATEGORY REVENUE
 // =====================================================
 
-function loadCategoryRevenue() {
+async function loadCategoryRevenue() {
 
     const table =
         document.getElementById(
@@ -1486,69 +2344,109 @@ function loadCategoryRevenue() {
         );
 
 
-    if (!table) return;
+    if (!table)
+        return;
 
 
-    const products =
-        JSON.parse(
-            localStorage.getItem(
-                "products"
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        let products = [];
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            products =
+                data;
+
+        } else if (
+            Array.isArray(
+                data.products
             )
-        ) || [];
+        ) {
 
-
-    const revenue = {};
-
-
-    products.forEach(
-        product => {
-
-            const category =
-                product.category;
-
-
-            const amount =
-                Number(
-                    product.price
-                ) || 0;
-
-
-            revenue[category] =
-                (
-                    revenue[category] ||
-                    0
-                ) + amount;
+            products =
+                data.products;
 
         }
-    );
 
 
-    table.innerHTML = "";
+        const revenue = {};
 
 
-    for (
-        let category in revenue
-    ) {
+        products.forEach(
+            function (product) {
 
-        table.innerHTML += `
+                const category =
+                    product.category ||
+                    "Other";
 
-            <tr>
 
-                <td>
-                    ${category}
-                </td>
+                const amount =
+                    Number(
+                        product.price
+                    ) || 0;
 
-                <td>
-                    ₹${revenue[category]}
-                </td>
 
-            </tr>
+                revenue[category] =
+                    (
+                        revenue[category] ||
+                        0
+                    ) + amount;
 
-        `;
+            }
+        );
+
+
+        table.innerHTML =
+            "";
+
+
+        for (
+            const category in revenue
+        ) {
+
+            table.innerHTML += `
+
+                <tr>
+
+                    <td>
+                        ${category}
+                    </td>
+
+                    <td>
+                        ₹${revenue[category].toFixed(2)}
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Category revenue error:",
+            error
+        );
 
     }
 
 }
+
 
 loadCategoryRevenue();
 
@@ -1557,7 +2455,7 @@ loadCategoryRevenue();
 // BEST PRODUCTS
 // =====================================================
 
-function loadBestProducts() {
+async function loadBestProducts() {
 
     const list =
         document.getElementById(
@@ -1565,37 +2463,76 @@ function loadBestProducts() {
         );
 
 
-    if (!list) return;
+    if (!list)
+        return;
 
 
-    const products =
-        JSON.parse(
-            localStorage.getItem(
-                "products"
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/api/products`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        let products = [];
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            products =
+                data;
+
+        } else if (
+            Array.isArray(
+                data.products
             )
-        ) || [];
+        ) {
+
+            products =
+                data.products;
+
+        }
 
 
-    list.innerHTML = "";
+        list.innerHTML =
+            "";
 
 
-    products
-        .slice(0, 5)
-        .forEach(
-            product => {
+        products
+            .slice(0, 5)
+            .forEach(
+                function (product) {
 
-                list.innerHTML += `
+                    list.innerHTML += `
 
-                    <li>
-                        ⭐ ${product.name}
-                    </li>
+                        <li>
+                            ⭐ ${product.name}
+                        </li>
 
-                `;
+                    `;
 
-            }
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(
+            "Best products error:",
+            error
         );
 
+    }
+
 }
+
 
 loadBestProducts();
 
@@ -1604,7 +2541,7 @@ loadBestProducts();
 // LATEST USERS
 // =====================================================
 
-function loadLatestUsers() {
+async function loadLatestUsers() {
 
     const list =
         document.getElementById(
@@ -1612,38 +2549,83 @@ function loadLatestUsers() {
         );
 
 
-    if (!list) return;
+    if (!list)
+        return;
 
 
-    const users =
-        JSON.parse(
+    try {
+
+        const token =
             localStorage.getItem(
-                "users"
-            )
-        ) || [];
+                "token"
+            );
 
 
-    list.innerHTML = "";
+        const response =
+            await fetch(
+                `${API_URL}/api/auth/users`,
+                {
+
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${token}`
+
+                    }
+
+                }
+            );
 
 
-    users
-        .slice(-5)
-        .reverse()
-        .forEach(
-            user => {
+        const data =
+            await response.json();
 
-                list.innerHTML += `
 
-                    <li>
-                        ${user.name}
-                    </li>
+        if (
+            !response.ok ||
+            !data.success
+        ) {
 
-                `;
+            throw new Error(
+                data.message ||
+                "Failed to load users"
+            );
 
-            }
+        }
+
+
+        list.innerHTML =
+            "";
+
+
+        (data.users || [])
+            .slice(0, 5)
+            .forEach(
+                function (user) {
+
+                    list.innerHTML += `
+
+                        <li>
+                            ${user.name}
+                        </li>
+
+                    `;
+
+                }
+            );
+
+
+    } catch (error) {
+
+        console.error(
+            "Latest users error:",
+            error
         );
 
+    }
+
 }
+
 
 loadLatestUsers();
 
@@ -1677,10 +2659,14 @@ async function exportOrders() {
             await fetch(
                 `${API_URL}/api/orders`,
                 {
+
                     headers: {
+
                         "Authorization":
                             `Bearer ${token}`
+
                     }
+
                 }
             );
 
@@ -1705,7 +2691,7 @@ async function exportOrders() {
 
 
         data.orders.forEach(
-            order => {
+            function (order) {
 
                 csv +=
                     `"${order._id}",` +
@@ -1725,7 +2711,8 @@ async function exportOrders() {
             new Blob(
                 [csv],
                 {
-                    type: "text/csv"
+                    type:
+                        "text/csv"
                 }
             );
 
@@ -1749,9 +2736,17 @@ async function exportOrders() {
         a.click();
 
 
+        URL.revokeObjectURL(
+            a.href
+        );
+
+
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Export Orders Error:",
+            error
+        );
 
 
         alert(
@@ -1775,7 +2770,7 @@ const dark =
 
 if (dark) {
 
-    dark.onclick = () => {
+    dark.onclick = function () {
 
         document.body.classList.toggle(
             "dark"
@@ -1798,24 +2793,26 @@ const language =
 
 if (language) {
 
-    language.onchange = () => {
+    language.onchange =
+        function () {
 
-        if (
-            language.value === "hi"
-        ) {
+            if (
+                language.value ===
+                "hi"
+            ) {
 
-            alert(
-                "Hindi Mode Enabled"
-            );
+                alert(
+                    "Hindi Mode Enabled"
+                );
 
-        } else {
+            } else {
 
-            alert(
-                "English Mode Enabled"
-            );
+                alert(
+                    "English Mode Enabled"
+                );
 
-        }
+            }
 
-    };
+        };
 
 }

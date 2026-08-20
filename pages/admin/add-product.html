@@ -3,113 +3,182 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Add Product</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="../../assets/css/style.css">
+    <title>Add Product</title>
+
+    <link
+        rel="stylesheet"
+        href="../../assets/css/style.css"
+    >
 
 </head>
 
+
 <body>
+
 
 <header>
 
-<nav class="navbar">
+    <nav class="navbar">
 
-<div class="logo">
+        <div class="logo">
 
-<a href="dashboard.html">🧸 Toyland Admin</a>
+            <a href="dashboard.html">
+                🧸 Toyland Admin
+            </a>
 
-</div>
+        </div>
 
-</nav>
+    </nav>
 
 </header>
 
+
 <main>
 
-<section class="admin-form">
-
-<div class="section-title">
-
-<h2>Add New Product</h2>
-
-<p>Create a new product for your store</p>
+    <section class="admin-form">
 
 
-</div>
-<h3 id="form-title">
-    Add New Product
-</h3>
+        <div class="section-title">
+
+            <h2 id="form-title">
+                Add New Product
+            </h2>
+
+            <p>
+                Create a new product for your store
+            </p>
+
+        </div>
 
 
-<form id="product-form">
+        <form id="product-form">
 
-<input
-type="text"
-id="product-name"
-placeholder="Product Name"
-required
->
 
-<input
-type="number"
-id="product-price"
-placeholder="Product Price"
-required
->
+            <!-- PRODUCT NAME -->
 
-<input
-type="number"
-id="product-discount"
-placeholder="Discount (%)"
-required
->
+            <input
+                type="text"
+                id="product-name"
+                placeholder="Product Name"
+                required
+            >
 
-<input
-type="number"
-id="product-stock"
-placeholder="Stock"
-required
->
 
-<select id="product-category">
+            <!-- PRODUCT PRICE -->
 
-<option>Teddy Bears</option>
-<option>Toy Cars</option>
-<option>Dolls</option>
-<option>Building Blocks</option>
-<option>Construction Toys</option>
+            <input
+                type="number"
+                id="product-price"
+                placeholder="Product Price"
+                min="0"
+                step="0.01"
+                required
+            >
 
-</select>
 
-<input
-type="text"
-id="product-image"
-placeholder="Image Path (assets/images/...)"
-required
->
+            <!-- DISCOUNT -->
 
-<textarea
-id="product-description"
-placeholder="Product Description"
-></textarea>
+            <input
+                type="number"
+                id="product-discount"
+                placeholder="Discount (%)"
+                min="0"
+                value="0"
+            >
 
-<button class="btn-primary" type="submit">
 
-Save Product
+            <!-- STOCK -->
 
-</button>
+            <input
+                type="number"
+                id="product-stock"
+                placeholder="Stock"
+                min="0"
+                required
+            >
 
-</form>
 
-</section>
+            <!-- CATEGORY -->
+
+            <select
+                id="product-category"
+                required
+            >
+
+                <option value="">
+                    Select Category
+                </option>
+
+                <option value="Soft Toys">
+                    Soft Toys
+                </option>
+
+                <option value="Toy Cars">
+                    Toy Cars
+                </option>
+
+                <option value="Dolls">
+                    Dolls
+                </option>
+
+                <option value="Building Toys">
+                    Building Toys
+                </option>
+
+                <option value="Construction Toys">
+                    Construction Toys
+                </option>
+
+            </select>
+
+
+            <!-- IMAGE -->
+
+            <input
+                type="text"
+                id="product-image"
+                placeholder="Image Path (assets/images/...)"
+                required
+            >
+
+
+            <!-- DESCRIPTION -->
+
+            <textarea
+                id="product-description"
+                placeholder="Product Description"
+            ></textarea>
+
+
+            <!-- SAVE BUTTON -->
+
+            <button
+                class="btn-primary"
+                type="submit"
+            >
+
+                Save Product
+
+            </button>
+
+
+        </form>
+
+
+    </section>
 
 </main>
 
+
 <script src="../../assets/js/admin.js"></script>
+
 
 </body>
 
