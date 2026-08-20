@@ -2,49 +2,79 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>Shop | Toyland</title>
+    <title>Shop | Toyland</title>
 
-<link rel="stylesheet" href="../assets/css/style.css">
-
+    <link rel="stylesheet"
+        href="../assets/css/style.css">
 </head>
 
 <body>
 
 <header>
-            <nav class="navbar">
 
-    <div class="logo">
-        <a href="../index.html">🧸 Toyland</a>
-    </div>
+    <nav class="navbar">
 
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="shop.html"></a>Shop</a></li>
-        <li><a href="#">Categories</a></li>
-        <li><a href="about.html"></a>About</a></li>
-        <li><a href="contact.html"></a>Contact</a></li>
-    </ul>
+        <div class="logo">
+            <a href="../index.html">
+                🧸 Toyland
+            </a>
+        </div>
 
-    <div class="nav-icons">
-        <a href="#">🔍</a>
-        <a href="#">❤️</a>
-        <a href="cart.html"></a>🛒</a>
-        <a href="login.html"></a>Login</a>
-    </div>
+        <ul class="nav-links">
 
-</nav>
- </header>
+            <li>
+                <a href="../index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="shop.html">Shop</a>
+            </li>
+
+            <li>
+                <a href="#">Categories</a>
+            </li>
+
+            <li>
+                <a href="about.html">About</a>
+            </li>
+
+            <li>
+                <a href="contact.html">Contact</a>
+            </li>
+
+        </ul>
+
+        <div class="nav-icons">
+
+            <a href="shop.html">🔍</a>
+
+            <a href="#">❤️</a>
+
+            <a href="cart.html">🛒</a>
+
+            <a href="login.html">👤 Login</a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
 <main>
 
     <!-- SHOP HEADER -->
+
     <section class="shop-header">
 
-
-        <h1>Our Toy Collection</h1>
+        <h1>
+            Our Toy Collection
+        </h1>
 
         <p>
             Discover premium toys for kids of all ages.
@@ -52,46 +82,102 @@
 
     </section>
 
+
+    <!-- SEARCH / FILTER / SORT -->
+
+    <section class="shop-filter">
+
+        <!-- SEARCH -->
+
+        <input
+            type="text"
+            id="search-box"
+            class="search-box"
+            placeholder="Search toys..."
+            oninput="applyFilters()"
+        >
+
+
+        <!-- CATEGORY -->
+
+        <select
+            id="category-filter"
+            class="filter-box"
+            onchange="applyFilters()"
+        >
+
+            <option value="all">
+                All Categories
+            </option>
+
+            <option value="Soft Toys">
+                Soft Toys
+            </option>
+
+            <option value="Toy Cars">
+                Toy Cars
+            </option>
+
+            <option value="Dolls">
+                Dolls
+            </option>
+
+            <option value="Building Toys">
+                Building Toys
+            </option>
+
+            <option value="Construction Toys">
+                Construction Toys
+            </option>
+
+        </select>
+
+
+        <!-- SORT -->
+
+        <select
+            id="sort-filter"
+            class="filter-box"
+            onchange="applyFilters()"
+        >
+
+            <option value="default">
+                Sort By
+            </option>
+
+            <option value="low">
+                Price Low to High
+            </option>
+
+            <option value="high">
+                Price High to Low
+            </option>
+
+            <option value="newest">
+                Newest
+            </option>
+
+        </select>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="shop-products">
+
+        <div
+            class="product-container"
+            id="product-container"
+        ></div>
+
+    </section>
+
 </main>
-<!-- SEARCH & FILTER -->
-
-<section class="shop-filter">
-
-    <input
-        type="text"
-        placeholder="Search toys..."
-        class="search-box"
-    >
-
-    <select class="filter-box">
-        <option>All Categories</option>
-        <option>Teddy Bears</option>
-        <option>Toy Cars</option>
-        <option>Dolls</option>
-        <option>Building Blocks</option>
-        <option>Construction Toys</option>
-    </select>
-
-    <select class="filter-box">
-        <option>Sort By</option>
-        <option>Price Low to High</option>
-        <option>Price High to Low</option>
-        <option>Newest</option>
-    </select>
-
-</section>
-<!-- SHOP PRODUCTS -->
-
-<section class="shop-products">
-<div class="product-container"></div>
-    
-            
-
-</section>
 
 
-<!-- <script src="../assets/js/main.js"></script> -->
 <script src="../assets/js/shop.js"></script>
-</body>
-</html>
 
+</body>
+
+</html>
