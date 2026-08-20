@@ -672,3 +672,24 @@ function updateLoginUI() {
 }
 
 updateLoginUI();
+// ==========================
+// LOGIN REQUIRED
+// ==========================
+
+const token = localStorage.getItem("token");
+
+const currentPage = window.location.pathname;
+
+// Login/Register pages ko allow karo
+const isLoginPage =
+    currentPage.endsWith("/login.html");
+
+const isRegisterPage =
+    currentPage.endsWith("/register.html");
+
+// Agar login nahi hai aur login/register page par bhi nahi hai
+if (!token && !isLoginPage && !isRegisterPage) {
+
+    window.location.href = "/pages/login.html";
+
+}
