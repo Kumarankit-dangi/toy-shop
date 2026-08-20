@@ -115,7 +115,36 @@ router.post("/", auth, async (req, res) => {
 
 });
 
+// =====================================================
+// GET MY ORDERS
+// =====================================================
 
+router.get("/my-orders", auth, async (req, res) => {
+
+  try {
+
+    const orders = await Order.find({
+      userId: req.user.userId
+    }).sort({ createdAt: -1 });
+
+    res.json({
+      success: true,
+      count: orders.length,
+      orders
+    });
+
+  } catch (error) {
+
+    console.error("❌ My Orders Error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to get your orders"
+    });
+
+  }
+
+});
 // =====================================================
 // GET ALL ORDERS
 // =====================================================
