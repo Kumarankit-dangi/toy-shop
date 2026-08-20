@@ -278,7 +278,8 @@ router.get("/users", async (req, res) => {
 
     try {
 
-        // Get token
+        // Get Authorization header
+
         const authHeader =
             req.headers.authorization;
 
@@ -300,11 +301,14 @@ router.get("/users", async (req, res) => {
         }
 
 
+        // Extract token
+
         const token =
             authHeader.split(" ")[1];
 
 
-        // Verify token
+        // Verify JWT
+
         const decoded =
             jwt.verify(
                 token,
@@ -313,6 +317,7 @@ router.get("/users", async (req, res) => {
 
 
         // Check admin role
+
         if (
             decoded.role !== "admin"
         ) {
@@ -329,12 +334,15 @@ router.get("/users", async (req, res) => {
         }
 
 
-        // Get users from MongoDB
+        // Get users
+
         const users =
             await User.find({})
+
                 .select(
                     "_id name email role createdAt"
                 )
+
                 .sort({
                     createdAt: -1
                 });
@@ -409,144 +417,7 @@ router.get("/users", async (req, res) => {
 
 
 // ==========================================
-// TEMPORARY ADMIN SETUP
+// EXPORT ROUTER
 // ==========================================
-// USE THIS ONLY ONCE
-// REMOVE THIS ROUTE AFTER ADMIN IS CREATED
-// ==========================================
-
-router.post("/setup-admin", async (req, res) => {
-
-    try {
-
-        const {
-            setupKey
-        } = req.body;
-
-
-        // Check secret key
-        if (
-            !setupKey ||
-            setupKey !==
-                process.env.ADMIN_SETUP_KEY
-        ) {
-
-            return res.status(403).json({
-
-                success: false,
-
-                message:
-                    "Unauthorized"
-
-            });
-
-        }
-
-
-        const email =
-            "admin@toyland.com";
-
-
-        const password =
-            "Admin@12345";
-
-
-        // Check whether admin already exists
-        let user =
-            await User.findOne({
-
-                email
-
-            });
-
-
-        if (user) {
-
-            user.role =
-                "admin";
-
-
-            await user.save();
-
-
-            console.log(
-                "👑 Existing user promoted to admin"
-            );
-
-        } else {
-
-            user =
-                new User({
-
-                    name:
-                        "Toyland Admin",
-
-                    email,
-
-                    password,
-
-                    role:
-                        "admin"
-
-                });
-
-
-            await user.save();
-
-
-            console.log(
-                "👑 New admin account created"
-            );
-
-        }
-
-
-        res.json({
-
-            success: true,
-
-            message:
-                "Admin account created/updated successfully",
-
-            user: {
-
-                id:
-                    user._id,
-
-                name:
-                    user.name,
-
-                email:
-                    user.email,
-
-                role:
-                    user.role
-
-            }
-
-        });
-
-
-    } catch (error) {
-
-        console.error(
-            "Admin Setup Error:",
-            error
-        );
-
-
-        res.status(500).json({
-
-            success: false,
-
-            message:
-                "Admin setup failed"
-
-        });
-
-    }
-
-});
-
 
 module.exports = router;
