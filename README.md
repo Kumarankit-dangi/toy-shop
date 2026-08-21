@@ -11,6 +11,27 @@ Backend API:
 https://toy-shop-backend.onrender.com
 
 ## ✨ Features
+## 📸 Screenshots
+
+### 🏠 Homepage
+
+![Toyland Homepage](screenshots/homepage.png)
+
+### 🛍️ Shop
+
+![Toyland Shop](screenshots/shop.png)
+
+### 🛒 Cart
+
+![Toyland Cart](screenshots/cart.png)
+
+### 🔐 Login
+
+![Toyland Login](screenshots/login.png)
+
+### 👨‍💼 Admin Dashboard
+
+![Toyland Admin Dashboard](screenshots/admin-dashboard.png)
 
 ### 👤 User Features
 - User registration
