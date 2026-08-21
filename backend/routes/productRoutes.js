@@ -4,6 +4,16 @@ const Product = require("../models/Product");
 const router = express.Router();
 
 
+// =====================================================
+// AUTH MIDDLEWARE
+// =====================================================
+
+const {
+    auth,
+    adminOnly
+} = require("../middleware/authMiddleware");
+
+
 // ==========================================
 // GET ALL PRODUCTS
 // ==========================================
@@ -39,7 +49,11 @@ router.get("/", async (req, res) => {
 // ADD PRODUCT
 // ==========================================
 
-router.post("/", async (req, res) => {
+router.post(
+    "/",
+    auth,
+    adminOnly,
+    async (req, res) => {
 
     try {
 
@@ -111,7 +125,11 @@ router.post("/", async (req, res) => {
 // UPDATE PRODUCT
 // ==========================================
 
-router.put("/:id", async (req, res) => {
+router.put(
+    "/:id",
+    auth,
+    adminOnly,
+    async (req, res) => {
 
     try {
 
@@ -194,7 +212,11 @@ router.put("/:id", async (req, res) => {
 // DELETE PRODUCT
 // ==========================================
 
-router.delete("/:id", async (req, res) => {
+router.delete(
+    "/:id",
+    auth,
+    adminOnly,
+    async (req, res) => {
 
     try {
 

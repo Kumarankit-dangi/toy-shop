@@ -3,7 +3,15 @@ const express = require("express");
 const router = express.Router();
 
 const Order = require("../models/Order");
-const auth = require("../middleware/authMiddleware");
+
+// =====================================================
+// AUTH MIDDLEWARE
+// =====================================================
+
+const {
+  auth,
+  adminOnly
+} = require("../middleware/authMiddleware");
 
 
 // =====================================================
@@ -115,11 +123,15 @@ router.post("/", auth, async (req, res) => {
 
 });
 
+
 // =====================================================
 // GET MY ORDERS
 // =====================================================
 
-router.get("/my-orders", auth, async (req, res) => {
+router.get(
+  "/my-orders",
+  auth,
+  async (req, res) => {
 
   try {
 
@@ -135,7 +147,10 @@ router.get("/my-orders", auth, async (req, res) => {
 
   } catch (error) {
 
-    console.error("❌ My Orders Error:", error);
+    console.error(
+      "❌ My Orders Error:",
+      error
+    );
 
     res.status(500).json({
       success: false,
@@ -145,15 +160,24 @@ router.get("/my-orders", auth, async (req, res) => {
   }
 
 });
+
+
 // =====================================================
 // GET ALL ORDERS
+// ADMIN ONLY
 // =====================================================
 
-router.get("/", async (req, res) => {
+router.get(
+  "/",
+  auth,
+  adminOnly,
+  async (req, res) => {
 
   try {
 
-    console.log("📦 Getting all orders...");
+    console.log(
+      "📦 Getting all orders..."
+    );
 
 
     const orders =
@@ -197,9 +221,14 @@ router.get("/", async (req, res) => {
 
 // =====================================================
 // UPDATE ORDER STATUS
+// ADMIN ONLY
 // =====================================================
 
-router.put("/:id/status", async (req, res) => {
+router.put(
+  "/:id/status",
+  auth,
+  adminOnly,
+  async (req, res) => {
 
   try {
 
@@ -307,9 +336,14 @@ router.put("/:id/status", async (req, res) => {
 
 // =====================================================
 // DELETE ORDER
+// ADMIN ONLY
 // =====================================================
 
-router.delete("/:id", async (req, res) => {
+router.delete(
+  "/:id",
+  auth,
+  adminOnly,
+  async (req, res) => {
 
   try {
 
@@ -354,9 +388,7 @@ router.delete("/:id", async (req, res) => {
 
       success: false,
 
-      message: "Failed to delete order",
-
-      error: error.message
+      message: "Failed to delete order"
 
     });
 
