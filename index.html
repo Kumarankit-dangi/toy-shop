@@ -74,136 +74,114 @@
 
 
 <header>
+<nav class="navbar">
 
-    <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo">
+        <a href="index.html">
+            🧸 Toyland
+        </a>
+    </div>
 
 
-        <div class="logo">
+    <!-- DESKTOP NAV LINKS -->
+    <ul class="nav-links">
 
-            <a href="index.html">
-                🧸 Toyland
-            </a>
+        <li>
+            <a href="#home">Home</a>
+        </li>
+
+        <li>
+            <a href="pages/shop.html">Shop</a>
+        </li>
+
+        <li>
+            <a href="#categories">Categories</a>
+        </li>
+
+        <li>
+            <a href="pages/about.html">About</a>
+        </li>
+
+        <li>
+            <a href="pages/contact.html">Contact</a>
+        </li>
+
+    </ul>
+
+
+    <!-- RIGHT SIDE -->
+    <div class="nav-icons">
+
+        <!-- SEARCH -->
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="search-input"
+                placeholder="Search toys..."
+            >
+
+            <button>
+                🔍
+            </button>
 
         </div>
 
 
-        <ul class="nav-links">
-
-            <li>
-                <a href="#home">
-                    Home
-                </a>
-            </li>
-
-            <li>
-                <a href="pages/shop.html">
-                    Shop
-                </a>
-            </li>
-
-            <li>
-                <a href="#categories">
-                    Categories
-                </a>
-            </li>
-
-            <li>
-                <a href="pages/about.html">
-                    About
-                </a>
-            </li>
-
-            <li>
-                <a href="pages/contact.html">
-                    Contact
-                </a>
-            </li>
-
-        </ul>
+        <!-- WISHLIST -->
+        <a
+            href="pages/wishlist.html"
+            class="wishlist-link"
+        >
+            ❤️
+            <span id="wishlist-count">0</span>
+        </a>
 
 
-        <div class="nav-icons">
+        <!-- CART -->
+        <a
+            href="pages/cart.html"
+            class="cart-icon"
+        >
+            🛒
+            <span id="cart-count">0</span>
+        </a>
 
 
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="search-input"
-                    placeholder="Search toys..."
-                >
-
-                <button>
-                    🔍
-                </button>
-
-            </div>
+        <!-- MY ORDERS -->
+        <a
+            href="pages/my-orders.html"
+            class="my-orders-link"
+        >
+            📦 My Orders
+        </a>
 
 
-            <!-- WISHLIST -->
+        <!-- LOGIN -->
+        <div id="auth-area">
 
-            <a
-                href="pages/wishlist.html"
-                class="wishlist-link"
-            >
-
-                ❤️
-
-                <span id="wishlist-count">
-                    0
-                </span>
-
+            <a href="pages/login.html">
+                Login
             </a>
-
-
-            <!-- CART -->
-
-            <a
-                href="pages/cart.html"
-                class="cart-icon"
-            >
-
-                🛒
-
-                <span id="cart-count">
-                    0
-                </span>
-
-            </a>
-
-
-            <!-- MY ORDERS -->
-
-            <a
-                href="pages/my-orders.html"
-                class="my-orders-link"
-            >
-
-                📦 My Orders
-
-            </a>
-
-
-            <!-- LOGIN -->
-
-            <div id="auth-area">
-
-    <a href="pages/login.html">
-        Login
-    </a>
-
-</div>
-
-
-        <div class="menu-toggle">
-
-            ☰
 
         </div>
 
+    </div>
 
-    </nav>
 
+    <!-- MOBILE MENU BUTTON -->
+    <button
+        class="menu-toggle"
+        id="menu-toggle"
+        aria-label="Open menu"
+        type="button"
+    >
+        ☰
+    </button>
+
+</nav>
+    
 </header>
 
 
@@ -1337,6 +1315,37 @@
 
 
 <script src="assets/js/main.js"></script>
+<script>
+
+    const menuToggle =
+        document.getElementById("menu-toggle");
+
+    const navLinks =
+        document.querySelector(".nav-links");
+
+
+    menuToggle.addEventListener("click", function(){
+
+        navLinks.classList.toggle("active");
+
+    });
+
+
+    // Mobile menu item click hone ke baad menu close
+
+    document
+        .querySelectorAll(".nav-links a")
+        .forEach(function(link){
+
+            link.addEventListener("click", function(){
+
+                navLinks.classList.remove("active");
+
+            });
+
+        });
+
+</script>
 
 
 </body>
