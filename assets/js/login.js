@@ -1,16 +1,27 @@
 const API_URL =
     "https://toy-shop-backend.onrender.com";
+
+
 // =====================================================
 // WAKE UP BACKEND
 // =====================================================
 
 fetch(`${API_URL}/`)
     .then(() => {
-        console.log("✅ Backend is ready");
+
+        console.log(
+            "✅ Backend is ready"
+        );
+
     })
     .catch(() => {
-        console.log("⏳ Backend is waking up...");
+
+        console.log(
+            "⏳ Backend is waking up..."
+        );
+
     });
+
 
 const loginForm =
     document.getElementById("login-form");
@@ -36,6 +47,28 @@ if (loginForm) {
                 document
                     .getElementById("login-password")
                     .value;
+
+
+            // =====================================================
+            // LOGIN BUTTON
+            // =====================================================
+
+            const loginButton =
+                loginForm.querySelector(
+                    'button[type="submit"]'
+                );
+
+
+            // Prevent double click
+
+            if (loginButton) {
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+            }
 
 
             try {
@@ -88,6 +121,20 @@ if (loginForm) {
                         data.message ||
                         "Login failed"
                     );
+
+
+                    // Enable button again
+
+                    if (loginButton) {
+
+                        loginButton.disabled =
+                            false;
+
+                        loginButton.textContent =
+                            "Login";
+
+                    }
+
 
                     return;
 
@@ -161,8 +208,23 @@ if (loginForm) {
 
 
                 alert(
-                    "Unable to connect to server."
+                    "Unable to connect to server. Please try again."
                 );
+
+
+                // ==================================
+                // ENABLE LOGIN AGAIN
+                // ==================================
+
+                if (loginButton) {
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
 
             }
 
