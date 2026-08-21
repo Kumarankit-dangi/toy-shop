@@ -136,10 +136,25 @@ async function loadMyOrders() {
 
                     <div class="order-item">
 
-                        <img
-                            src="${item.image || ""}"
-                            alt="${item.name}"
-                        >
+                       <img
+    src="${
+        item.image
+            ? (
+                item.image.startsWith("http")
+                    ? item.image
+                    : item.image.startsWith("../")
+                        ? item.image
+                        : item.image.startsWith("assets/")
+                            ? "../" + item.image
+                            : "../assets/images/" + item.image
+            )
+            : "../assets/images/teddy-bear.png"
+    }"
+    alt="${item.name}"
+    onerror="
+        this.src='../assets/images/teddy-bear.png'
+    "
+>
 
                         <div>
 
