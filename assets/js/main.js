@@ -36,18 +36,14 @@ if (
     !isPreview
 ) {
 
+    // Homepage can be opened without login.
+    // Protected pages will still redirect to login.
+
     if (
-        currentPage.endsWith("/") ||
-        currentPage.endsWith("index.html")
-    ) {
-
-        window.location.href =
-            "pages/login.html";
-
-    }
-
-    else if (
-        currentPage.includes("/pages/")
+        currentPage.includes("/pages/") &&
+        !currentPage.includes("shop.html") &&
+        !currentPage.includes("about.html") &&
+        !currentPage.includes("contact.html")
     ) {
 
         window.location.href =
@@ -965,8 +961,6 @@ function updateAuthUI() {
                 event.stopPropagation();
 
 
-                // Remove login information
-
                 localStorage.removeItem(
                     "token"
                 );
@@ -977,14 +971,10 @@ function updateAuthUI() {
                 );
 
 
-                // Show logout message
-
                 alert(
                     "✅ Logout Successful!"
                 );
 
-
-                // Go to blurred login screen
 
                 window.location.href =
                     "pages/login.html";
@@ -1020,6 +1010,303 @@ function updateAuthUI() {
 
 
 // =====================================================
+// MOBILE PROFILE
+// =====================================================
+
+function updateMobileProfile() {
+
+    const navbar =
+        document.querySelector(".navbar");
+
+    const menuToggle =
+        document.getElementById("menu-toggle");
+
+
+    if (!navbar ) {
+        return;
+    }
+
+
+    let mobileAuth =
+        document.getElementById(
+            "mobile-auth-area"
+        );
+
+
+    if (!mobileAuth) {
+
+        mobileAuth =
+            document.createElement("div");
+
+        mobileAuth.id =
+            "mobile-auth-area";
+
+        mobileAuth.className =
+            "mobile-auth-area";
+
+if (menuToggle) {
+
+    navbar.insertBefore(
+        mobileAuth,
+        menuToggle
+    );
+
+} else {
+
+    navbar.appendChild(
+        mobileAuth
+    );
+
+}
+
+    }
+
+
+    const token =
+        localStorage.getItem("token");
+
+    const userData =
+        localStorage.getItem("user");
+
+
+    // =================================================
+    // NOT LOGGED IN
+    // =================================================
+
+    if (!token || !userData) {
+
+        mobileAuth.innerHTML = `
+
+            <a
+                href="pages/login.html"
+                class="mobile-login-btn"
+            >
+                Login
+            </a>
+
+        `;
+
+        return;
+    }
+
+
+    // =================================================
+    // READ USER
+    // =================================================
+
+    let user;
+
+
+    try {
+
+        user =
+            JSON.parse(
+                userData
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Invalid user data"
+        );
+
+        mobileAuth.innerHTML = `
+
+            <a
+                href="pages/login.html"
+                class="mobile-login-btn"
+            >
+                Login
+            </a>
+
+        `;
+
+        return;
+    }
+
+
+    const email =
+        user.email ||
+        "User";
+
+
+    const firstLetter =
+        email
+            .charAt(0)
+            .toUpperCase();
+
+
+    // =================================================
+    // PROFILE BUTTON
+    // =================================================
+
+    mobileAuth.innerHTML = `
+
+        <button
+            type="button"
+            class="mobile-profile-letter"
+            id="mobile-profile-button"
+            title="My Profile"
+        >
+            ${firstLetter}
+        </button>
+
+    `;
+
+
+    const mobileProfileButton =
+        document.getElementById(
+            "mobile-profile-button"
+        );
+
+
+    if (!mobileProfileButton) {
+        return;
+    }
+
+
+    mobileProfileButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+
+            let dropdown =
+                document.getElementById(
+                    "mobile-profile-dropdown"
+                );
+
+
+            // =================================================
+            // CREATE DROPDOWN
+            // =================================================
+
+            if (!dropdown) {
+
+                dropdown =
+                    document.createElement(
+                        "div"
+                    );
+
+                dropdown.id =
+                    "mobile-profile-dropdown";
+
+                dropdown.className =
+                    "mobile-profile-dropdown";
+
+
+                dropdown.innerHTML = `
+
+                    <div class="mobile-profile-info">
+
+                        <div class="profile-big-letter">
+                            ${firstLetter}
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                ${email}
+                            </strong>
+
+
+                            <p>
+                                Logged in
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <a
+                        href="pages/my-orders.html"
+                    >
+                        📦 My Orders
+                    </a>
+
+
+                    <button
+                        type="button"
+                        id="mobile-logout-btn"
+                    >
+                        🚪 Logout
+                    </button>
+
+                `;
+
+
+                navbar.appendChild(
+                    dropdown
+                );
+
+
+                // =================================================
+                // MOBILE LOGOUT
+                // =================================================
+
+                const mobileLogout =
+                    document.getElementById(
+                        "mobile-logout-btn"
+                    );
+
+
+                if (mobileLogout) {
+
+                    mobileLogout.addEventListener(
+                        "click",
+                        function (event) {
+
+                            event.preventDefault();
+
+                            event.stopPropagation();
+
+
+                            localStorage.removeItem(
+                                "token"
+                            );
+
+
+                            localStorage.removeItem(
+                                "user"
+                            );
+
+
+                            alert(
+                                "✅ Logout Successful!"
+                            );
+
+
+                            window.location.href =
+                                "pages/login.html";
+
+                        }
+                    );
+
+                }
+
+            }
+
+
+            dropdown.classList.toggle(
+                "show"
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
 // INITIALIZE EVERYTHING
 // =====================================================
 
@@ -1038,6 +1325,8 @@ document.addEventListener(
         updateCartCount();
 
         updateAuthUI();
+
+        updateMobileProfile();
 
     }
 );
