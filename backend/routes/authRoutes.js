@@ -1,10 +1,320 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 const User = require("../models/User");
+const VerificationOTP = require("../models/VerificationOTP");
+
+const {
+    sendRegistrationOTP
+} = require("../utils/emailService");
 
 const router = express.Router();
 
+// =====================================================
+// SEND REGISTRATION OTP
+// =====================================================
+
+router.post("/send-otp", async (req, res) => {
+
+    try {
+
+        const { contact } = req.body;
+
+
+        // =================================================
+        // VALIDATE CONTACT
+        // =================================================
+
+        if (!contact) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Email or mobile number is required."
+
+            });
+
+        }
+
+
+        const identifier =
+            contact
+                .trim()
+                .toLowerCase();
+
+
+        // =================================================
+        // DETECT EMAIL
+        // =================================================
+
+        const isEmail =
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                .test(identifier);
+
+
+        // =================================================
+        // DETECT MOBILE
+        // =================================================
+
+        const isMobile =
+            /^[0-9]{10}$/
+                .test(identifier);
+
+
+        if (
+            !isEmail &&
+            !isMobile
+        ) {
+
+            return res.status(400).json({
+
+                success: false,
+
+                message:
+                    "Enter a valid email or 10-digit mobile number."
+
+            });
+
+        }
+
+
+        // =================================================
+        // MOBILE - SMS COMING NEXT
+        // =================================================
+
+        if (isMobile) {
+
+            return res.status(501).json({
+
+                success: false,
+
+                message:
+                    "Mobile OTP service is not configured yet."
+
+            });
+
+        }
+
+
+        // =================================================
+        // CHECK EXISTING EMAIL
+        // =================================================
+
+        const existingUser =
+            await User.findOne({
+                email: identifier
+            });
+
+
+        if (existingUser) {
+
+            return res.status(409).json({
+
+                success: false,
+
+                message:
+                    "An account with this email already exists."
+
+            });
+
+        }
+
+
+        // =================================================
+        // GENERATE OTP
+        // =================================================
+
+        const otp =
+            generateOTP();
+
+
+        const otpHash =
+            hashOTP(otp);
+
+
+        // =================================================
+        // REMOVE OLD OTP
+        // =================================================
+
+        await VerificationOTP.deleteMany({
+
+            identifier,
+
+            purpose: "register"
+
+        });
+
+
+        // =================================================
+        // SAVE OTP
+        // =================================================
+
+        await VerificationOTP.create({
+
+            identifier,
+
+            otpHash,
+
+            purpose: "register",
+
+            attempts: 0,
+
+            expiresAt:
+                new Date(
+                    Date.now() +
+                    5 * 60 * 1000
+                )
+
+        });
+
+
+        // =================================================
+        // SEND EMAIL
+        // =================================================
+
+        await sendRegistrationOTP(
+            identifier,
+            otp
+        );
+
+
+        console.log(
+            `📧 OTP sent to ${identifier}`
+        );
+
+
+        return res.json({
+
+            success: true,
+
+            message:
+                "OTP sent successfully."
+
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Send OTP Error:",
+            error
+        );
+
+
+        return res.status(500).json({
+
+            success: false,
+
+            message:
+                "Unable to send OTP."
+
+        });
+
+    }
+
+});
+// =====================================================
+// VERIFY REGISTRATION OTP
+// =====================================================
+
+router.post("/verify-otp", async (req, res) => {
+
+    try {
+
+        const { contact, otp } = req.body;
+
+        if (!contact || !otp) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Email and OTP are required."
+            });
+
+        }
+
+        const identifier =
+            contact.trim().toLowerCase();
+
+        const verification =
+            await VerificationOTP.findOne({
+                identifier,
+                purpose: "register"
+            });
+
+        if (!verification) {
+
+            return res.status(400).json({
+                success: false,
+                message: "OTP expired or not found. Please request a new OTP."
+            });
+
+        }
+
+        // Maximum 5 attempts
+        if (verification.attempts >= 5) {
+
+            await VerificationOTP.deleteOne({
+                _id: verification._id
+            });
+
+            return res.status(429).json({
+                success: false,
+                message: "Too many incorrect attempts. Please request a new OTP."
+            });
+
+        }
+
+        const enteredOtpHash =
+            hashOTP(
+                otp.toString().trim()
+            );
+
+        if (
+            enteredOtpHash !==
+            verification.otpHash
+        ) {
+
+            verification.attempts += 1;
+
+            await verification.save();
+
+            return res.status(400).json({
+                success: false,
+                message: "Invalid OTP."
+            });
+
+        }
+
+        // OTP is correct
+        await VerificationOTP.deleteOne({
+            _id: verification._id
+        });
+
+        return res.json({
+            success: true,
+            message: "OTP verified successfully.",
+            verified: true
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Verify OTP Error:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message: "OTP verification failed."
+        });
+
+    }
+
+});
 
 // ==========================================
 // REGISTER USER
@@ -120,7 +430,27 @@ router.post("/register", async (req, res) => {
     }
 
 });
+// =====================================================
+// OTP HELPERS
+// =====================================================
 
+function generateOTP() {
+
+    return crypto
+        .randomInt(100000, 1000000)
+        .toString();
+
+}
+
+
+function hashOTP(otp) {
+
+    return crypto
+        .createHash("sha256")
+        .update(otp)
+        .digest("hex");
+
+}
 
 // ==========================================
 // LOGIN USER

@@ -49,19 +49,13 @@
                 required
             >
 
-            <input
-                type="email"
-                id="register-email"
-                placeholder="Email Address"
-                required
-            >
-
-            <input
-                type="tel"
-                id="register-phone"
-                placeholder="Phone Number"
-                required
-            >
+           <input
+    type="text"
+    id="register-contact"
+    placeholder="Email / Mobile Number"
+    autocomplete="email"
+    required
+>
 
             <input
                 type="password"
@@ -71,15 +65,65 @@
             >
 
             <input
-                type="password"
-                id="register-confirm-password"
-                placeholder="Confirm Password"
-                required
-            >
+    type="password"
+    id="register-confirm-password"
+    placeholder="Confirm Password"
+    required
+>
+<div id="otp-section">
 
-            <button type="submit">
-                Create Account
-            </button>
+    <button
+        type="button"
+        id="send-otp-btn"
+    >
+        Send OTP
+    </button>
+
+    <input
+        type="text"
+        id="register-otp"
+        placeholder="Enter OTP"
+        maxlength="6"
+    >
+
+    <button
+        type="button"
+        id="verify-otp-btn"
+    >
+        Verify OTP
+    </button>
+
+</div>
+
+<!-- OTP TEST -->
+<div
+    id="otp-section"
+    style="
+        display: block !important;
+        background: yellow;
+        padding: 20px;
+        margin: 20px 0;
+    "
+>
+    <h3>OTP TEST</h3>
+
+    <button type="button">
+        SEND OTP
+    </button>
+
+    <input
+        type="text"
+        placeholder="Enter OTP"
+    >
+
+    <button type="button">
+        VERIFY OTP
+    </button>
+</div>
+
+<button type="submit">
+    Create Account
+</button>
 
         </form>
 
