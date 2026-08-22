@@ -8,18 +8,35 @@ let emailVerified = false;
 
 
 // =====================================================
-// SEND EMAIL OTP
+// EMAIL OTP ELEMENTS
 // =====================================================
 
+// Support current IDs
+
 const sendEmailOtpButton =
-    document.getElementById("send-email-otp");
+    document.getElementById("send-email-otp") ||
+    document.getElementById("send-email-otp-btn") ||
+    document.getElementById("send-otp-btn");
 
 const emailOtpSection =
-    document.getElementById("email-otp-section");
+    document.getElementById("email-otp-section") ||
+    document.getElementById("otp-section");
 
 const verifyEmailOtpButton =
-    document.getElementById("verify-email-otp");
+    document.getElementById("verify-email-otp") ||
+    document.getElementById("verify-email-otp-btn") ||
+    document.getElementById("verify-otp-btn");
 
+const emailInput =
+    document.getElementById("register-email");
+
+const otpInput =
+    document.getElementById("register-otp");
+
+
+// =====================================================
+// SEND EMAIL OTP
+// =====================================================
 
 if (sendEmailOtpButton) {
 
@@ -28,11 +45,14 @@ if (sendEmailOtpButton) {
         async function () {
 
             const email =
-                document
-                    .getElementById("register-email")
-                    .value
-                    .trim();
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
 
+
+            // =================================================
+            // EMAIL VALIDATION
+            // =================================================
 
             if (!email) {
 
@@ -40,11 +60,37 @@ if (sendEmailOtpButton) {
                     "Please enter your email address."
                 );
 
+                if (emailInput) {
+                    emailInput.focus();
+                }
+
+                return;
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!emailPattern.test(email)) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                if (emailInput) {
+                    emailInput.focus();
+                }
+
                 return;
             }
 
 
             try {
+
+                // =================================================
+                // BUTTON LOADING
+                // =================================================
 
                 sendEmailOtpButton.disabled =
                     true;
@@ -52,6 +98,16 @@ if (sendEmailOtpButton) {
                 sendEmailOtpButton.textContent =
                     "Sending...";
 
+
+                console.log(
+                    "📧 Sending OTP to:",
+                    email
+                );
+
+
+                // =================================================
+                // SEND OTP API
+                // =================================================
 
                 const response =
                     await fetch(
@@ -84,6 +140,10 @@ if (sendEmailOtpButton) {
                 );
 
 
+                // =================================================
+                // CHECK RESPONSE
+                // =================================================
+
                 if (
                     !response.ok ||
                     !data.success
@@ -97,25 +157,101 @@ if (sendEmailOtpButton) {
                 }
 
 
-                // Show OTP field
+                // =================================================
+                // OTP SENT SUCCESSFULLY
+                // =================================================
 
-                emailOtpSection.style.display =
-                    "flex";
+                console.log(
+                    "✅ OTP sent successfully"
+                );
 
+
+                // Change button text
 
                 sendEmailOtpButton.textContent =
-                    "Sent ✓";
+                    "OTP Sent ✓";
+
+
+                // Keep disabled
+
+                sendEmailOtpButton.disabled =
+                    true;
+
+
+                // =================================================
+                // SHOW OTP SECTION
+                // =================================================
+
+                if (emailOtpSection) {
+
+                    emailOtpSection.style.display =
+                        "flex";
+
+                    emailOtpSection.style.visibility =
+                        "visible";
+
+                    emailOtpSection.style.opacity =
+                        "1";
+
+                }
+
+
+                // =================================================
+                // SHOW OTP INPUT
+                // =================================================
+
+                if (otpInput) {
+
+                    otpInput.style.display =
+                        "block";
+
+                    otpInput.style.visibility =
+                        "visible";
+
+                    otpInput.style.opacity =
+                        "1";
+
+                    otpInput.disabled =
+                        false;
+
+                    otpInput.focus();
+
+                }
+
+
+                // =================================================
+                // SHOW VERIFY BUTTON
+                // =================================================
+
+                if (verifyEmailOtpButton) {
+
+                    verifyEmailOtpButton.style.display =
+                        "inline-block";
+
+                    verifyEmailOtpButton.style.visibility =
+                        "visible";
+
+                    verifyEmailOtpButton.style.opacity =
+                        "1";
+
+                    verifyEmailOtpButton.disabled =
+                        false;
+
+                    verifyEmailOtpButton.textContent =
+                        "Verify";
+
+                }
 
 
                 alert(
-                    "📧 OTP sent to your email."
+                    "📧 OTP sent to your email. Please check Gmail."
                 );
 
 
             } catch (error) {
 
                 console.error(
-                    "Send OTP Error:",
+                    "❌ Send OTP Error:",
                     error
                 );
 
@@ -125,6 +261,10 @@ if (sendEmailOtpButton) {
                     "Unable to send OTP."
                 );
 
+
+                // =================================================
+                // RESET BUTTON
+                // =================================================
 
                 sendEmailOtpButton.disabled =
                     false;
@@ -151,17 +291,29 @@ if (verifyEmailOtpButton) {
         async function () {
 
             const email =
-                document
-                    .getElementById("register-email")
-                    .value
-                    .trim();
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
 
 
             const otp =
-                document
-                    .getElementById("register-otp")
-                    .value
-                    .trim();
+                otpInput
+                    ? otpInput.value.trim()
+                    : "";
+
+
+            // =================================================
+            // VALIDATION
+            // =================================================
+
+            if (!email) {
+
+                alert(
+                    "Please enter your email address."
+                );
+
+                return;
+            }
 
 
             if (!otp) {
@@ -170,11 +322,33 @@ if (verifyEmailOtpButton) {
                     "Please enter the OTP."
                 );
 
+                if (otpInput) {
+                    otpInput.focus();
+                }
+
+                return;
+            }
+
+
+            if (!/^\d{6}$/.test(otp)) {
+
+                alert(
+                    "Please enter a valid 6-digit OTP."
+                );
+
+                if (otpInput) {
+                    otpInput.focus();
+                }
+
                 return;
             }
 
 
             try {
+
+                // =================================================
+                // BUTTON LOADING
+                // =================================================
 
                 verifyEmailOtpButton.disabled =
                     true;
@@ -182,6 +356,15 @@ if (verifyEmailOtpButton) {
                 verifyEmailOtpButton.textContent =
                     "Checking...";
 
+
+                console.log(
+                    "🔐 Verifying OTP..."
+                );
+
+
+                // =================================================
+                // VERIFY API
+                // =================================================
 
                 const response =
                     await fetch(
@@ -218,6 +401,10 @@ if (verifyEmailOtpButton) {
                 );
 
 
+                // =================================================
+                // CHECK RESPONSE
+                // =================================================
+
                 if (
                     !response.ok ||
                     !data.success
@@ -231,7 +418,12 @@ if (verifyEmailOtpButton) {
                 }
 
 
-                emailVerified = true;
+                // =================================================
+                // VERIFIED
+                // =================================================
+
+                emailVerified =
+                    true;
 
 
                 verifyEmailOtpButton.textContent =
@@ -242,18 +434,29 @@ if (verifyEmailOtpButton) {
                     true;
 
 
-                document
-                    .getElementById(
-                        "register-email"
-                    )
-                    .readOnly = true;
+                // Lock email
+
+                if (emailInput) {
+
+                    emailInput.readOnly =
+                        true;
+
+                }
 
 
-                document
-                    .getElementById(
-                        "register-otp"
-                    )
-                    .readOnly = true;
+                // Lock OTP
+
+                if (otpInput) {
+
+                    otpInput.readOnly =
+                        true;
+
+                }
+
+
+                console.log(
+                    "✅ Email verified successfully"
+                );
 
 
                 alert(
@@ -264,7 +467,7 @@ if (verifyEmailOtpButton) {
             } catch (error) {
 
                 console.error(
-                    "Verify OTP Error:",
+                    "❌ Verify OTP Error:",
                     error
                 );
 
@@ -301,6 +504,10 @@ if (registerForm) {
 
             event.preventDefault();
 
+
+            // =================================================
+            // GET VALUES
+            // =================================================
 
             const name =
                 document
@@ -368,20 +575,35 @@ if (registerForm) {
             }
 
 
+            // =================================================
+            // CREATE ACCOUNT BUTTON
+            // =================================================
+
             const createAccountButton =
                 document.getElementById(
                     "create-account-btn"
+                ) ||
+                registerForm.querySelector(
+                    'button[type="submit"]'
                 );
 
 
             try {
 
-                createAccountButton.disabled =
-                    true;
+                if (createAccountButton) {
 
-                createAccountButton.textContent =
-                    "Creating Account...";
+                    createAccountButton.disabled =
+                        true;
 
+                    createAccountButton.textContent =
+                        "Creating Account...";
+
+                }
+
+
+                // =================================================
+                // REGISTER API
+                // =================================================
 
                 const response =
                     await fetch(
@@ -422,6 +644,10 @@ if (registerForm) {
                 );
 
 
+                // =================================================
+                // CHECK RESPONSE
+                // =================================================
+
                 if (
                     !response.ok ||
                     !data.success
@@ -435,6 +661,10 @@ if (registerForm) {
                 }
 
 
+                // =================================================
+                // SUCCESS
+                // =================================================
+
                 alert(
                     "🎉 Account created successfully!"
                 );
@@ -447,7 +677,7 @@ if (registerForm) {
             } catch (error) {
 
                 console.error(
-                    "Registration Error:",
+                    "❌ Registration Error:",
                     error
                 );
 
@@ -458,11 +688,15 @@ if (registerForm) {
                 );
 
 
-                createAccountButton.disabled =
-                    false;
+                if (createAccountButton) {
 
-                createAccountButton.textContent =
-                    "Create Account";
+                    createAccountButton.disabled =
+                        false;
+
+                    createAccountButton.textContent =
+                        "Create Account";
+
+                }
 
             }
 
