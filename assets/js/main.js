@@ -1053,35 +1053,36 @@ function updateMobileProfile() {
         );
 
 
+    
     // =================================================
     // NOT LOGGED IN
     // =================================================
 
-    if (
-        !token ||
-        !userData
-    ) {
+    if (!token || !userData) {
 
         mobileAuth.innerHTML = `
 
-            <a
-                href="pages/login.html"
-                class="mobile-login-btn"
-            >
-                Login
-            </a>
+            <div class="mobile-auth-row">
 
-            <a
-                href="pages/register.html"
-                class="mobile-register-btn"
-            >
-                Register
-            </a>
+                <a
+                    href="pages/login.html"
+                    class="mobile-login-btn"
+                >
+                    Login
+                </a>
+
+                <a
+                    href="pages/register.html"
+                    class="mobile-register-btn"
+                >
+                    Register
+                </a>
+
+            </div>
 
         `;
 
         return;
-
     }
 
 
@@ -1093,33 +1094,16 @@ function updateMobileProfile() {
 
     try {
 
-        user =
-            JSON.parse(
-                userData
-            );
+        user = JSON.parse(userData);
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Invalid user data:",
             error
         );
 
-        mobileAuth.innerHTML = `
-
-            <a
-                href="pages/login.html"
-                class="mobile-login-btn"
-            >
-                Login
-            </a>
-
-        `;
-
         return;
-
     }
 
 
@@ -1150,10 +1134,17 @@ function updateMobileProfile() {
             <button
                 type="button"
                 class="mobile-profile-letter"
-                id="mobile-profile-button"
                 title="${email}"
             >
                 ${firstLetter}
+            </button>
+
+            <button
+                type="button"
+                id="mobile-logout-btn"
+                class="mobile-logout-btn"
+            >
+                Logout
             </button>
 
         </div>
@@ -1162,144 +1153,40 @@ function updateMobileProfile() {
 
 
     // =================================================
-    // MOBILE PROFILE DROPDOWN
+    // MOBILE LOGOUT
     // =================================================
 
-    const mobileProfileButton =
+    const mobileLogout =
         document.getElementById(
-            "mobile-profile-button"
+            "mobile-logout-btn"
         );
 
 
-    if (!mobileProfileButton) {
-        return;
-    }
+    if (mobileLogout) {
 
+        mobileLogout.addEventListener(
+            "click",
+            function (event) {
 
-    mobileProfileButton.addEventListener(
-        "click",
-        function (event) {
+                event.preventDefault();
+                event.stopPropagation();
 
-            event.preventDefault();
+                localStorage.removeItem("token");
+                localStorage.removeItem("user");
 
-            event.stopPropagation();
-
-
-            let dropdown =
-                document.getElementById(
-                    "mobile-profile-dropdown"
+                alert(
+                    "✅ Logout Successful!"
                 );
 
-
-            if (!dropdown) {
-
-                dropdown =
-                    document.createElement(
-                        "div"
-                    );
-
-                dropdown.id =
-                    "mobile-profile-dropdown";
-
-                dropdown.className =
-                    "mobile-profile-dropdown";
-
-
-                dropdown.innerHTML = `
-
-                    <div class="mobile-profile-info">
-
-                        <div class="profile-big-letter">
-                            ${firstLetter}
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                ${email}
-                            </strong>
-
-                            <p>
-                                Logged in
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <hr>
-
-                    <a href="pages/my-orders.html">
-                        📦 My Orders
-                    </a>
-
-                    <button
-                        type="button"
-                        id="mobile-logout-btn"
-                    >
-                        🚪 Logout
-                    </button>
-
-                `;
-
-
-                document.body.appendChild(
-                    dropdown
-                );
-
-
-                // =================================================
-                // MOBILE LOGOUT
-                // =================================================
-
-                const mobileLogout =
-                    document.getElementById(
-                        "mobile-logout-btn"
-                    );
-
-
-                if (mobileLogout) {
-
-                    mobileLogout.addEventListener(
-                        "click",
-                        function (event) {
-
-                            event.preventDefault();
-
-                            event.stopPropagation();
-
-                            localStorage.removeItem(
-                                "token"
-                            );
-
-                            localStorage.removeItem(
-                                "user"
-                            );
-
-                            alert(
-                                "✅ Logout Successful!"
-                            );
-
-                            window.location.href =
-                                "pages/login.html";
-
-                        }
-                    );
-
-                }
+                window.location.href =
+                    "pages/login.html";
 
             }
+        );
 
-
-            dropdown.classList.toggle(
-                "show"
-            );
-
-        }
-    );
+    }
 
 }
-
 // =====================================================
 // INITIALIZE EVERYTHING
 // =====================================================
