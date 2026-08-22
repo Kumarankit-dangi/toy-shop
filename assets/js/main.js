@@ -1013,19 +1013,46 @@ function updateAuthUI() {
 // MOBILE PROFILE
 // =====================================================
 
-function updateMobileProfile() {
+// =====================================================
+// MOBILE PROFILE - INSIDE SLIDE MENU
+// =====================================================
 
+function updateMobileProfile() {
+ /* MOBILE ONLY */
+    if (window.innerWidth > 768) {
+        return;
+    }
     const navbar =
         document.querySelector(".navbar");
 
+
     const menuToggle =
-        document.getElementById("menu-toggle");
+        document.getElementById(
+            "menu-toggle"
+        );
 
 
-    if (!navbar ) {
+    // THIS IS THE SLIDE-OUT MOBILE MENU
+    const mobileMenu =
+        document.querySelector(
+            ".nav-links"
+        );
+
+
+    if (
+        !navbar ||
+        !menuToggle ||
+        !mobileMenu
+    ) {
+
         return;
+
     }
 
+
+    // =================================================
+    // GET / CREATE MOBILE AUTH AREA
+    // =================================================
 
     let mobileAuth =
         document.getElementById(
@@ -1036,30 +1063,214 @@ function updateMobileProfile() {
     if (!mobileAuth) {
 
         mobileAuth =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         mobileAuth.id =
             "mobile-auth-area";
 
+
         mobileAuth.className =
             "mobile-auth-area";
 
-if (menuToggle) {
+    }
 
-    navbar.insertBefore(
+
+    // =================================================
+    // IMPORTANT:
+    // PUT PROFILE INSIDE SLIDE-OUT MENU
+    // AT THE VERY TOP
+    // =================================================
+
+    mobileMenu.insertBefore(
         mobileAuth,
-        menuToggle
+        mobileMenu.firstChild
     );
 
-} else {
 
-    navbar.appendChild(
-        mobileAuth
-    );
+    // =================================================
+    // AUTH DATA
+    // =================================================
 
-}
+    const token =
+        localStorage.getItem(
+            "token"
+        );
+
+
+    const userData =
+        localStorage.getItem(
+            "user"
+        );
+
+
+    // =================================================
+    // NOT LOGGED IN
+    // =================================================
+
+    if (
+        !token ||
+        !userData
+    ) {
+
+        mobileAuth.innerHTML = `
+
+            <a
+                href="pages/login.html"
+                class="mobile-login-btn"
+            >
+                Login
+            </a>
+
+            <a
+                href="pages/register.html"
+                class="mobile-register-btn"
+            >
+                Register
+            </a>
+
+        `;
+
+
+        return;
 
     }
+
+
+    // =================================================
+    // READ USER
+    // =================================================
+
+    let user;
+
+
+    try {
+
+        user =
+            JSON.parse(
+                userData
+            );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Invalid user data:",
+            error
+        );
+
+
+        mobileAuth.innerHTML = `
+
+            <a
+                href="pages/login.html"
+                class="mobile-login-btn"
+            >
+                Login
+            </a>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    // =================================================
+    // FIRST LETTER
+    // =================================================
+
+    const email =
+        user.email ||
+        user.name ||
+        "User";
+
+
+    const firstLetter =
+        email
+            .charAt(0)
+            .toUpperCase();
+
+
+    // =================================================
+    // PROFILE + LOGOUT
+    // =================================================
+
+    mobileAuth.innerHTML = `
+
+        <div class="mobile-profile-row">
+
+            <button
+                type="button"
+                class="mobile-profile-letter"
+                id="mobile-profile-button"
+            >
+                ${firstLetter}
+            </button>
+
+
+            <button
+                type="button"
+                class="mobile-logout-button"
+                id="mobile-logout-button"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    `;
+
+
+    // =================================================
+    // LOGOUT
+    // =================================================
+
+    const logoutButton =
+        document.getElementById(
+            "mobile-logout-button"
+        );
+
+
+    if (logoutButton) {
+
+        logoutButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                localStorage.removeItem(
+                    "token"
+                );
+
+
+                localStorage.removeItem(
+                    "user"
+                );
+
+
+                alert(
+                    "✅ Logout Successful!"
+                );
+
+
+                window.location.href =
+                    "pages/login.html";
+
+            }
+        );
+
+    }
+
+}
 
 
     const token =
