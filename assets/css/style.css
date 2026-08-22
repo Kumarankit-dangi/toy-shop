@@ -5605,3 +5605,15 @@ color:white;
         z-index: 1000000 !important;
     }
 }
+@media (max-width: 768px) {
+
+    .nav-links {
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s ease !important;
+    }
+
+    .nav-links.active {
+        transform: translateX(0) !important;
+    }
+
+}
