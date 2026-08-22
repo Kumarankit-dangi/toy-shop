@@ -208,9 +208,6 @@ if (sendEmailOtpButton) {
                     otpInput.style.visibility =
                         "visible";
 
-                    otpInput.style.opacity =
-                        "1";
-
                     otpInput.disabled =
                         false;
 
@@ -230,9 +227,6 @@ if (sendEmailOtpButton) {
 
                     verifyEmailOtpButton.style.visibility =
                         "visible";
-
-                    verifyEmailOtpButton.style.opacity =
-                        "1";
 
                     verifyEmailOtpButton.disabled =
                         false;
