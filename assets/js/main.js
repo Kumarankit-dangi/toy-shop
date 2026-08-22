@@ -740,16 +740,18 @@ function updateAuthUI() {
             "auth-area"
         );
 
-
     if (!authArea) return;
 
 
-    const userToken =
-        localStorage.getItem("token");
-
+    const token =
+        localStorage.getItem(
+            "token"
+        );
 
     const userData =
-        localStorage.getItem("user");
+        localStorage.getItem(
+            "user"
+        );
 
 
     // =================================================
@@ -757,7 +759,7 @@ function updateAuthUI() {
     // =================================================
 
     if (
-        !userToken ||
+        !token ||
         !userData
     ) {
 
@@ -780,7 +782,6 @@ function updateAuthUI() {
 
     let user;
 
-
     try {
 
         user =
@@ -793,19 +794,17 @@ function updateAuthUI() {
     catch (error) {
 
         console.error(
-            "Invalid user data"
+            "Invalid user data:",
+            error
         );
-
 
         localStorage.removeItem(
             "token"
         );
 
-
         localStorage.removeItem(
             "user"
         );
-
 
         authArea.innerHTML = `
 
@@ -815,23 +814,26 @@ function updateAuthUI() {
 
         `;
 
-
         return;
 
     }
 
 
     // =================================================
-    // EMAIL
+    // USER EMAIL / NAME
     // =================================================
 
     const email =
         user.email ||
+        user.name ||
         "User";
 
 
+    // FIRST CAPITAL LETTER
+
     const firstLetter =
         email
+            .trim()
             .charAt(0)
             .toUpperCase();
 
@@ -848,7 +850,7 @@ function updateAuthUI() {
                 type="button"
                 class="profile-letter"
                 id="profile-button"
-                title="My Profile"
+                title="${email}"
             >
                 ${firstLetter}
             </button>
@@ -909,7 +911,6 @@ function updateAuthUI() {
             "profile-button"
         );
 
-
     const profileDropdown =
         document.getElementById(
             "profile-dropdown"
@@ -928,7 +929,6 @@ function updateAuthUI() {
                 event.preventDefault();
 
                 event.stopPropagation();
-
 
                 profileDropdown.classList.toggle(
                     "show"
@@ -949,7 +949,6 @@ function updateAuthUI() {
             "logout-btn"
         );
 
-
     if (logoutButton) {
 
         logoutButton.addEventListener(
@@ -960,21 +959,17 @@ function updateAuthUI() {
 
                 event.stopPropagation();
 
-
                 localStorage.removeItem(
                     "token"
                 );
-
 
                 localStorage.removeItem(
                     "user"
                 );
 
-
                 alert(
                     "✅ Logout Successful!"
                 );
-
 
                 window.location.href =
                     "pages/login.html";
@@ -984,28 +979,6 @@ function updateAuthUI() {
 
     }
 
-
-    // =================================================
-    // CLOSE DROPDOWN
-    // =================================================
-
-    document.addEventListener(
-        "click",
-        function () {
-
-            if (
-                profileDropdown
-            ) {
-
-                profileDropdown.classList.remove(
-                    "show"
-                );
-
-            }
-
-        }
-    );
-
 }
 
 
@@ -1013,40 +986,21 @@ function updateAuthUI() {
 // MOBILE PROFILE
 // =====================================================
 
-// =====================================================
-// MOBILE PROFILE - INSIDE SLIDE MENU
-// =====================================================
-
 function updateMobileProfile() {
- /* MOBILE ONLY */
+
     if (window.innerWidth > 768) {
         return;
     }
-    const navbar =
-        document.querySelector(".navbar");
 
 
-    const menuToggle =
-        document.getElementById(
-            "menu-toggle"
-        );
-
-
-    // THIS IS THE SLIDE-OUT MOBILE MENU
     const mobileMenu =
         document.querySelector(
             ".nav-links"
         );
 
 
-    if (
-        !navbar ||
-        !menuToggle ||
-        !mobileMenu
-    ) {
-
+    if (!mobileMenu) {
         return;
-
     }
 
 
@@ -1067,10 +1021,8 @@ function updateMobileProfile() {
                 "div"
             );
 
-
         mobileAuth.id =
             "mobile-auth-area";
-
 
         mobileAuth.className =
             "mobile-auth-area";
@@ -1078,11 +1030,7 @@ function updateMobileProfile() {
     }
 
 
-    // =================================================
-    // IMPORTANT:
-    // PUT PROFILE INSIDE SLIDE-OUT MENU
-    // AT THE VERY TOP
-    // =================================================
+    // Put auth area inside mobile menu
 
     mobileMenu.insertBefore(
         mobileAuth,
@@ -1098,7 +1046,6 @@ function updateMobileProfile() {
         localStorage.getItem(
             "token"
         );
-
 
     const userData =
         localStorage.getItem(
@@ -1133,7 +1080,6 @@ function updateMobileProfile() {
 
         `;
 
-
         return;
 
     }
@@ -1144,7 +1090,6 @@ function updateMobileProfile() {
     // =================================================
 
     let user;
-
 
     try {
 
@@ -1162,7 +1107,6 @@ function updateMobileProfile() {
             error
         );
 
-
         mobileAuth.innerHTML = `
 
             <a
@@ -1174,14 +1118,13 @@ function updateMobileProfile() {
 
         `;
 
-
         return;
 
     }
 
 
     // =================================================
-    // FIRST LETTER
+    // FIRST CAPITAL LETTER
     // =================================================
 
     const email =
@@ -1189,9 +1132,9 @@ function updateMobileProfile() {
         user.name ||
         "User";
 
-
     const firstLetter =
         email
+            .trim()
             .charAt(0)
             .toUpperCase();
 
@@ -1208,17 +1151,9 @@ function updateMobileProfile() {
                 type="button"
                 class="mobile-profile-letter"
                 id="mobile-profile-button"
+                title="${email}"
             >
                 ${firstLetter}
-            </button>
-
-
-            <button
-                type="button"
-                class="mobile-logout-button"
-                id="mobile-logout-button"
-            >
-                Logout
             </button>
 
         </div>
@@ -1227,145 +1162,8 @@ function updateMobileProfile() {
 
 
     // =================================================
-    // LOGOUT
+    // MOBILE PROFILE DROPDOWN
     // =================================================
-
-    const logoutButton =
-        document.getElementById(
-            "mobile-logout-button"
-        );
-
-
-    if (logoutButton) {
-
-        logoutButton.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                event.stopPropagation();
-
-
-                localStorage.removeItem(
-                    "token"
-                );
-
-
-                localStorage.removeItem(
-                    "user"
-                );
-
-
-                alert(
-                    "✅ Logout Successful!"
-                );
-
-
-                window.location.href =
-                    "pages/login.html";
-
-            }
-        );
-
-    }
-
-}
-
-
-    const token =
-        localStorage.getItem("token");
-
-    const userData =
-        localStorage.getItem("user");
-
-
-    // =================================================
-    // NOT LOGGED IN
-    // =================================================
-
-    if (!token || !userData) {
-
-        mobileAuth.innerHTML = `
-
-            <a
-                href="pages/login.html"
-                class="mobile-login-btn"
-            >
-                Login
-            </a>
-
-        `;
-
-        return;
-    }
-
-
-    // =================================================
-    // READ USER
-    // =================================================
-
-    let user;
-
-
-    try {
-
-        user =
-            JSON.parse(
-                userData
-            );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Invalid user data"
-        );
-
-        mobileAuth.innerHTML = `
-
-            <a
-                href="pages/login.html"
-                class="mobile-login-btn"
-            >
-                Login
-            </a>
-
-        `;
-
-        return;
-    }
-
-
-    const email =
-        user.email ||
-        "User";
-
-
-    const firstLetter =
-        email
-            .charAt(0)
-            .toUpperCase();
-
-
-    // =================================================
-    // PROFILE BUTTON
-    // =================================================
-
-    mobileAuth.innerHTML = `
-
-        <button
-            type="button"
-            class="mobile-profile-letter"
-            id="mobile-profile-button"
-            title="My Profile"
-        >
-            ${firstLetter}
-        </button>
-
-    `;
-
 
     const mobileProfileButton =
         document.getElementById(
@@ -1383,6 +1181,7 @@ function updateMobileProfile() {
         function (event) {
 
             event.preventDefault();
+
             event.stopPropagation();
 
 
@@ -1391,10 +1190,6 @@ function updateMobileProfile() {
                     "mobile-profile-dropdown"
                 );
 
-
-            // =================================================
-            // CREATE DROPDOWN
-            // =================================================
 
             if (!dropdown) {
 
@@ -1418,13 +1213,11 @@ function updateMobileProfile() {
                             ${firstLetter}
                         </div>
 
-
                         <div>
 
                             <strong>
                                 ${email}
                             </strong>
-
 
                             <p>
                                 Logged in
@@ -1434,16 +1227,11 @@ function updateMobileProfile() {
 
                     </div>
 
-
                     <hr>
 
-
-                    <a
-                        href="pages/my-orders.html"
-                    >
+                    <a href="pages/my-orders.html">
                         📦 My Orders
                     </a>
-
 
                     <button
                         type="button"
@@ -1455,7 +1243,7 @@ function updateMobileProfile() {
                 `;
 
 
-                navbar.appendChild(
+                document.body.appendChild(
                     dropdown
                 );
 
@@ -1480,21 +1268,17 @@ function updateMobileProfile() {
 
                             event.stopPropagation();
 
-
                             localStorage.removeItem(
                                 "token"
                             );
-
 
                             localStorage.removeItem(
                                 "user"
                             );
 
-
                             alert(
                                 "✅ Logout Successful!"
                             );
-
 
                             window.location.href =
                                 "pages/login.html";
@@ -1515,7 +1299,6 @@ function updateMobileProfile() {
     );
 
 }
-
 
 // =====================================================
 // INITIALIZE EVERYTHING
