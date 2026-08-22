@@ -4762,3 +4762,405 @@ color:white;
     }
 
 }
+/* =====================================================
+   FINAL TOYLAND NAVBAR FIX
+===================================================== */
+
+/* ================= DESKTOP ================= */
+
+@media (min-width: 769px) {
+
+    /* Login/Register links hide */
+    .nav-links a[href*="login"],
+    .nav-links a[href*="register"] {
+        display: none !important;
+    }
+
+    /* Mobile auth hide on laptop */
+    #mobile-auth-area {
+        display: none !important;
+    }
+
+    /* Hamburger hide on laptop */
+    .menu-toggle {
+        display: none !important;
+    }
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+    /* Navbar */
+    .navbar {
+        position: sticky !important;
+        top: 0;
+        width: 100%;
+        min-height: 72px;
+        padding: 16px 20px !important;
+        display: flex;
+        align-items: center;
+        z-index: 10000;
+    }
+
+
+    /* Logo */
+    .logo {
+        flex-shrink: 0;
+    }
+
+    .logo a {
+        font-size: 24px !important;
+    }
+
+
+    /* ================= HAMBURGER ================= */
+
+    .menu-toggle {
+        display: block !important;
+
+        margin-left: auto !important;
+
+        width: 45px;
+        height: 45px;
+
+        border: none;
+        background: transparent;
+
+        font-size: 32px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        position: relative !important;
+
+        z-index: 100001 !important;
+    }
+
+
+    /* ================= MOBILE MENU ================= */
+
+    .nav-links {
+
+        position: fixed !important;
+
+        top: 0 !important;
+        left: -100% !important;
+
+        width: 75% !important;
+        max-width: 320px;
+
+        height: 100vh !important;
+
+        background: #ffffff !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 0 !important;
+
+        padding: 90px 25px 30px !important;
+
+        box-shadow: 5px 0 25px rgba(0,0,0,0.15);
+
+        overflow-y: auto;
+
+        transition: left 0.3s ease !important;
+
+        z-index: 100000 !important;
+    }
+
+
+    /* MENU OPEN */
+
+    .nav-links.active {
+        left: 0 !important;
+    }
+
+
+    /* MENU ITEMS */
+
+    .nav-links li {
+        width: 100% !important;
+    }
+
+    .nav-links a {
+        display: block !important;
+
+        width: 100% !important;
+
+        padding: 18px 10px !important;
+
+        font-size: 18px !important;
+
+        border-bottom: 1px solid #eeeeee;
+
+        color: #333 !important;
+    }
+
+
+    .nav-links a:hover {
+        color: #ff6b6b !important;
+        background: #fff8f8;
+    }
+
+
+    /* ================= MOBILE AUTH ================= */
+
+    #mobile-auth-area {
+
+        display: flex !important;
+
+        align-items: center;
+
+        width: 100%;
+
+        padding: 10px 10px 20px;
+
+        margin-bottom: 10px;
+
+        gap: 12px;
+
+        position: static !important;
+
+        transform: none !important;
+
+        z-index: auto !important;
+
+        background: #ffffff;
+    }
+
+
+    /* Login button */
+    #mobile-auth-area .mobile-login-btn {
+
+        display: inline-flex !important;
+
+        align-items: center;
+
+        justify-content: center;
+
+        height: 42px;
+
+        padding: 0 18px;
+
+        background: #ff6b6b;
+
+        color: white;
+
+        border-radius: 22px;
+
+        font-size: 15px;
+
+        font-weight: 600;
+
+        text-decoration: none;
+    }
+
+
+    /* Logged-in first letter */
+
+    #mobile-auth-area .mobile-profile-letter {
+
+        width: 48px !important;
+        height: 48px !important;
+
+        min-width: 48px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: #ff6b6b;
+
+        color: white;
+
+        font-size: 20px;
+
+        font-weight: 700;
+
+        display: flex !important;
+
+        align-items: center;
+
+        justify-content: center;
+
+        cursor: pointer;
+    }
+
+
+    /* Profile row */
+
+    .mobile-profile-row {
+
+        display: flex !important;
+
+        align-items: center;
+
+        gap: 12px;
+
+        width: 100%;
+    }
+
+
+    /* Register button */
+
+    #mobile-auth-area .mobile-register-btn {
+
+        display: inline-flex !important;
+
+        align-items: center;
+
+        justify-content: center;
+
+        height: 42px;
+
+        padding: 0 18px;
+
+        border: 2px solid #ff6b6b;
+
+        border-radius: 22px;
+
+        background: white;
+
+        color: #ff6b6b;
+
+        font-size: 15px;
+
+        font-weight: 600;
+    }
+
+
+    /* ================= DESKTOP ICONS HIDE ================= */
+
+    .nav-icons {
+        display: none !important;
+    }
+
+}
+/* =====================================================
+   FINAL MOBILE AUTH FIX
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    /* Mobile menu */
+    .nav-links {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    /* REMOVE OLD FIXED/BOTTOM POSITION */
+    .nav-links .mobile-auth-area,
+    .mobile-auth-area {
+        position: static !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+
+        transform: none !important;
+
+        width: 100% !important;
+        height: auto !important;
+
+        margin: 0 !important;
+        padding: 18px 24px !important;
+
+        box-sizing: border-box !important;
+
+        display: block !important;
+
+        order: -999 !important;
+
+        background: #fff !important;
+
+        border: none !important;
+        border-bottom: 1px solid #eee !important;
+
+        z-index: 10 !important;
+    }
+
+
+    /* T + LOGOUT */
+    .mobile-profile-row {
+        position: static !important;
+
+        width: 100% !important;
+
+        display: flex !important;
+
+        flex-direction: row !important;
+
+        align-items: center !important;
+
+        justify-content: flex-start !important;
+
+        gap: 16px !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* T CIRCLE */
+    .mobile-profile-letter {
+        position: static !important;
+
+        width: 58px !important;
+        height: 58px !important;
+
+        min-width: 58px !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        border: none !important;
+
+        border-radius: 50% !important;
+
+        background: #ff6868 !important;
+
+        color: white !important;
+
+        font-size: 28px !important;
+
+        font-weight: 700 !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+    }
+
+
+    /* LOGOUT */
+    .mobile-logout-btn {
+        position: static !important;
+
+        width: auto !important;
+        height: 48px !important;
+
+        margin: 0 !important;
+
+        padding: 0 22px !important;
+
+        border: 2px solid #ff6868 !important;
+
+        border-radius: 10px !important;
+
+        background: white !important;
+
+        color: #ff6868 !important;
+
+        font-size: 16px !important;
+
+        font-weight: 600 !important;
+    }
+}
