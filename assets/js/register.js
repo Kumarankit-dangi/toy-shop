@@ -3,23 +3,15 @@ const API_URL =
 
 
 // =====================================================
-// WAKE UP BACKEND
+// BACKEND WAKE UP
 // =====================================================
 
 fetch(`${API_URL}/`)
     .then(() => {
-
-        console.log(
-            "✅ Backend is ready"
-        );
-
+        console.log("✅ Backend is ready");
     })
     .catch(() => {
-
-        console.log(
-            "⏳ Backend is waking up..."
-        );
-
+        console.log("⏳ Backend is waking up...");
     });
 
 
@@ -28,10 +20,404 @@ fetch(`${API_URL}/`)
 // =====================================================
 
 const registerForm =
-    document.getElementById(
-        "register-form"
-    );
+    document.getElementById("register-form");
 
+let emailVerified = false;
+
+
+// =====================================================
+// OTP UI
+// =====================================================
+
+if (registerForm) {
+
+    const emailInput =
+        document.getElementById("register-email");
+
+    if (emailInput) {
+
+        const otpContainer =
+            document.createElement("div");
+
+        otpContainer.id =
+            "email-otp-container";
+
+        otpContainer.style.marginTop =
+            "10px";
+
+        otpContainer.innerHTML = `
+
+            <button
+                type="button"
+                id="send-email-otp"
+            >
+                📧 Send Email OTP
+            </button>
+
+            <div
+                id="email-otp-box"
+                style="display:none; margin-top:10px;"
+            >
+
+                <input
+                    type="text"
+                    id="email-otp"
+                    placeholder="Enter 6-digit OTP"
+                    maxlength="6"
+                    inputmode="numeric"
+                >
+
+                <button
+                    type="button"
+                    id="verify-email-otp"
+                >
+                    Verify OTP
+                </button>
+
+                <button
+                    type="button"
+                    id="resend-email-otp"
+                >
+                    Resend OTP
+                </button>
+
+                <p id="email-otp-status"></p>
+
+            </div>
+        `;
+
+        emailInput.parentNode.insertBefore(
+            otpContainer,
+            emailInput.nextSibling
+        );
+    }
+}
+
+
+// =====================================================
+// SEND EMAIL OTP
+// =====================================================
+
+document.addEventListener(
+    "click",
+    async function (event) {
+
+        if (
+            event.target.id !==
+            "send-email-otp"
+        ) {
+            return;
+        }
+
+        const emailInput =
+            document.getElementById(
+                "register-email"
+            );
+
+        const sendButton =
+            document.getElementById(
+                "send-email-otp"
+            );
+
+        const otpBox =
+            document.getElementById(
+                "email-otp-box"
+            );
+
+        const status =
+            document.getElementById(
+                "email-otp-status"
+            );
+
+        const email =
+            emailInput.value.trim();
+
+
+        if (!email) {
+
+            alert(
+                "Please enter your email address."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            sendButton.disabled = true;
+
+            sendButton.textContent =
+                "Sending OTP...";
+
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/auth/send-otp`,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            contact: email
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Send OTP:",
+                data
+            );
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Failed to send OTP"
+                );
+
+            }
+
+
+            otpBox.style.display =
+                "block";
+
+
+            status.textContent =
+                "✅ OTP sent to your email.";
+
+            status.style.color =
+                "green";
+
+
+            sendButton.textContent =
+                "OTP Sent ✓";
+
+
+        } catch (error) {
+
+            console.error(
+                "Send OTP Error:",
+                error
+            );
+
+
+            alert(
+                error.message
+            );
+
+
+            sendButton.disabled =
+                false;
+
+            sendButton.textContent =
+                "📧 Send Email OTP";
+        }
+
+    }
+);
+
+
+// =====================================================
+// VERIFY EMAIL OTP
+// =====================================================
+
+document.addEventListener(
+    "click",
+    async function (event) {
+
+        if (
+            event.target.id !==
+            "verify-email-otp"
+        ) {
+            return;
+        }
+
+
+        const email =
+            document
+                .getElementById(
+                    "register-email"
+                )
+                .value
+                .trim();
+
+
+        const otp =
+            document
+                .getElementById(
+                    "email-otp"
+                )
+                .value
+                .trim();
+
+
+        const status =
+            document.getElementById(
+                "email-otp-status"
+            );
+
+
+        if (!otp) {
+
+            alert(
+                "Please enter the OTP."
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/api/auth/verify-otp`,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+
+                            contact: email,
+
+                            otp: otp
+
+                        })
+
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Verify OTP:",
+                data
+            );
+
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Invalid OTP"
+                );
+
+            }
+
+
+            emailVerified = true;
+
+
+            status.textContent =
+                "✅ Email verified successfully!";
+
+            status.style.color =
+                "green";
+
+
+            const verifyButton =
+                document.getElementById(
+                    "verify-email-otp"
+                );
+
+            verifyButton.disabled =
+                true;
+
+            verifyButton.textContent =
+                "Verified ✓";
+
+
+            document
+                .getElementById(
+                    "register-email"
+                )
+                .readOnly = true;
+
+
+        } catch (error) {
+
+            console.error(
+                "Verify OTP Error:",
+                error
+            );
+
+
+            alert(
+                error.message
+            );
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// RESEND EMAIL OTP
+// =====================================================
+
+document.addEventListener(
+    "click",
+    async function (event) {
+
+        if (
+            event.target.id !==
+            "resend-email-otp"
+        ) {
+            return;
+        }
+
+
+        const sendButton =
+            document.getElementById(
+                "send-email-otp"
+            );
+
+
+        sendButton.disabled =
+            false;
+
+
+        sendButton.textContent =
+            "📧 Send Email OTP";
+
+
+        sendButton.click();
+
+    }
+);
+
+
+// =====================================================
+// REGISTER
+// =====================================================
 
 if (registerForm) {
 
@@ -41,10 +427,6 @@ if (registerForm) {
 
             event.preventDefault();
 
-
-            // =====================================================
-            // GET FORM VALUES
-            // =====================================================
 
             const name =
                 document
@@ -103,7 +485,20 @@ if (registerForm) {
                 );
 
                 return;
+            }
 
+
+            // =====================================================
+            // EMAIL OTP CHECK
+            // =====================================================
+
+            if (!emailVerified) {
+
+                alert(
+                    "📧 Please verify your email OTP first."
+                );
+
+                return;
             }
 
 
@@ -117,9 +512,7 @@ if (registerForm) {
                 );
 
 
-            // Prevent double click
-
-            if (registerButton) {
+            try {
 
                 registerButton.disabled =
                     true;
@@ -127,19 +520,6 @@ if (registerForm) {
                 registerButton.textContent =
                     "Creating Account...";
 
-            }
-
-
-            try {
-
-                console.log(
-                    "📝 Creating account..."
-                );
-
-
-                // =====================================================
-                // REGISTER API
-                // =====================================================
 
                 const response =
                     await fetch(
@@ -155,16 +535,17 @@ if (registerForm) {
 
                             },
 
-                            body:
-                                JSON.stringify({
+                            body: JSON.stringify({
 
-                                    name,
+                                name,
 
-                                    email,
+                                email,
 
-                                    password
+                                phone,
 
-                                })
+                                password
+
+                            })
 
                         }
                     );
@@ -180,47 +561,23 @@ if (registerForm) {
                 );
 
 
-                // =====================================================
-                // REGISTER FAILED
-                // =====================================================
-
                 if (
                     !response.ok ||
                     !data.success
                 ) {
 
-                    alert(
+                    throw new Error(
                         data.message ||
                         "Registration failed"
                     );
 
-
-                    if (registerButton) {
-
-                        registerButton.disabled =
-                            false;
-
-                        registerButton.textContent =
-                            "Create Account";
-
-                    }
-
-
-                    return;
-
                 }
 
-
-                // =====================================================
-                // SUCCESS
-                // =====================================================
 
                 alert(
                     "🎉 Account created successfully!"
                 );
 
-
-                // Go to login page
 
                 window.location.href =
                     "login.html";
@@ -229,31 +586,25 @@ if (registerForm) {
             } catch (error) {
 
                 console.error(
-                    "❌ Register Error:",
+                    "Register Error:",
                     error
                 );
 
 
                 alert(
-                    "Unable to connect to server. Please try again."
+                    error.message ||
+                    "Unable to create account."
                 );
 
 
-                // Enable button again
+                registerButton.disabled =
+                    false;
 
-                if (registerButton) {
-
-                    registerButton.disabled =
-                        false;
-
-                    registerButton.textContent =
-                        "Create Account";
-
-                }
+                registerButton.textContent =
+                    "Create Account";
 
             }
 
         }
     );
-
 }
