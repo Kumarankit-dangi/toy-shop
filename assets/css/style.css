@@ -4717,3 +4717,48 @@ color:white;
     }
 
 }
+/* =====================================================
+   FINAL NAVBAR FIX
+===================================================== */
+
+/* DESKTOP - hide Login/Register navigation */
+@media (min-width: 769px) {
+
+    .nav-links a[href*="login"],
+    .nav-links a[href*="register"] {
+        display: none !important;
+    }
+
+    #mobile-auth-area {
+        display: none !important;
+    }
+
+    .menu-toggle {
+        display: none !important;
+    }
+
+}
+
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        display: block !important;
+        cursor: pointer !important;
+        z-index: 100000 !important;
+    }
+
+    .nav-links {
+        display: none !important;
+    }
+
+    .nav-links.active {
+        display: flex !important;
+    }
+
+    #mobile-auth-area {
+        display: flex !important;
+    }
+
+}
