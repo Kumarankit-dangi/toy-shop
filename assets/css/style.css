@@ -7084,3 +7084,32 @@ img {
         flex-shrink: 0;
     }
 }
+/* OTP inline controls */
+
+.input-with-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.input-with-button input {
+    flex: 1;
+    min-width: 0;
+}
+
+.otp-inline-btn {
+    padding: 8px 11px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.otp-inline-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

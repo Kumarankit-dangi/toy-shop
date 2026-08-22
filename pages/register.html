@@ -28,6 +28,7 @@
     >
 
 </head>
+
 <body>
 
 <main>
@@ -40,7 +41,11 @@
 
         <p>Join Toyland Today</p>
 
-       <form id="register-form"> 
+
+        <form id="register-form">
+
+
+            <!-- FULL NAME -->
 
             <input
                 type="text"
@@ -49,20 +54,67 @@
                 required
             >
 
-    <input
-    type="email"
-    id="register-email"
-    placeholder="Email Address"
-    required
->
 
-<input
-    type="tel"
-    id="register-phone"
-    placeholder="Phone Number"
-    required
->
->
+            <!-- EMAIL + SEND OTP -->
+
+            <div class="input-with-button">
+
+                <input
+                    type="email"
+                    id="register-email"
+                    placeholder="Email Address"
+                    required
+                >
+
+                <button
+                    type="button"
+                    id="send-email-otp"
+                    class="otp-inline-btn"
+                >
+                    Send OTP
+                </button>
+
+            </div>
+
+
+            <!-- EMAIL OTP -->
+
+            <div
+                id="email-otp-section"
+                class="input-with-button"
+                style="display: none;"
+            >
+
+                <input
+                    type="text"
+                    id="register-otp"
+                    placeholder="Enter OTP"
+                    maxlength="6"
+                    inputmode="numeric"
+                >
+
+                <button
+                    type="button"
+                    id="verify-email-otp"
+                    class="otp-inline-btn"
+                >
+                    Verify
+                </button>
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <input
+                type="tel"
+                id="register-phone"
+                placeholder="Phone Number"
+                required
+            >
+
+
+            <!-- PASSWORD -->
 
             <input
                 type="password"
@@ -71,37 +123,42 @@
                 required
             >
 
+
+            <!-- CONFIRM PASSWORD -->
+
             <input
-    type="password"
-    id="register-confirm-password"
-    placeholder="Confirm Password"
-    required
->
-<div id="otp-section">
+                type="password"
+                id="register-confirm-password"
+                placeholder="Confirm Password"
+                required
+            >
 
-    <button
-        type="button"
-        id="send-otp-btn"
-    >
-        Send OTP
-    </button>
 
-    <input
-        type="text"
-        id="register-otp"
-        placeholder="Enter OTP"
-        maxlength="6"
-    >
+            <!-- CREATE ACCOUNT -->
 
-    <button
-        type="button"
-        id="verify-otp-btn"
-    >
-        Verify OTP
-    </button>
+            <button
+                type="submit"
+                id="create-account-btn"
+            >
+                Create Account
+            </button>
 
-</div>
 
+        </form>
+
+
+        <p class="login-link">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </p>
+
+
+    </div>
 
 </section>
 
