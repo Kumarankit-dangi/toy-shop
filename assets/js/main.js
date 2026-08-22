@@ -1211,28 +1211,3 @@ document.addEventListener(
 
     }
 );
-// =====================================================
-// MOBILE MENU TOGGLE - FINAL FIX
-// =====================================================
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".nav-links");
-
-    if (!menuToggle || !navLinks) {
-        return;
-    }
-
-    menuToggle.addEventListener("click", function (event) {
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        navLinks.classList.toggle("active");
-
-        menuToggle.classList.toggle("active");
-
-    });
-
-});
