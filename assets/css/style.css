@@ -4658,3 +4658,35 @@ color:white;
     }
 
 }
+/* =====================================================
+   FINAL DESKTOP / MOBILE AUTH FIX
+===================================================== */
+
+/* ---------- DESKTOP ---------- */
+
+@media (min-width: 769px) {
+
+    /* Mobile profile MUST NOT appear on desktop */
+    #mobile-auth-area {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+}
+
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 768px) {
+
+    /* Mobile profile is allowed */
+    #mobile-auth-area {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+    }
+
+}
