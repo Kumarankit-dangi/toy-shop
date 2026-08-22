@@ -4690,3 +4690,18 @@ color:white;
     }
 
 }
+/* =====================================================
+   HIDE LOGIN / REGISTER LINKS ON DESKTOP
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .nav-links a[href*="login"] {
+        display: none !important;
+    }
+
+    .nav-links a[href*="register"] {
+        display: none !important;
+    }
+
+}
