@@ -11579,3 +11579,358 @@ body:has(.contact) {
 .contact-form textarea::placeholder {
     color: #7b8199;
 }
+/* =====================================================
+   CONTACT PAGE - EXACT PREMIUM PASTEL STYLE
+===================================================== */
+
+/* CONTACT MAIN BACKGROUND */
+body:has(.contact) {
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(255, 150, 205, 0.35),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 95% 10%,
+            rgba(170, 180, 255, 0.35),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe1ef 0%,
+            #f0e1ff 50%,
+            #dceeff 100%
+        ) !important;
+}
+
+
+/* MAIN CONTACT SECTION */
+.contact {
+    min-height: 100vh !important;
+
+    padding: 80px 7% !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe4f1 0%,
+            #f2e4ff 50%,
+            #dceeff 100%
+        ) !important;
+}
+
+
+/* =====================================================
+   CONTACT HEADING
+===================================================== */
+
+.contact h2 {
+    font-size: 46px !important;
+
+    font-weight: 800 !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff4f91,
+            #a855f7,
+            #6366f1
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    color: transparent !important;
+}
+
+
+.contact > p {
+    color: #66708c !important;
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   TWO CARDS
+===================================================== */
+
+.contact-container {
+    gap: 35px !important;
+}
+
+
+/* LEFT GET IN TOUCH CARD */
+
+.contact-info {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 240, 249, 0.92),
+            rgba(240, 226, 255, 0.88)
+        ) !important;
+
+    border: 1px solid
+        rgba(255,255,255,0.85) !important;
+
+    border-radius: 25px !important;
+
+    box-shadow:
+        0 20px 50px
+        rgba(120, 90, 160, 0.18) !important;
+
+    padding: 40px !important;
+}
+
+
+/* GET IN TOUCH HEADING */
+
+.contact-info h3 {
+    font-size: 27px !important;
+
+    font-weight: 800 !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff4f91,
+            #a855f7,
+            #6366f1
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    color: transparent !important;
+
+    margin-bottom: 30px !important;
+}
+
+
+/* =====================================================
+   CONTACT INFORMATION ROWS
+===================================================== */
+
+.contact-info li {
+    display: flex !important;
+
+    align-items: center !important;
+
+    gap: 18px !important;
+
+    padding: 18px 0 !important;
+
+    border-bottom:
+        1px dashed
+        rgba(170,140,210,0.25) !important;
+
+    color: #343b58 !important;
+
+    font-size: 16px !important;
+}
+
+
+/* Remove last divider */
+
+.contact-info li:last-child {
+    border-bottom: none !important;
+}
+
+
+/* =====================================================
+   ICON CIRCLES
+===================================================== */
+
+.contact-info li::first-letter {
+    color: #ff5c9a;
+}
+
+
+/* If icons are spans */
+.contact-info li span {
+    min-width: 48px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd4e5,
+            #ead7ff
+        );
+
+    color: #a855f7;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(160,100,210,0.15);
+}
+
+
+/* =====================================================
+   RIGHT FORM CARD
+===================================================== */
+
+.contact-form {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.92),
+            rgba(244,237,255,0.88)
+        ) !important;
+
+    border: 1px solid
+        rgba(255,255,255,0.9) !important;
+
+    border-radius: 25px !important;
+
+    box-shadow:
+        0 20px 50px
+        rgba(120,90,160,0.18) !important;
+
+    padding: 38px !important;
+}
+
+
+/* =====================================================
+   INPUTS
+===================================================== */
+
+.contact-form input,
+.contact-form textarea {
+    width: 100% !important;
+
+    background:
+        rgba(255,255,255,0.88) !important;
+
+    border:
+        1px solid
+        #ded8eb !important;
+
+    border-radius: 14px !important;
+
+    padding: 17px 18px !important;
+
+    color: #353b59 !important;
+
+    font-size: 16px !important;
+
+    transition: 0.25s ease;
+}
+
+
+/* INPUT FOCUS */
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none !important;
+
+    border-color: #b56cff !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(181,108,255,0.12) !important;
+}
+
+
+/* PLACEHOLDER */
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #7b8198 !important;
+}
+
+
+/* MESSAGE BOX */
+
+.contact-form textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+
+/* =====================================================
+   SEND MESSAGE BUTTON
+===================================================== */
+
+.contact-form button {
+    width: 100% !important;
+
+    padding: 16px !important;
+
+    border: none !important;
+
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff657f,
+            #f052a4,
+            #a855f7
+        ) !important;
+
+    color: white !important;
+
+    font-size: 17px !important;
+
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 10px 25px
+        rgba(238,90,160,0.25);
+
+    transition: 0.3s ease;
+}
+
+
+.contact-form button:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 30px
+        rgba(168,85,247,0.30);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .contact {
+        padding: 60px 5% !important;
+    }
+
+    .contact h2 {
+        font-size: 38px !important;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr !important;
+
+        gap: 25px !important;
+    }
+
+    .contact-info,
+    .contact-form {
+        padding: 28px !important;
+    }
+
+}
