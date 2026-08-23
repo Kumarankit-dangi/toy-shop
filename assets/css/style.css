@@ -11933,4 +11933,168 @@ body:has(.contact) {
         padding: 28px !important;
     }
 
+}/* =====================================================
+   CONTACT CARDS - COMPACT PREMIUM LOOK
+===================================================== */
+
+/* LEFT + RIGHT CARD BACKGROUND */
+.contact-info,
+.contact-form {
+    background:
+        linear-gradient(
+            135deg,
+            #ffe4f0 0%,
+            #f0e2ff 50%,
+            #dceeff 100%
+        ) !important;
+
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+
+    border-radius: 24px !important;
+
+    box-shadow:
+        0 15px 35px
+        rgba(120, 90, 160, 0.14) !important;
+
+    /* IMPORTANT: extra height remove */
+    height: auto !important;
+
+    min-height: 0 !important;
+}
+
+
+/* =====================================================
+   LEFT GET IN TOUCH
+===================================================== */
+
+.contact-info {
+    padding: 32px 38px !important;
+}
+
+
+/* Heading */
+.contact-info h3 {
+    margin-top: 0 !important;
+    margin-bottom: 18px !important;
+
+    font-size: 25px !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff4f91,
+            #a855f7,
+            #6366f1
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* Contact rows */
+.contact-info li {
+    padding: 12px 0 !important;
+
+    margin: 0 !important;
+
+    line-height: 1.5 !important;
+}
+
+
+/* =====================================================
+   RIGHT FORM
+===================================================== */
+
+.contact-form {
+    padding: 28px 36px !important;
+}
+
+
+/* Form spacing */
+.contact-form form {
+    gap: 12px !important;
+}
+
+
+/* Inputs */
+.contact-form input {
+    height: 52px !important;
+
+    padding: 12px 16px !important;
+
+    margin-bottom: 10px !important;
+
+    border-radius: 13px !important;
+}
+
+
+/* Message */
+.contact-form textarea {
+    min-height: 125px !important;
+
+    height: 125px !important;
+
+    padding: 14px 16px !important;
+
+    margin-bottom: 10px !important;
+
+    border-radius: 13px !important;
+}
+
+
+/* Button */
+.contact-form button {
+    height: 52px !important;
+
+    padding: 12px !important;
+
+    margin-top: 4px !important;
+
+    border-radius: 13px !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff6585,
+            #f052a4,
+            #a855f7
+        ) !important;
+}
+
+
+/* =====================================================
+   REMOVE UNNECESSARY EMPTY SPACE
+===================================================== */
+
+.contact-container {
+    align-items: start !important;
+}
+
+.contact-info,
+.contact-form {
+    align-self: start !important;
+}
+
+
+/* If old CSS gives fixed height */
+.contact-info *,
+.contact-form * {
+    max-height: none;
+}
+
+
+/* Desktop compact layout */
+@media (min-width: 769px) {
+
+    .contact-container {
+        grid-template-columns: 1fr 1fr !important;
+
+        align-items: start !important;
+
+        gap: 28px !important;
+    }
+
 }
