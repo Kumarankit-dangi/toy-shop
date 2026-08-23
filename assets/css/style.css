@@ -13163,4 +13163,140 @@ body:has(.shop-header) {
             repeat(4, 1fr) !important;
     }
 
+}/* =====================================================
+   SHOP BY CATEGORY - PREMIUM BACKGROUND
+===================================================== */
+
+.shop-by-category,
+.categories-section,
+.category-section {
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 190, 215, 0.45),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 25%,
+            rgba(195, 185, 255, 0.45),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff0f5 0%,
+            #f4edff 50%,
+            #e8f6ff 100%
+        ) !important;
+}
+
+
+/* =====================================================
+   FEATURED PRODUCTS - PREMIUM BACKGROUND
+===================================================== */
+
+.featured-products,
+.featured-section,
+.products-section {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 205, 220, 0.40),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(200, 190, 255, 0.40),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff2f6 0%,
+            #f5efff 50%,
+            #eaf7ff 100%
+        ) !important;
+}/* =====================================================
+   SHOP BY CATEGORY + FEATURED PRODUCTS
+   PREMIUM BACKGROUND
+===================================================== */
+
+/* Shop By Category section */
+section:has(.category-container) {
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(255, 190, 215, 0.45),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 92% 25%,
+            rgba(190, 185, 255, 0.45),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff0f5 0%,
+            #f5edff 50%,
+            #e8f6ff 100%
+        ) !important;
+
+    position: relative;
+}
+
+
+/* Category container stays transparent */
+.category-container {
+    background: transparent !important;
+}
+
+
+/* Category cards */
+.category-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.82),
+            rgba(255,235,245,0.72)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 15px 35px rgba(120,100,160,0.12);
+
+    backdrop-filter: blur(8px);
+
+    transition: 0.3s ease;
+}
+
+
+.category-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(120,100,160,0.18);
+}
+
+
+/* =====================================================
+   FEATURED PRODUCTS SECTION
+===================================================== */
+
+section:has(.category-container) {
+    background:
+        radial-gradient(
+            circle at 12% 15%,
+            rgba(255, 200, 220, 0.42),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 88% 30%,
+            rgba(200, 190, 255, 0.42),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #fff1f6 0%,
+            #f5efff 50%,
+            #eaf7ff 100%
+        ) !important;
 }
