@@ -1,32 +1,13 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
 
 // =====================================================
-// EMAIL TRANSPORTER
+// RESEND EMAIL CLIENT
 // =====================================================
 
-const transporter = nodemailer.createTransport({
-
-    host: "smtp.gmail.com",
-
-    port: 587,
-
-    secure: false,
-
-    requireTLS: true,
-
-    family: 4,
-
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_APP_PASSWORD
-    },
-
-    tls: {
-        rejectUnauthorized: false
-    }
-
-});
+const resend = new Resend(
+    process.env.RESEND_API_KEY
+);
 
 
 // =====================================================
@@ -38,12 +19,24 @@ const sendRegistrationOTP = async (
     otp
 ) => {
 
-    const mailOptions = {
+    console.log(
+        "📧 Sending OTP using Resend to:",
+        email
+    );
+
+
+    const {
+        data,
+        error
+    } = await resend.emails.send({
 
         from:
-            `"Toyland" <${process.env.EMAIL_USER}>`,
+            process.env.RESEND_FROM ||
+            "onboarding@resend.dev",
 
-        to: email,
+        to: [
+            email
+        ],
 
         subject:
             "Toyland - Email Verification OTP",
@@ -124,15 +117,42 @@ Toyland Team`,
             </div>
         `
 
-    };
+    });
 
 
-    await transporter.sendMail(
-        mailOptions
+    // =================================================
+    // RESEND ERROR
+    // =================================================
+
+    if (error) {
+
+        console.error(
+            "❌ RESEND EMAIL ERROR:",
+            error
+        );
+
+        throw new Error(
+            error.message ||
+            "Unable to send OTP."
+        );
+
+    }
+
+
+    console.log(
+        "✅ Resend email sent:",
+        data
     );
+
+
+    return data;
 
 };
 
+
+// =====================================================
+// EXPORT
+// =====================================================
 
 module.exports = {
     sendRegistrationOTP
