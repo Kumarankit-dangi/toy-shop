@@ -13549,11 +13549,11 @@ body:has(.about) .about-image img {
 }
 
 .about-image img {
-    width: 1000px !important;
-    height: 100px !important;
+    width: 2000px !important;
+    height: 2000px !important;
 
-    max-width: 1000px !important;
-    max-height: 1000px !important;
+    max-width: 2000px !important;
+    max-height: 2000px !important;
 
     object-fit: contain !important;
     object-position: center !important;
