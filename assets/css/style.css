@@ -13657,4 +13657,39 @@ body:has(.about) .about-image img {
 
         margin: 0 !important;
     }
+}/* =====================================================
+   ABOUT TEDDY - MOVE TO RIGHT
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .about-image {
+        position: absolute !important;
+
+        top: 50% !important;
+        right: 2% !important;
+        left: auto !important;
+
+        transform: translateY(-50%) !important;
+
+        width: 48% !important;
+
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .about-image img {
+        width: 520px !important;
+        height: 520px !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+
+        margin: 0 !important;
+    }
+
 }
