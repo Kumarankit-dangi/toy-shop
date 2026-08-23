@@ -13523,3 +13523,40 @@ body:has(.about) .about-image img {
         object-fit: contain !important;
     }
 }
+/* =====================================================
+   ABOUT TEDDY - FINAL FIX
+===================================================== */
+
+.about {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.about-content {
+    flex: 0 0 48% !important;
+}
+
+.about-image {
+    flex: 0 0 52% !important;
+
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+
+    overflow: visible !important;
+}
+
+.about-image img {
+    width: 520px !important;
+    height: 520px !important;
+
+    max-width: 520px !important;
+    max-height: 520px !important;
+
+    object-fit: contain !important;
+    object-position: center !important;
+
+    display: block !important;
+}
