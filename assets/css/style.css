@@ -11236,3 +11236,300 @@ body:has(.about) {
             #e0f2ff 100%
         ) !important;
 }
+/* =====================================================
+   CONTACT PAGE - PREMIUM PASTEL BACKGROUND
+===================================================== */
+
+/* Full Contact page background */
+body:has(.contact-page) {
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(255, 151, 205, 0.45),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 95% 10%,
+            rgba(170, 180, 255, 0.45),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe4f0 0%,
+            #f3e6ff 48%,
+            #dcefff 100%
+        ) !important;
+
+    min-height: 100vh;
+}
+
+
+/* Contact main section */
+.contact-page {
+    background:
+        radial-gradient(
+            circle at 0% 20%,
+            rgba(255, 174, 214, 0.35),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 100% 80%,
+            rgba(150, 200, 255, 0.35),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe8f2 0%,
+            #f2e7ff 50%,
+            #e1f1ff 100%
+        ) !important;
+
+    min-height: 100vh;
+    padding: 70px 6%;
+}
+
+
+/* Heading */
+.contact-page h1,
+.contact-page h2 {
+    color: #20264d;
+}
+
+
+/* Subtitle */
+.contact-page > p,
+.contact-page .section-title p {
+    color: #66708c;
+}
+
+
+/* Contact cards */
+.contact-page .contact-card,
+.contact-page .contact-info,
+.contact-page .contact-form {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.88),
+            rgba(255,240,249,0.78)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 20px 45px
+        rgba(120, 100, 160, 0.16);
+
+    border-radius: 24px;
+}
+
+
+/* Input fields */
+.contact-page input,
+.contact-page textarea {
+    background: rgba(255,255,255,0.75) !important;
+
+    border: 1px solid #ddd9ed !important;
+
+    border-radius: 14px;
+
+    color: #30354f;
+}
+
+
+/* Input focus */
+.contact-page input:focus,
+.contact-page textarea:focus {
+    border-color: #c59cff !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(197,156,255,0.15);
+
+    outline: none;
+}
+
+
+/* Send button */
+.contact-page button,
+.contact-page .btn-primary {
+    background:
+        linear-gradient(
+            90deg,
+            #ff7185,
+            #ff5fa2,
+            #c276ff
+        ) !important;
+
+    color: white !important;
+
+    border: none;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(255, 105, 160, 0.25);
+}
+
+
+/* Hover */
+.contact-page button:hover,
+.contact-page .btn-primary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(190, 110, 220, 0.30);
+}
+/* =====================================================
+   CONTACT PAGE - PREMIUM PASTEL BACKGROUND
+===================================================== */
+
+body:has(.contact) {
+    background:
+        radial-gradient(
+            circle at 5% 10%,
+            rgba(255, 160, 210, 0.45),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 95% 10%,
+            rgba(175, 180, 255, 0.45),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe4f0 0%,
+            #f1e5ff 50%,
+            #dcefff 100%
+        ) !important;
+}
+
+
+/* CONTACT SECTION */
+
+.contact {
+    min-height: 100vh;
+
+    padding: 80px 6%;
+
+    background:
+        radial-gradient(
+            circle at 0% 20%,
+            rgba(255, 170, 215, 0.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 100% 80%,
+            rgba(160, 200, 255, 0.35),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe8f2 0%,
+            #f3e7ff 50%,
+            #e1f2ff 100%
+        ) !important;
+}
+
+
+/* CONTACT HEADING */
+
+.contact h2 {
+    color: #20264d;
+}
+
+.contact > p {
+    color: #626b82;
+}
+
+
+/* CONTACT CONTAINER */
+
+.contact-container {
+    background: transparent !important;
+}
+
+
+/* LEFT + RIGHT CARDS */
+
+.contact-info,
+.contact-form {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.88),
+            rgba(255,240,250,0.78)
+        ) !important;
+
+    border: 1px solid
+        rgba(255,255,255,0.9) !important;
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 45px
+        rgba(120,100,160,0.16);
+}
+
+
+/* INPUTS */
+
+.contact-form input,
+.contact-form textarea {
+    background:
+        rgba(255,255,255,0.75) !important;
+
+    border: 1px solid #ddd9ed !important;
+
+    border-radius: 14px;
+}
+
+
+/* INPUT FOCUS */
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+
+    border-color: #c59cff !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(197,156,255,0.15);
+}
+
+
+/* SEND BUTTON */
+
+.contact-form button {
+    background:
+        linear-gradient(
+            90deg,
+            #ff7185,
+            #ff5fa2,
+            #c276ff
+        ) !important;
+
+    color: white !important;
+
+    border: none;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 25px
+        rgba(255,105,160,0.25);
+}
+
+
+/* HOVER */
+
+.contact-form button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(190,110,220,0.30);
+}
