@@ -13452,4 +13452,74 @@ body:has(.about) .about-image img {
 
         display: block !important;
     }
+}/* =====================================================
+   ABOUT - TEDDY AT RIGHT CORNER
+===================================================== */
+
+@media (min-width: 769px) {
+
+    body:has(.about) .about {
+        display: grid !important;
+        grid-template-columns: 52% 48% !important;
+        align-items: center !important;
+    }
+
+    body:has(.about) .about-content {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    body:has(.about) .about-image {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        display: flex !important;
+
+        justify-content: flex-end !important;
+        align-items: center !important;
+
+        padding-right: 20px !important;
+    }
+
+    body:has(.about) .about-image img {
+        width: 400px !important;
+        height: 400px !important;
+
+        max-width: 100% !important;
+        max-height: 400px !important;
+
+        object-fit: contain !important;
+        display: block !important;
+    }
+}@media (min-width: 769px) {
+
+    .about {
+        display: grid !important;
+        grid-template-columns: 45% 55% !important;
+        align-items: center !important;
+    }
+
+    .about-content {
+        grid-column: 1 !important;
+    }
+
+    .about-image {
+        grid-column: 2 !important;
+
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+
+        width: 100% !important;
+    }
+
+    .about-image img {
+        width: 550px !important;
+        height: 550px !important;
+
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
 }
