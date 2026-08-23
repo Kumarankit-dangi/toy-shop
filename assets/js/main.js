@@ -795,32 +795,28 @@ function updateAuthUI() {
 
     }
 
-    catch (error) {
+   catch (error) {
 
-        console.error(
-            "Invalid user data:",
-            error
-        );
+    console.error(
+        "Invalid user data:",
+        error
+    );
 
-        localStorage.removeItem(
-            "token"
-        );
+    authArea.innerHTML = `
 
-        localStorage.removeItem(
-            "user"
-        );
+        <a
+            href="pages/account.html"
+            class="profile-link"
+            title="My Account"
+        >
+            🔴 A
+        </a>
 
-        authArea.innerHTML = `
+    `;
 
-            <a href="pages/login.html">
-                Login
-            </a>
+    return;
 
-        `;
-
-        return;
-
-    }
+}
 
 
     // =================================================
