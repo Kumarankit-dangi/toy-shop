@@ -183,18 +183,45 @@ function getImageName(product) {
         return "";
     }
 
+    let image = String(product.image).trim();
+
+    // External image URL
+    if (
+        image.startsWith("http://") ||
+        image.startsWith("https://")
+    ) {
+        return image;
+    }
+
     // Old teddy image
-    if (product.image === "teddy.jpg") {
+    if (image === "teddy.jpg") {
         return "/assets/images/teddy-bear.png";
     }
 
-    // If database has full path
-    if (product.image.startsWith("assets/")) {
-        return "/" + product.image;
+    // Remove any old relative path
+    image = image
+        .replace(/^(\.\.\/)+/, "")
+        .replace(/^(\.\/)+/, "")
+        .replace(/^\/+/, "");
+
+    // If database contains assets/images/
+    if (image.startsWith("assets/images/")) {
+        image = image.replace(
+            "assets/images/",
+            ""
+        );
     }
 
-    // If database has only filename
-    return "/assets/images/" + product.image;
+    // If database contains assets/
+    if (image.startsWith("assets/")) {
+        image = image.replace(
+            "assets/",
+            ""
+        );
+    }
+
+    // Final correct path
+    return "/assets/images/" + image;
 }
 
 
