@@ -12,6 +12,50 @@ let products = [];
 async function loadProducts() {
 
     try {
+                // =================================================
+        // RESET SHOP FILTERS WHEN COMING FROM SHOP NOW
+        // =================================================
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        if (
+            urlParams.get("reset") === "true"
+        ) {
+
+            const searchInput =
+                document.getElementById(
+                    "search-box"
+                );
+
+            const categoryInput =
+                document.getElementById(
+                    "category-filter"
+                );
+
+            const sortInput =
+                document.getElementById(
+                    "sort-filter"
+                );
+
+
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+
+            if (categoryInput) {
+                categoryInput.value = "all";
+            }
+
+
+            if (sortInput) {
+                sortInput.value = "default";
+            }
+
+        }
 
         const response =
             await fetch(
