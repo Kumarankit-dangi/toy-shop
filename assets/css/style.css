@@ -13321,3 +13321,34 @@ section:has(.category-container) {
 
     display: block;
 }
+/* =====================================================
+   ABOUT IMAGE - RIGHT SIDE + FULL IMAGE
+===================================================== */
+
+.about {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.about-content {
+    width: 52% !important;
+}
+
+.about-image {
+    width: 48% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.about-image img {
+    width: 400px !important;
+    height: 400px !important;
+
+    max-width: 100% !important;
+    object-fit: contain !important;
+
+    display: block !important;
+}
