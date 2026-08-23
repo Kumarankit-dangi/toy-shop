@@ -12097,4 +12097,114 @@ body:has(.contact) {
         gap: 28px !important;
     }
 
+}/* =====================================================
+   CART PAGE - PREMIUM PASTEL BACKGROUND
+===================================================== */
+
+/* Main cart page background */
+body:has(.cart-page) {
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(255, 190, 215, 0.65),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(195, 180, 255, 0.60),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe5ef 0%,
+            #f1e5ff 50%,
+            #dff2ff 100%
+        ) !important;
+}
+
+
+/* Cart section itself */
+.cart-page {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 235, 243, 0.88),
+            rgba(239, 229, 255, 0.88),
+            rgba(225, 243, 255, 0.88)
+        ) !important;
+
+    border-radius: 30px;
+
+    padding: 70px 5% !important;
+}
+
+
+/* Cart product card */
+#cart-items {
+    background: transparent !important;
+}
+
+
+.cart-item {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.72),
+            rgba(255, 225, 240, 0.65),
+            rgba(231, 220, 255, 0.65)
+        ) !important;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.85) !important;
+
+    box-shadow:
+        0 15px 35px
+        rgba(120, 90, 160, 0.14) !important;
+
+    border-radius: 22px !important;
+}
+
+
+/* Cart title */
+.cart-page .section-title h2 {
+    background:
+        linear-gradient(
+            90deg,
+            #ff4f91,
+            #a855f7,
+            #6366f1
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* Total */
+.cart-summary {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 235, 244, 0.75),
+            rgba(238, 228, 255, 0.75)
+        ) !important;
+
+    border-radius: 22px !important;
+}
+
+
+/* Checkout button */
+.checkout-btn {
+    background:
+        linear-gradient(
+            90deg,
+            #ff6585,
+            #f052a4,
+            #a855f7
+        ) !important;
+
+    border: none !important;
+    border-radius: 14px !important;
 }
