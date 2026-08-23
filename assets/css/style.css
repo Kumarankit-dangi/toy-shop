@@ -13604,4 +13604,57 @@ body:has(.about) .about-image img {
         margin: 0 -20px 0 0 !important;
     }
 
+}/* =====================================================
+   ABOUT TEDDY - FINAL RIGHT SIDE FIX
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .about {
+        position: relative !important;
+        display: block !important;
+        min-height: 600px !important;
+    }
+
+    .about-content {
+        width: 50% !important;
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    .about-image {
+        position: absolute !important;
+
+        top: 50% !important;
+        right: 2% !important;
+
+        transform: translateY(-50%) !important;
+
+        width: 48% !important;
+        height: 90% !important;
+
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        z-index: 1 !important;
+    }
+
+    .about-image img {
+        display: block !important;
+
+        width: 520px !important;
+        height: 520px !important;
+
+        max-width: none !important;
+        max-height: none !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+
+        margin: 0 !important;
+    }
 }
