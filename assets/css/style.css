@@ -12728,3 +12728,107 @@ body:has(#orders-container) {
 
     transform: scale(1.05);
 }
+/* =====================================================
+   SHOP PAGE - PREMIUM PASTEL BACKGROUND
+===================================================== */
+
+body:has(.shop-header) {
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(255, 190, 210, 0.45),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(190, 180, 255, 0.45),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 90%,
+            rgba(180, 225, 255, 0.35),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #fff1f5 0%,
+            #f5edff 48%,
+            #eaf6ff 100%
+        ) !important;
+}
+
+
+/* =====================================================
+   SHOP HEADER
+===================================================== */
+
+.shop-header {
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 180, 205, 0.45),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(200, 190, 255, 0.45),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #fff0f3,
+            #f5edff,
+            #eaf5ff
+        ) !important;
+
+    border-bottom: 1px solid rgba(255,255,255,0.7);
+
+    box-shadow:
+        0 15px 40px rgba(150, 120, 170, 0.10);
+}
+
+
+/* =====================================================
+   SEARCH / FILTER AREA
+===================================================== */
+
+.shop-filter {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 225, 235, 0.65),
+            rgba(235, 225, 255, 0.65),
+            rgba(220, 242, 255, 0.65)
+        ) !important;
+}
+
+
+/* =====================================================
+   PRODUCTS BACKGROUND
+===================================================== */
+
+.products-section,
+.products-container,
+.product-grid {
+    background: transparent !important;
+}
+
+
+/* =====================================================
+   PRODUCT AREA - SOFT PREMIUM GLOW
+===================================================== */
+
+.shop-products,
+.products {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 205, 220, 0.30),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(205, 195, 255, 0.30),
+            transparent 30%
+        ) !important;
+}
