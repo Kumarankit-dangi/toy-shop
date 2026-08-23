@@ -194,11 +194,12 @@ ul{
 .section-title p{
     color:#666;
 }
-
-.category-container{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:30px;
+.category-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .category-card{
@@ -228,12 +229,19 @@ ul{
 /* ==========================
    FEATURED PRODUCTS
 ========================== */
+/* =====================================================
+   FEATURED PRODUCTS
+===================================================== */
 
-.products{
-    padding: 40px 4%;
-    background: #f8f9fa;
+.products {
+    padding: 90px 6%;
+    background: linear-gradient(
+        135deg,
+        #fff1f5 0%,
+        #fdf4f8 45%,
+        #f4edff 100%
+    );
 }
-
 .product-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
