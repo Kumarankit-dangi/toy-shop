@@ -9736,3 +9736,101 @@ header::after {
     }
 
 }
+/* =====================================================
+   CATEGORY GRID - 8 CARDS
+===================================================== */
+
+.category-container,
+.categories .product-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+/* CATEGORY CARD */
+
+.category-card {
+    width: 100%;
+    min-height: 320px;
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 22px;
+    padding: 28px 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 12px 35px rgba(80, 50, 100, 0.10);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* HOVER */
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(80, 50, 100, 0.18);
+}
+
+
+/* CATEGORY IMAGE */
+
+.category-card img {
+    width: 220px;
+    height: 190px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 22px;
+}
+
+
+/* CATEGORY TITLE */
+
+.category-card h3 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .category-container,
+    .categories .product-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .category-container,
+    .categories .product-container {
+        grid-template-columns: 1fr;
+        width: 92%;
+    }
+
+    .category-card {
+        min-height: 300px;
+    }
+
+}
