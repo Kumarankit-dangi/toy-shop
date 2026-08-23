@@ -13559,4 +13559,49 @@ body:has(.about) .about-image img {
     object-position: center !important;
 
     display: block !important;
+}/* =====================================================
+   ABOUT - TEDDY RIGHT CORNER
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .about {
+        display: grid !important;
+        grid-template-columns: 50% 50% !important;
+        align-items: center !important;
+    }
+
+    .about-content {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+    }
+
+    .about-image {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .about-image img {
+        width: 520px !important;
+        height: 520px !important;
+
+        max-width: none !important;
+        max-height: none !important;
+
+        object-fit: contain !important;
+        object-position: center !important;
+
+        margin: 0 -20px 0 0 !important;
+    }
+
 }
