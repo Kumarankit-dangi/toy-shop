@@ -183,18 +183,18 @@ function getImageName(product) {
         return "";
     }
 
-    // Old teddy image name
+    // Old teddy image
     if (product.image === "teddy.jpg") {
-        return "../assets/images/teddy-bear.png";
+        return "/assets/images/teddy-bear.png";
     }
 
-    // If admin/database already stores full assets path
+    // If database has full path
     if (product.image.startsWith("assets/")) {
-        return "../" + product.image;
+        return "/" + product.image;
     }
 
-    // If database stores only filename
-    return "../assets/images/" + product.image;
+    // If database has only filename
+    return "/assets/images/" + product.image;
 }
 
 
@@ -482,7 +482,7 @@ function displayProducts(productList) {
                 <!-- PRODUCT IMAGE -->
 
                 <img
-                    src="${getImageName(product)}"
+                    src="../assets/images/${getImageName(product)}"
                     alt="${product.name}"
                 >
 
