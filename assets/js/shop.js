@@ -952,6 +952,13 @@ loadProducts();
 updateCartCount();
 
 updateWishlistCount();
+// SEARCH + CATEGORY + SORT
+function applyFilters() {
+
+    // yahan mera diya hua NEW applyFilters code
+}
+
+
 // =====================================================
 // SEARCH / FILTER EVENTS
 // =====================================================
@@ -961,19 +968,13 @@ document.addEventListener(
     function () {
 
         const searchInput =
-            document.getElementById(
-                "search-box"
-            );
+            document.getElementById("search-box");
 
         const categoryInput =
-            document.getElementById(
-                "category-filter"
-            );
+            document.getElementById("category-filter");
 
         const sortInput =
-            document.getElementById(
-                "sort-filter"
-            );
+            document.getElementById("sort-filter");
 
 
         if (searchInput) {
@@ -981,9 +982,7 @@ document.addEventListener(
             searchInput.addEventListener(
                 "input",
                 function () {
-
                     applyFilters();
-
                 }
             );
 
@@ -995,9 +994,7 @@ document.addEventListener(
             categoryInput.addEventListener(
                 "change",
                 function () {
-
                     applyFilters();
-
                 }
             );
 
@@ -1009,9 +1006,7 @@ document.addEventListener(
             sortInput.addEventListener(
                 "change",
                 function () {
-
                     applyFilters();
-
                 }
             );
 
