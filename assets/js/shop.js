@@ -920,3 +920,57 @@ loadProducts();
 updateCartCount();
 
 updateWishlistCount();
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchInput =
+        document.getElementById("search-box");
+
+    const categoryInput =
+        document.getElementById("category-filter");
+
+    const sortInput =
+        document.getElementById("sort-filter");
+
+
+    if (searchInput) {
+
+        searchInput.addEventListener(
+            "input",
+            function () {
+
+                applyFilters();
+
+            }
+        );
+
+    }
+
+
+    if (categoryInput) {
+
+        categoryInput.addEventListener(
+            "change",
+            function () {
+
+                applyFilters();
+
+            }
+        );
+
+    }
+
+
+    if (sortInput) {
+
+        sortInput.addEventListener(
+            "change",
+            function () {
+
+                applyFilters();
+
+            }
+        );
+
+    }
+
+});
