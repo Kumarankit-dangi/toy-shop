@@ -173,8 +173,6 @@ updateWishlistCount();
     }
 
 }
-
-
 // =====================================================
 // GET IMAGE
 // =====================================================
@@ -198,6 +196,8 @@ function getImageName(product) {
     // If database stores only filename
     return "../assets/images/" + product.image;
 }
+
+
 
 
 // =====================================================
@@ -482,7 +482,7 @@ function displayProducts(productList) {
                 <!-- PRODUCT IMAGE -->
 
                 <img
-                    src="../assets/images/${getImageName(product)}"
+                    src="${getImageName(product)}"
                     alt="${product.name}"
                 >
 
