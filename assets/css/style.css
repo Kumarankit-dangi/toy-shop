@@ -13405,4 +13405,51 @@ body:has(.about) .about-image img {
     object-fit: contain !important;
 
     display: block !important;
+}/* =====================================================
+   ABOUT PAGE - DESKTOP TWO COLUMN LAYOUT
+===================================================== */
+
+@media (min-width: 769px) {
+
+    body:has(.about) .about {
+        display: grid !important;
+
+        grid-template-columns: 52% 48% !important;
+
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+
+    /* LEFT SIDE */
+    body:has(.about) .about-content {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+    }
+
+    /* RIGHT SIDE */
+    body:has(.about) .about-image {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    /* TEDDY */
+    body:has(.about) .about-image img {
+        width: 400px !important;
+        height: 400px !important;
+
+        max-width: 100% !important;
+        max-height: 400px !important;
+
+        object-fit: contain !important;
+
+        display: block !important;
+    }
 }
