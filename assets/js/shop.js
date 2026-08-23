@@ -613,27 +613,17 @@ function loadCategoryFromURL() {
 
 function applyFilters() {
 
-    console.log(
-        "FILTER FUNCTION CALLED"
-    );
+    console.log("FILTER FUNCTION CALLED");
 
 
     const searchInput =
-        document.getElementById(
-            "search-box"
-        );
-
+        document.getElementById("search-box");
 
     const categoryInput =
-        document.getElementById(
-            "category-filter"
-        );
-
+        document.getElementById("category-filter");
 
     const sortInput =
-        document.getElementById(
-            "sort-filter"
-        );
+        document.getElementById("sort-filter");
 
 
     const search =
@@ -656,70 +646,67 @@ function applyFilters() {
             : "default";
 
 
-    console.log(
-        "SEARCH:",
-        search
-    );
-
-
-    console.log(
-        "CATEGORY:",
-        category
-    );
-
-
-    console.log(
-        "SORT:",
-        sort
-    );
+    console.log("SEARCH:", search);
+    console.log("CATEGORY:", category);
+    console.log("SORT:", sort);
+    console.log("TOTAL PRODUCTS:", products.length);
 
 
     // =================================================
     // FILTER
     // =================================================
 
-    let result =
+    let filteredProducts =
         products.filter(product => {
-
-
-            // SEARCH
 
             const name =
                 String(
                     product.name || ""
-                ).toLowerCase();
+                )
+                .toLowerCase()
+                .trim();
 
 
             const description =
                 String(
                     product.description || ""
-                ).toLowerCase();
+                )
+                .toLowerCase()
+                .trim();
 
+
+            const productCategory =
+                String(
+                    product.category || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            // SEARCH MATCH
 
             const searchMatch =
+                search === "" ||
                 name.includes(search) ||
-                description.includes(search);
+                description.includes(search) ||
+                productCategory.includes(search);
 
 
-            // CATEGORY
+            // CATEGORY MATCH
 
             let categoryMatch = true;
 
 
             if (
-                category !== "all"
+                category &&
+                category.toLowerCase() !== "all"
             ) {
 
                 categoryMatch =
-                    String(
-                        product.category || ""
-                    )
-                        .trim()
+                    productCategory ===
+                    category
                         .toLowerCase()
-                    ===
-                    String(category)
-                        .trim()
-                        .toLowerCase();
+                        .trim();
 
             }
 
@@ -736,11 +723,9 @@ function applyFilters() {
     // SORT
     // =================================================
 
-    if (
-        sort === "low"
-    ) {
+    if (sort === "low") {
 
-        result.sort(
+        filteredProducts.sort(
             (a, b) =>
                 Number(a.price) -
                 Number(b.price)
@@ -749,11 +734,9 @@ function applyFilters() {
     }
 
 
-    else if (
-        sort === "high"
-    ) {
+    else if (sort === "high") {
 
-        result.sort(
+        filteredProducts.sort(
             (a, b) =>
                 Number(b.price) -
                 Number(a.price)
@@ -762,36 +745,36 @@ function applyFilters() {
     }
 
 
-    else if (
-        sort === "newest"
-    ) {
+    else if (sort === "newest") {
 
-        result.sort(
-            (a, b) => {
-
-                return (
-                    new Date(b.createdAt) -
-                    new Date(a.createdAt)
-                );
-
-            }
+        filteredProducts.sort(
+            (a, b) =>
+                new Date(
+                    b.createdAt || 0
+                ) -
+                new Date(
+                    a.createdAt || 0
+                )
         );
 
     }
 
 
     console.log(
-        "FILTERED RESULT:",
-        result
+        "FILTERED PRODUCTS:",
+        filteredProducts
     );
 
 
+    // =================================================
+    // DISPLAY
+    // =================================================
+
     displayProducts(
-        result
+        filteredProducts
     );
 
 }
-
 
 // =====================================================
 // ADD TO CART
