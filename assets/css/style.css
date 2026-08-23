@@ -12686,3 +12686,45 @@ body:has(#orders-container) {
 .profile-link::first-letter {
     color: #ffffff;
 }
+/* =====================================================
+   SAME PROFILE A ON EVERY PAGE
+===================================================== */
+
+#auth-area .profile-link,
+.nav-icons .profile-link {
+    width: 42px !important;
+    height: 42px !important;
+
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    border-radius: 50% !important;
+
+    background: #ff5f6d !important;
+    color: #ffffff !important;
+
+    font-size: 20px !important;
+    font-weight: 700 !important;
+
+    text-decoration: none !important;
+
+    border: none !important;
+
+    box-sizing: border-box !important;
+
+    line-height: 1 !important;
+
+    transition: 0.3s ease;
+}
+
+#auth-area .profile-link:hover,
+.nav-icons .profile-link:hover {
+    background: #ff4757 !important;
+    color: #ffffff !important;
+
+    transform: scale(1.05);
+}
