@@ -7113,3 +7113,752 @@ img {
     opacity: 0.6;
     cursor: not-allowed;
 }
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 50px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    padding: 5px;
+
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    opacity: 0.7;
+}
+/* =========================================================
+   TOYLAND PREMIUM HOMEPAGE BACKGROUND
+   Add this at the END of style.css
+   ========================================================= */
+
+
+/* =========================
+   PREMIUM HERO BACKGROUND
+   ========================= */
+
+.hero,
+.hero-section,
+.home-hero {
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 190, 170, 0.55),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(190, 175, 255, 0.55),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 205, 225, 0.65),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            #fff1e8 0%,
+            #ffe5df 30%,
+            #f8e4f2 60%,
+            #e8ddff 100%
+        );
+
+    background-size: 200% 200%;
+
+    animation: toylandPremiumGradient 12s ease infinite;
+}
+
+
+/* Soft glow */
+
+.hero::before,
+.hero-section::before,
+.home-hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    top: -180px;
+    left: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+
+/* Purple glow */
+
+.hero::after,
+.hero-section::after,
+.home-hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 380px;
+    height: 380px;
+
+    right: -150px;
+    bottom: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(190, 170, 255, 0.30);
+
+    filter: blur(30px);
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   HERO CONTENT
+   ========================= */
+
+.hero h1,
+.hero-section h1,
+.home-hero h1 {
+
+    position: relative;
+    z-index: 2;
+
+    color: #17213c;
+
+    text-shadow:
+        0 4px 18px rgba(60, 40, 100, 0.08);
+}
+
+
+.hero p,
+.hero-section p,
+.home-hero p {
+
+    position: relative;
+    z-index: 2;
+
+    color: #59627a;
+}
+
+
+/* =========================
+   HERO BUTTONS
+   ========================= */
+
+.hero .btn,
+.hero button,
+.hero-section .btn,
+.hero-section button,
+.home-hero .btn,
+.home-hero button {
+
+    position: relative;
+    z-index: 5;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.hero .btn:hover,
+.hero button:hover,
+.hero-section .btn:hover,
+.hero-section button:hover,
+.home-hero .btn:hover,
+.home-hero button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 28px rgba(255, 100, 120, 0.25);
+}
+
+
+/* =========================
+   CATEGORY SECTION
+   ========================= */
+
+.categories,
+.category-section,
+.shop-categories {
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 190, 210, 0.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(190, 175, 255, 0.35),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #faf8ff,
+            #fff5f2,
+            #f6f0ff
+        );
+
+}
+
+
+/* =========================
+   CATEGORY CARDS
+   ========================= */
+
+.category-card,
+.categories .card,
+.shop-categories .card {
+
+    background: rgba(255, 255, 255, 0.82);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255, 255, 255, 0.9);
+
+    box-shadow:
+        0 12px 35px rgba(70, 45, 100, 0.10);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.category-card:hover,
+.categories .card:hover,
+.shop-categories .card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 45px rgba(70, 45, 100, 0.16);
+}
+
+
+/* =========================
+   SALE / OFFER BADGE
+   ========================= */
+
+.hero .badge,
+.hero .offer,
+.hero .sale-badge,
+.hero-section .badge,
+.hero-section .offer {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff3df,
+            #ffe6ef
+        );
+
+    color: #ff5d69;
+
+    border: 1px solid rgba(255, 120, 140, 0.18);
+
+    box-shadow:
+        0 8px 25px rgba(255, 120, 140, 0.12);
+}
+
+
+/* =========================
+   PREMIUM GRADIENT ANIMATION
+   ========================= */
+
+@keyframes toylandPremiumGradient {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .hero,
+    .hero-section,
+    .home-hero {
+
+        background:
+            radial-gradient(
+                circle at 10% 15%,
+                rgba(255, 190, 170, 0.45),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 90% 20%,
+                rgba(195, 180, 255, 0.45),
+                transparent 35%
+            ),
+            linear-gradient(
+                145deg,
+                #fff0e8,
+                #f9e6f3,
+                #e9e0ff
+            );
+
+    }
+
+}
+/* =====================================================
+   TOYLAND PREMIUM HERO
+   ===================================================== */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+
+    min-height: 410px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(255, 190, 170, 0.55),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 92% 18%,
+            rgba(190, 175, 255, 0.55),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 110%,
+            rgba(255, 190, 220, 0.45),
+            transparent 42%
+        ),
+        linear-gradient(
+            135deg,
+            #fff1e8 0%,
+            #ffe5df 32%,
+            #f7e5f3 65%,
+            #e7ddff 100%
+        );
+
+    background-size: 180% 180%;
+
+    animation: toylandHeroGlow 14s ease infinite;
+}
+
+
+/* =====================================================
+   SOFT DECORATIVE GLOW
+   ===================================================== */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    left: -120px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0)
+        );
+
+    filter: blur(8px);
+
+    pointer-events: none;
+}
+
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    right: -130px;
+    bottom: -160px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(196,180,255,0.38),
+            rgba(196,180,255,0)
+        );
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   HERO CONTENT
+   ===================================================== */
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    max-width: 900px;
+
+    padding: 70px 25px;
+}
+
+
+/* =====================================================
+   OFFER TAG
+   ===================================================== */
+
+.hero-tag {
+
+    display: inline-block;
+
+    padding: 12px 22px;
+
+    margin-bottom: 20px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.90),
+            rgba(255, 235, 224, 0.90)
+        );
+
+    border: 1px solid rgba(255, 130, 140, 0.18);
+
+    color: #ff626d;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 8px 25px rgba(255, 100, 120, 0.12);
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* =====================================================
+   HERO HEADING
+   ===================================================== */
+
+.hero h1 {
+
+    margin: 10px 0 20px;
+
+    font-size: clamp(42px, 6vw, 68px);
+
+    line-height: 1.08;
+
+    font-weight: 800;
+
+    color: #17213c;
+
+    letter-spacing: -1.5px;
+
+    text-shadow:
+        0 5px 20px rgba(80, 60, 110, 0.08);
+}
+
+
+/* Magic text */
+
+.hero h1 span {
+
+    color: #ff626d;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff6570,
+            #ff7890,
+            #9a7cff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+   ===================================================== */
+
+.hero-description {
+
+    max-width: 760px;
+
+    margin: 0 auto 32px;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #59627a;
+}
+
+
+/* =====================================================
+   BUTTON AREA
+   ===================================================== */
+
+.hero-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 16px;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =====================================================
+   PRIMARY BUTTON
+   ===================================================== */
+
+.hero .btn-primary {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 30px;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff646d,
+            #ff7b87
+        );
+
+    color: #ffffff;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 10px 25px rgba(255, 95, 110, 0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.hero .btn-primary:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 16px 32px rgba(255, 95, 110, 0.32);
+}
+
+
+/* =====================================================
+   SECONDARY BUTTON
+   ===================================================== */
+
+.hero .btn-secondary {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 30px;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.65);
+
+    border: 2px solid #ff6872;
+
+    color: #ff626d;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    backdrop-filter: blur(10px);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.hero .btn-secondary:hover {
+
+    transform: translateY(-4px);
+
+    background: rgba(255,255,255,0.95);
+
+    box-shadow:
+        0 12px 28px rgba(255, 100, 120, 0.16);
+}
+
+
+/* =====================================================
+   BACKGROUND ANIMATION
+   ===================================================== */
+
+@keyframes toylandHeroGlow {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        min-height: 430px;
+
+        background:
+            radial-gradient(
+                circle at 10% 15%,
+                rgba(255, 190, 170, 0.50),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 90% 15%,
+                rgba(190, 175, 255, 0.50),
+                transparent 35%
+            ),
+            linear-gradient(
+                145deg,
+                #fff0e8,
+                #f8e5f2,
+                #e8dfff
+            );
+    }
+
+
+    .hero-content {
+
+        padding: 60px 20px;
+    }
+
+
+    .hero h1 {
+
+        font-size: 42px;
+
+        letter-spacing: -1px;
+    }
+
+
+    .hero-description {
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+
+    .hero .btn-primary,
+    .hero .btn-secondary {
+
+        width: 210px;
+    }
+
+}
