@@ -10248,3 +10248,230 @@ header::after {
     }
 
 }
+/* =====================================================
+   WHAT OUR CUSTOMERS SAY - PREMIUM COLORS
+===================================================== */
+
+.testimonials {
+    background: linear-gradient(
+        135deg,
+        #fff0f5 0%,
+        #f3e8ff 50%,
+        #e3f0ff 100%
+    ) !important;
+
+    padding: 80px 5%;
+}
+
+
+/* SECTION TITLE */
+
+.testimonials .section-title h2 {
+    color: #292b38;
+    font-weight: 800;
+}
+
+.testimonials .section-title p {
+    color: #62677a;
+}
+
+
+/* TESTIMONIAL CONTAINER */
+
+.testimonial-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 45px;
+}
+
+
+/* CUSTOMER CARDS */
+
+.testimonial-card {
+    border-radius: 28px !important;
+
+    padding: 32px !important;
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 12px 30px
+        rgba(80, 60, 120, 0.12);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* CARD 1 */
+
+.testimonial-card:nth-child(1) {
+    background: linear-gradient(
+        135deg,
+        #ffd9c7,
+        #ffb9c8
+    ) !important;
+}
+
+
+/* CARD 2 */
+
+.testimonial-card:nth-child(2) {
+    background: linear-gradient(
+        135deg,
+        #d8ebff,
+        #b5d5ff
+    ) !important;
+}
+
+
+/* CARD 3 */
+
+.testimonial-card:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        #fff1b8,
+        #ffe083
+    ) !important;
+}
+
+
+/* HOVER */
+
+.testimonial-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 40px
+        rgba(80, 60, 120, 0.20);
+}
+
+
+/* CUSTOMER NAME */
+
+.testimonial-card h3 {
+    color: #292b38;
+    font-weight: 800;
+}
+
+
+/* CUSTOMER REVIEW */
+
+.testimonial-card p {
+    color: #555b70;
+    line-height: 1.7;
+}
+
+
+/* RATING */
+
+.testimonial-card .rating {
+    color: #ffb400;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    .testimonial-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+/* =====================================================
+   WHAT OUR CUSTOMERS SAY - PREMIUM PASTEL
+===================================================== */
+
+.testimonials {
+    background: linear-gradient(
+        135deg,
+        #fff0f5 0%,
+        #f3e8ff 50%,
+        #e5f2ff 100%
+    ) !important;
+}
+
+
+/* CUSTOMER CARDS */
+
+.testimonial-container .testimonial-card:nth-child(1) {
+    background: linear-gradient(
+        135deg,
+        #ffd9c7,
+        #ffb8c8
+    ) !important;
+}
+
+.testimonial-container .testimonial-card:nth-child(2) {
+    background: linear-gradient(
+        135deg,
+        #d8ebff,
+        #a9ceff
+    ) !important;
+}
+
+.testimonial-container .testimonial-card:nth-child(3) {
+    background: linear-gradient(
+        135deg,
+        #fff1b8,
+        #ffda70
+    ) !important;
+}
+
+
+/* PREMIUM CARD STYLE */
+
+.testimonial-container .testimonial-card {
+    border: 1px solid rgba(255,255,255,0.8) !important;
+
+    border-radius: 28px !important;
+
+    box-shadow:
+        0 12px 30px rgba(80,60,120,0.14);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* HOVER */
+
+.testimonial-container .testimonial-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 20px 40px rgba(80,60,120,0.22);
+}
+
+
+/* CUSTOMER IMAGE */
+
+.testimonial-container .testimonial-card img {
+    border: 4px solid rgba(255,255,255,0.8);
+}
+
+
+/* CUSTOMER NAME */
+
+.testimonial-container .testimonial-card h3 {
+    color: #292b38;
+}
+
+
+/* REVIEW TEXT */
+
+.testimonial-container .testimonial-card p {
+    color: #555b70;
+}
+
+
+/* RATING */
+
+.testimonial-container .testimonial-card .rating {
+    color: #ffb400;
+}
