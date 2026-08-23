@@ -13300,3 +13300,24 @@ section:has(.category-container) {
             #eaf7ff 100%
         ) !important;
 }
+/* =====================================================
+   ABOUT PAGE - PERFECT TEDDY IMAGE SIZE
+===================================================== */
+
+.about-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100% !important;
+    max-width: 560px !important;
+
+    height: 480px !important;
+
+    object-fit: contain !important;
+
+    display: block;
+}
