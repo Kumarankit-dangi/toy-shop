@@ -1,17 +1,49 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+    const otpElements = [
+        "send-email-otp",
+        "send-email-otp-btn",
+        "send-otp-btn",
+        "email-otp-section",
+        "otp-section",
+        "verify-email-otp",
+        "verify-email-otp-btn",
+        "verify-otp-btn"
+    ];
+
+    otpElements.forEach(function (id) {
+
+        const element =
+            document.getElementById(id);
+
+        if (element) {
+            element.style.display = "none";
+        }
+
+    });
+
+});
 const API_URL =
     "https://toy-shop-backend.onrender.com";
 
 const registerForm =
     document.getElementById("register-form");
 
-let emailVerified = false;
+// =====================================================
+// EMAIL VERIFICATION
+// =====================================================
+
+// Email OTP removed.
+// Email is considered verified for registration.
+let emailVerified = true;
 
 
 // =====================================================
-// EMAIL OTP ELEMENTS
+// HIDE OLD EMAIL OTP UI
 // =====================================================
 
-// Support current IDs
+// We are not deleting the HTML.
+// We simply hide the old OTP elements so they don't appear.
 
 const sendEmailOtpButton =
     document.getElementById("send-email-otp") ||
@@ -27,461 +59,38 @@ const verifyEmailOtpButton =
     document.getElementById("verify-email-otp-btn") ||
     document.getElementById("verify-otp-btn");
 
-const emailInput =
-    document.getElementById("register-email");
-
 const otpInput =
     document.getElementById("register-otp");
 
 
 // =====================================================
-// SEND EMAIL OTP
+// REMOVE / HIDE OTP CONTROLS
 // =====================================================
 
 if (sendEmailOtpButton) {
 
-    sendEmailOtpButton.addEventListener(
-        "click",
-        async function () {
-
-            const email =
-                emailInput
-                    ? emailInput.value.trim()
-                    : "";
-
-
-            // =================================================
-            // EMAIL VALIDATION
-            // =================================================
-
-            if (!email) {
-
-                alert(
-                    "Please enter your email address."
-                );
-
-                if (emailInput) {
-                    emailInput.focus();
-                }
-
-                return;
-            }
-
-
-            const emailPattern =
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            if (!emailPattern.test(email)) {
-
-                alert(
-                    "Please enter a valid email address."
-                );
-
-                if (emailInput) {
-                    emailInput.focus();
-                }
-
-                return;
-            }
-
-
-            try {
-
-                // =================================================
-                // BUTTON LOADING
-                // =================================================
-
-                sendEmailOtpButton.disabled =
-                    true;
-
-                sendEmailOtpButton.textContent =
-                    "Sending...";
-
-
-                console.log(
-                    "📧 Sending OTP to:",
-                    email
-                );
-
-
-                // =================================================
-                // SEND OTP API
-                // =================================================
-
-                const response =
-                    await fetch(
-                        `${API_URL}/api/auth/send-otp`,
-                        {
-
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    contact: email
-                                })
-
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "Send OTP Response:",
-                    data
-                );
-
-
-                // =================================================
-                // CHECK RESPONSE
-                // =================================================
-
-                if (
-                    !response.ok ||
-                    !data.success
-                ) {
-
-                    throw new Error(
-                        data.message ||
-                        "Failed to send OTP."
-                    );
-
-                }
-
-
-                // =================================================
-                // OTP SENT SUCCESSFULLY
-                // =================================================
-
-                console.log(
-                    "✅ OTP sent successfully"
-                );
-
-
-                // Change button text
-
-                sendEmailOtpButton.textContent =
-                    "OTP Sent ✓";
-
-
-                // Keep disabled
-
-                sendEmailOtpButton.disabled =
-                    true;
-
-
-                // =================================================
-                // SHOW OTP SECTION
-                // =================================================
-
-                if (emailOtpSection) {
-
-                    emailOtpSection.style.display =
-                        "flex";
-
-                    emailOtpSection.style.visibility =
-                        "visible";
-
-                    emailOtpSection.style.opacity =
-                        "1";
-
-                }
-
-
-                // =================================================
-                // SHOW OTP INPUT
-                // =================================================
-
-                if (otpInput) {
-
-                    otpInput.style.display =
-                        "block";
-
-                    otpInput.style.visibility =
-                        "visible";
-
-                    otpInput.disabled =
-                        false;
-
-                    otpInput.focus();
-
-                }
-
-
-                // =================================================
-                // SHOW VERIFY BUTTON
-                // =================================================
-
-                if (verifyEmailOtpButton) {
-
-                    verifyEmailOtpButton.style.display =
-                        "inline-block";
-
-                    verifyEmailOtpButton.style.visibility =
-                        "visible";
-
-                    verifyEmailOtpButton.disabled =
-                        false;
-
-                    verifyEmailOtpButton.textContent =
-                        "Verify";
-
-                }
-
-
-                alert(
-                    "📧 OTP sent to your email. Please check Gmail."
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "❌ Send OTP Error:",
-                    error
-                );
-
-
-                alert(
-                    error.message ||
-                    "Unable to send OTP."
-                );
-
-
-                // =================================================
-                // RESET BUTTON
-                // =================================================
-
-                sendEmailOtpButton.disabled =
-                    false;
-
-                sendEmailOtpButton.textContent =
-                    "Send OTP";
-
-            }
-
-        }
-    );
+    sendEmailOtpButton.style.display = "none";
+    sendEmailOtpButton.disabled = true;
 
 }
 
+if (emailOtpSection) {
 
-// =====================================================
-// VERIFY EMAIL OTP
-// =====================================================
+    emailOtpSection.style.display = "none";
+
+}
 
 if (verifyEmailOtpButton) {
 
-    verifyEmailOtpButton.addEventListener(
-        "click",
-        async function () {
+    verifyEmailOtpButton.style.display = "none";
+    verifyEmailOtpButton.disabled = true;
 
-            const email =
-                emailInput
-                    ? emailInput.value.trim()
-                    : "";
+}
 
+if (otpInput) {
 
-            const otp =
-                otpInput
-                    ? otpInput.value.trim()
-                    : "";
-
-
-            // =================================================
-            // VALIDATION
-            // =================================================
-
-            if (!email) {
-
-                alert(
-                    "Please enter your email address."
-                );
-
-                return;
-            }
-
-
-            if (!otp) {
-
-                alert(
-                    "Please enter the OTP."
-                );
-
-                if (otpInput) {
-                    otpInput.focus();
-                }
-
-                return;
-            }
-
-
-            if (!/^\d{6}$/.test(otp)) {
-
-                alert(
-                    "Please enter a valid 6-digit OTP."
-                );
-
-                if (otpInput) {
-                    otpInput.focus();
-                }
-
-                return;
-            }
-
-
-            try {
-
-                // =================================================
-                // BUTTON LOADING
-                // =================================================
-
-                verifyEmailOtpButton.disabled =
-                    true;
-
-                verifyEmailOtpButton.textContent =
-                    "Checking...";
-
-
-                console.log(
-                    "🔐 Verifying OTP..."
-                );
-
-
-                // =================================================
-                // VERIFY API
-                // =================================================
-
-                const response =
-                    await fetch(
-                        `${API_URL}/api/auth/verify-otp`,
-                        {
-
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    contact: email,
-
-                                    otp: otp
-
-                                })
-
-                        }
-                    );
-
-
-                const data =
-                    await response.json();
-
-
-                console.log(
-                    "Verify OTP Response:",
-                    data
-                );
-
-
-                // =================================================
-                // CHECK RESPONSE
-                // =================================================
-
-                if (
-                    !response.ok ||
-                    !data.success
-                ) {
-
-                    throw new Error(
-                        data.message ||
-                        "Invalid OTP."
-                    );
-
-                }
-
-
-                // =================================================
-                // VERIFIED
-                // =================================================
-
-                emailVerified =
-                    true;
-
-
-                verifyEmailOtpButton.textContent =
-                    "Verified ✓";
-
-
-                verifyEmailOtpButton.disabled =
-                    true;
-
-
-                // Lock email
-
-                if (emailInput) {
-
-                    emailInput.readOnly =
-                        true;
-
-                }
-
-
-                // Lock OTP
-
-                if (otpInput) {
-
-                    otpInput.readOnly =
-                        true;
-
-                }
-
-
-                console.log(
-                    "✅ Email verified successfully"
-                );
-
-
-                alert(
-                    "✅ Email verified successfully!"
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "❌ Verify OTP Error:",
-                    error
-                );
-
-
-                alert(
-                    error.message ||
-                    "OTP verification failed."
-                );
-
-
-                verifyEmailOtpButton.disabled =
-                    false;
-
-                verifyEmailOtpButton.textContent =
-                    "Verify";
-
-            }
-
-        }
-    );
+    otpInput.style.display = "none";
+    otpInput.disabled = true;
 
 }
 
@@ -539,8 +148,74 @@ if (registerForm) {
 
 
             // =================================================
-            // PASSWORD CHECK
+            // BASIC VALIDATION
             // =================================================
+
+            if (!name) {
+
+                alert(
+                    "Please enter your name."
+                );
+
+                return;
+            }
+
+
+            // =================================================
+            // EMAIL VALIDATION
+            // =================================================
+
+            if (!email) {
+
+                alert(
+                    "Please enter your email address."
+                );
+
+                return;
+            }
+
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (!emailPattern.test(email)) {
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            // =================================================
+            // PHONE VALIDATION
+            // =================================================
+
+            if (!phone) {
+
+                alert(
+                    "Please enter your phone number."
+                );
+
+                return;
+            }
+
+
+            // =================================================
+            // PASSWORD VALIDATION
+            // =================================================
+
+            if (!password) {
+
+                alert(
+                    "Please enter a password."
+                );
+
+                return;
+            }
+
 
             if (
                 password !==
@@ -556,17 +231,11 @@ if (registerForm) {
 
 
             // =================================================
-            // EMAIL VERIFICATION CHECK
+            // EMAIL OTP REMOVED
             // =================================================
 
-            if (!emailVerified) {
-
-                alert(
-                    "📧 Please verify your email first."
-                );
-
-                return;
-            }
+            // Email verification is intentionally skipped.
+            emailVerified = true;
 
 
             // =================================================
@@ -584,6 +253,10 @@ if (registerForm) {
 
             try {
 
+                // =================================================
+                // BUTTON LOADING
+                // =================================================
+
                 if (createAccountButton) {
 
                     createAccountButton.disabled =
@@ -593,6 +266,11 @@ if (registerForm) {
                         "Creating Account...";
 
                 }
+
+
+                console.log(
+                    "📝 Creating Toyland account..."
+                );
 
 
                 // =================================================
@@ -614,19 +292,27 @@ if (registerForm) {
                             body:
                                 JSON.stringify({
 
-                                    name,
+                                    name:
+                                        name,
 
-                                    email,
+                                    email:
+                                        email,
 
-                                    phone,
+                                    phone:
+                                        phone,
 
-                                    password
+                                    password:
+                                        password
 
                                 })
 
                         }
                     );
 
+
+                // =================================================
+                // READ RESPONSE
+                // =================================================
 
                 const data =
                     await response.json();
@@ -659,10 +345,19 @@ if (registerForm) {
                 // SUCCESS
                 // =================================================
 
+                console.log(
+                    "✅ Account created successfully"
+                );
+
+
                 alert(
                     "🎉 Account created successfully!"
                 );
 
+
+                // =================================================
+                // REDIRECT TO LOGIN
+                // =================================================
 
                 window.location.href =
                     "login.html";
@@ -681,6 +376,10 @@ if (registerForm) {
                     "Unable to create account."
                 );
 
+
+                // =================================================
+                // RESET BUTTON
+                // =================================================
 
                 if (createAccountButton) {
 
