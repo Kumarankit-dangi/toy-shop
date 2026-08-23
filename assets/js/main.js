@@ -1054,38 +1054,26 @@ function updateMobileProfile() {
 
 
     
-    // =================================================
-    // NOT LOGGED IN
-    // =================================================
-
     if (!token || !userData) {
 
-        mobileAuth.innerHTML = `
+    mobileAuth.innerHTML = `
 
-            <div class="mobile-auth-row">
+        <div class="mobile-auth-row">
 
-                <a
-                    href="pages/login.html"
-                    class="mobile-login-btn"
-                >
-                    Login
-                </a>
+            <a
+                href="pages/account.html"
+                class="mobile-profile-letter"
+                title="My Account"
+            >
+                🔴 A
+            </a>
 
-                <a
-                    href="pages/register.html"
-                    class="mobile-register-btn"
-                >
-                    Register
-                </a>
+        </div>
 
-            </div>
+    `;
 
-        `;
-
-        return;
-    }
-
-
+    return;
+}
     // =================================================
     // READ USER
     // =================================================
