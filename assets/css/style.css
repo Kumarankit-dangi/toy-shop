@@ -11533,3 +11533,49 @@ body:has(.contact) {
         0 14px 30px
         rgba(190,110,220,0.30);
 }
+/* =====================================================
+   CONTACT - GET IN TOUCH PREMIUM COLOR
+===================================================== */
+
+.contact-info h3 {
+    background: linear-gradient(
+        90deg,
+        #ff5f8f,
+        #c05cff,
+        #7b61ff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+    color: transparent;
+}
+
+
+/* Contact information icons */
+.contact-info li::first-letter {
+    color: #c05cff;
+}
+
+
+/* Contact info text */
+.contact-info li,
+.contact-info p {
+    color: #4f5675;
+}
+
+
+/* Form input text */
+.contact-form input,
+.contact-form textarea {
+    color: #4f5675;
+}
+
+
+/* Placeholder */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #7b8199;
+}
