@@ -9271,4 +9271,358 @@ header::after {
             );
     }
 
+}/* =====================================================
+   PREMIUM WHY CHOOSE + CUSTOMER REVIEWS
+===================================================== */
+
+
+/* =====================================================
+   WHY CHOOSE TOYLAND
+===================================================== */
+
+.why-choose,
+.features,
+.features-section,
+.why-section {
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 8% 20%,
+            rgba(255, 184, 205, 0.38),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 92% 20%,
+            rgba(190, 175, 255, 0.38),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 210, 185, 0.30),
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #fff7f3 0%,
+            #fcebf3 40%,
+            #f3edff 75%,
+            #ebe5ff 100%
+        ) !important;
+
+    background-size: 180% 180%;
+
+    animation: premiumSectionGlow 16s ease infinite;
+
+    overflow: hidden;
+}
+
+
+/* Why Choose cards */
+
+.why-choose .feature-card,
+.features .feature-card,
+.features-section .feature-card,
+.why-section .feature-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.96),
+            rgba(255,249,252,0.90)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,0.95);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 32px rgba(70,55,95,0.10);
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.why-choose .feature-card:hover,
+.features .feature-card:hover,
+.features-section .feature-card:hover,
+.why-section .feature-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 22px 45px rgba(75,55,105,0.16),
+        0 8px 20px rgba(255,100,125,0.08);
+}
+
+
+/* =====================================================
+   CUSTOMER REVIEWS
+===================================================== */
+
+.testimonials,
+.testimonial-section,
+.reviews,
+.reviews-section,
+.customer-reviews {
+
+    position: relative;
+
+    background:
+        radial-gradient(
+            circle at 5% 20%,
+            rgba(255, 185, 210, 0.40),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 95% 20%,
+            rgba(190, 175, 255, 0.40),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(255, 205, 185, 0.32),
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #fff8f4,
+            #fbeaf2,
+            #f1ebff,
+            #e9e3ff
+        ) !important;
+
+    background-size: 180% 180%;
+
+    animation: premiumSectionGlow 16s ease infinite;
+
+    overflow: hidden;
+}
+
+
+/* Review cards */
+
+.testimonials .testimonial-card,
+.testimonial-section .testimonial-card,
+.reviews .testimonial-card,
+.reviews-section .testimonial-card,
+.customer-reviews .testimonial-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.97),
+            rgba(255,249,252,0.91)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,0.95);
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 32px rgba(70,55,95,0.10);
+
+    backdrop-filter: blur(12px);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.testimonials .testimonial-card:hover,
+.testimonial-section .testimonial-card:hover,
+.reviews .testimonial-card:hover,
+.reviews-section .testimonial-card:hover,
+.customer-reviews .testimonial-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 22px 48px rgba(75,55,105,0.17),
+        0 8px 20px rgba(255,100,125,0.08);
+}
+
+
+/* =====================================================
+   SECTION HEADINGS
+===================================================== */
+
+.why-choose h2,
+.features h2,
+.features-section h2,
+.why-section h2,
+.testimonials h2,
+.testimonial-section h2,
+.reviews h2,
+.reviews-section h2,
+.customer-reviews h2 {
+
+    color: #25283a !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 5px 18px rgba(70,55,90,0.08);
+}
+
+
+/* subtitles */
+
+.why-choose p,
+.features p,
+.features-section p,
+.why-section p,
+.testimonials p,
+.testimonial-section p,
+.reviews p,
+.reviews-section p,
+.customer-reviews p {
+
+    color: #656a7c;
+}
+
+
+/* =====================================================
+   ICONS
+===================================================== */
+
+.why-choose .feature-icon,
+.features .feature-icon,
+.features-section .feature-icon,
+.why-section .feature-icon {
+
+    filter:
+        drop-shadow(
+            0 7px 8px rgba(80,60,90,0.12)
+        );
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.why-choose .feature-card:hover .feature-icon,
+.features .feature-card:hover .feature-icon,
+.features-section .feature-card:hover .feature-icon,
+.why-section .feature-card:hover .feature-icon {
+
+    transform: scale(1.15) rotate(-4deg);
+}
+
+
+/* =====================================================
+   REVIEW STARS
+===================================================== */
+
+.testimonials .rating,
+.testimonial-section .rating,
+.reviews .rating,
+.reviews-section .rating,
+.customer-reviews .rating {
+
+    color: #f3b51b !important;
+
+    letter-spacing: 2px;
+}
+
+
+/* =====================================================
+   GLOW EFFECTS
+===================================================== */
+
+.why-choose::before,
+.features::before,
+.features-section::before,
+.why-section::before,
+.testimonials::before,
+.testimonial-section::before,
+.reviews::before,
+.reviews-section::before,
+.customer-reviews::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    top: -180px;
+    left: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.85),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   PREMIUM ANIMATION
+===================================================== */
+
+@keyframes premiumSectionGlow {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .why-choose,
+    .features,
+    .features-section,
+    .why-section,
+    .testimonials,
+    .testimonial-section,
+    .reviews,
+    .reviews-section,
+    .customer-reviews {
+
+        background:
+            radial-gradient(
+                circle at 10% 10%,
+                rgba(255,190,210,0.35),
+                transparent 35%
+            ),
+            radial-gradient(
+                circle at 90% 20%,
+                rgba(195,180,255,0.35),
+                transparent 35%
+            ),
+            linear-gradient(
+                145deg,
+                #fff7f2,
+                #f9eaf4,
+                #eee8ff
+            ) !important;
+    }
+
 }
