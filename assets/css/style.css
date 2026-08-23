@@ -10601,4 +10601,638 @@ section.testimonials .testimonial-container .testimonial-card img {
         grid-template-columns: 1fr !important;
     }
 
+}/* =====================================================
+   ABOUT PAGE - PREMIUM PASTEL DESIGN
+===================================================== */
+
+.about-page {
+    min-height: 100vh;
+    background: linear-gradient(
+        120deg,
+        #ffe5ef 0%,
+        #f8e9ff 45%,
+        #e5f4ff 100%
+    );
+}
+
+
+/* ABOUT HERO */
+
+.about-hero {
+    min-height: 520px;
+    padding: 80px 9%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+
+    background:
+        radial-gradient(circle at 20% 20%, #ffd1e4 0, transparent 25%),
+        radial-gradient(circle at 80% 30%, #d9e8ff 0, transparent 30%),
+        linear-gradient(
+            120deg,
+            #fff0f6,
+            #f8efff,
+            #eaf7ff
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* LEFT CONTENT */
+
+.about-content {
+    flex: 1;
+    max-width: 600px;
+    z-index: 2;
+}
+
+.about-content h1 {
+    font-size: 58px;
+    line-height: 1.1;
+    margin-bottom: 22px;
+    font-weight: 800;
+    color: #17213c;
+}
+
+.about-content h1::after {
+    content: "";
+    display: block;
+    width: 115px;
+    height: 7px;
+    margin-top: 18px;
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #ff5fa2,
+        #b86cff,
+        #ffc857
+    );
+}
+
+.about-content p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #59627a;
+    margin-bottom: 30px;
+}
+
+
+/* SHOP BUTTON */
+
+.about-content .btn-primary {
+    display: inline-block;
+    padding: 17px 30px;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #ff6870,
+        #ff7b8a
+    );
+
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 17px;
+
+    box-shadow: 0 12px 30px rgba(255, 104, 112, .25);
+
+    transition: .3s ease;
+}
+
+.about-content .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 35px rgba(255, 104, 112, .35);
+}
+
+
+/* ABOUT IMAGE */
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 610px;
+    height: 390px;
+
+    object-fit: cover;
+
+    border-radius: 28px;
+
+    border: 8px solid rgba(255,255,255,.55);
+
+    box-shadow:
+        0 25px 60px rgba(120, 100, 160, .20);
+
+    background: linear-gradient(
+        135deg,
+        #ffd7e8,
+        #e5d8ff
+    );
+}
+
+
+/* =====================================================
+   OUR MISSION
+===================================================== */
+
+.about-mission {
+    min-height: 350px;
+    padding: 75px 10%;
+
+    text-align: center;
+
+    background:
+        radial-gradient(circle at 15% 40%, #ffd8e7 0, transparent 15%),
+        radial-gradient(circle at 85% 40%, #dcd5ff 0, transparent 18%),
+        linear-gradient(
+            120deg,
+            #fff7dc,
+            #fff1f7,
+            #f2edff
+        );
+
+    position: relative;
+}
+
+.about-mission h2 {
+    font-size: 46px;
+    color: #17213c;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.about-mission h2::after {
+    content: "";
+    display: block;
+
+    width: 160px;
+    height: 6px;
+
+    margin: 18px auto;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #ff8caf,
+        #c879ff,
+        #ffd05c
+    );
+}
+
+.about-mission p {
+    max-width: 750px;
+    margin: auto;
+
+    font-size: 19px;
+    line-height: 1.8;
+
+    color: #606981;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .about-hero {
+        flex-direction: column;
+        padding: 60px 6%;
+        text-align: center;
+    }
+
+    .about-content {
+        max-width: 100%;
+    }
+
+    .about-content h1 {
+        font-size: 42px;
+    }
+
+    .about-content h1::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-content p {
+        font-size: 17px;
+    }
+
+    .about-image img {
+        height: 280px;
+    }
+
+    .about-mission {
+        padding: 60px 7%;
+    }
+
+    .about-mission h2 {
+        font-size: 36px;
+    }
+
+    .about-mission p {
+        font-size: 17px;
+    }
+}
+/* =====================================================
+   ABOUT PAGE - PREMIUM PASTEL DESIGN
+===================================================== */
+
+.about {
+    min-height: 520px;
+    padding: 80px 9%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 70px;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255, 190, 215, 0.75),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(205, 190, 255, 0.75),
+            transparent 32%
+        ),
+        linear-gradient(
+            120deg,
+            #fff0f6,
+            #f8efff,
+            #eaf7ff
+        );
+
+    overflow: hidden;
+}
+
+
+/* ABOUT CONTENT */
+
+.about-content {
+    flex: 1;
+    max-width: 620px;
+}
+
+.about-content h1 {
+    font-size: 58px;
+    font-weight: 800;
+    color: #20263d;
+
+    margin-bottom: 25px;
+}
+
+.about-content p {
+    font-size: 19px;
+    line-height: 1.8;
+
+    color: #59627a;
+
+    margin-bottom: 30px;
+}
+
+
+/* SHOP BUTTON */
+
+.about-content .btn-primary {
+    display: inline-block;
+
+    padding: 16px 30px;
+
+    background: linear-gradient(
+        135deg,
+        #ff6670,
+        #ff8090
+    );
+
+    color: white;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 30px rgba(255, 102, 112, 0.25);
+
+    transition: 0.3s ease;
+}
+
+.about-content .btn-primary:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 18px 35px rgba(255, 102, 112, 0.35);
+}
+
+
+/* =====================================================
+   ABOUT IMAGE
+===================================================== */
+
+.about-image {
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 580px;
+
+    height: 390px;
+
+    object-fit: cover;
+
+    border-radius: 30px;
+
+    border: 7px solid rgba(255,255,255,0.6);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd8e8,
+            #ddd2ff
+        );
+
+    box-shadow:
+        0 25px 60px rgba(120, 100, 160, 0.20);
+}
+
+
+/* =====================================================
+   MISSION
+===================================================== */
+
+.mission {
+    min-height: 350px;
+
+    padding: 80px 10%;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(255, 210, 225, 0.7),
+            transparent 20%
+        ),
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(215, 205, 255, 0.7),
+            transparent 22%
+        ),
+        linear-gradient(
+            120deg,
+            #fff7df,
+            #fff0f7,
+            #f0ecff
+        );
+}
+
+
+/* MISSION TITLE */
+
+.mission .section-title h2 {
+    font-size: 46px;
+
+    font-weight: 800;
+
+    color: #20263d;
+
+    margin-bottom: 25px;
+}
+
+.mission .section-title h2::after {
+    content: "";
+
+    display: block;
+
+    width: 150px;
+    height: 6px;
+
+    margin: 18px auto;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #ff8aaa,
+        #bd79ff,
+        #ffd15c
+    );
+}
+
+
+/* MISSION TEXT */
+
+.mission > p {
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    font-size: 19px;
+
+    line-height: 1.8;
+
+    color: #606981;
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats {
+    padding: 70px 8%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 25px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #ffe8f0,
+            #f4eaff,
+            #e7f5ff
+        );
+}
+
+
+.stat-card {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.65),
+            rgba(255,220,235,0.55)
+        );
+
+    border: 1px solid
+        rgba(255,255,255,0.7);
+
+    box-shadow:
+        0 15px 35px
+        rgba(120, 100, 160, 0.12);
+
+    transition: 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+}
+
+.stat-card h2 {
+    font-size: 40px;
+
+    margin-bottom: 8px;
+
+    color: #ff6575;
+}
+
+.stat-card p {
+    font-size: 17px;
+
+    color: #626b82;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .about {
+        flex-direction: column;
+
+        padding: 60px 6%;
+
+        text-align: center;
+    }
+
+    .about-content {
+        max-width: 100%;
+    }
+
+    .about-content h1 {
+        font-size: 42px;
+    }
+
+    .about-content p {
+        font-size: 17px;
+    }
+
+    .about-image img {
+        height: 280px;
+    }
+
+    .mission {
+        padding: 60px 7%;
+    }
+
+    .mission .section-title h2 {
+        font-size: 36px;
+    }
+
+    .mission > p {
+        font-size: 17px;
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        padding: 50px 6%;
+    }
+
+}
+/* =====================================================
+   ABOUT PAGE - FINAL BACKGROUND OVERRIDE
+===================================================== */
+
+body:has(.about) {
+    background: linear-gradient(
+        135deg,
+        #ffe4ee 0%,
+        #f4e5ff 48%,
+        #dff2ff 100%
+    ) !important;
+}
+
+
+/* ABOUT HERO */
+
+.about {
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255, 170, 205, 0.65),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 25%,
+            rgba(180, 200, 255, 0.65),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #ffe8f1 0%,
+            #f5eaff 50%,
+            #e3f4ff 100%
+        ) !important;
+}
+
+
+/* MISSION */
+
+.mission {
+    background:
+        linear-gradient(
+            135deg,
+            #fff0d6 0%,
+            #ffe7f0 50%,
+            #e8e2ff 100%
+        ) !important;
+}
+
+
+/* STATISTICS */
+
+.stats {
+    background:
+        linear-gradient(
+            135deg,
+            #ffe5ee 0%,
+            #eee4ff 50%,
+            #e0f2ff 100%
+        ) !important;
 }
