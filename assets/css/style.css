@@ -8102,3 +8102,192 @@ header::after,
     }
 
 }
+/* =====================================================
+   TOYLAND - PREMIUM NAVBAR
+   ===================================================== */
+
+header {
+    position: relative;
+    z-index: 1000;
+
+    background: linear-gradient(
+        90deg,
+        #fff1e8 0%,
+        #ffe7e1 35%,
+        #f7e6f4 65%,
+        #e8e0ff 100%
+    ) !important;
+
+    box-shadow:
+        0 8px 30px rgba(95, 70, 120, 0.12);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+
+.navbar {
+    background: transparent !important;
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.navbar .logo a {
+    color: #ff626d !important;
+
+    font-weight: 800;
+
+    text-decoration: none;
+
+    text-shadow:
+        0 4px 15px rgba(255, 98, 109, 0.15);
+}
+
+
+/* =====================================================
+   NAVIGATION LINKS
+   ===================================================== */
+
+.navbar > a,
+.navbar ul a,
+.navbar .nav-links a {
+
+    color: #202942 !important;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.navbar > a:hover,
+.navbar ul a:hover,
+.navbar .nav-links a:hover {
+
+    color: #ff626d !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+.navbar input[type="search"],
+.navbar input[type="text"] {
+
+    background: rgba(255, 255, 255, 0.65) !important;
+
+    border: 1.5px solid rgba(255, 100, 115, 0.35) !important;
+
+    box-shadow:
+        0 5px 18px rgba(100, 70, 130, 0.08);
+
+    backdrop-filter: blur(10px);
+}
+
+
+.navbar input::placeholder {
+
+    color: #73798c;
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+   ===================================================== */
+
+.navbar button {
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.navbar button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(255, 95, 110, 0.20);
+}
+
+
+/* =====================================================
+   ICONS
+   ===================================================== */
+
+.navbar .wishlist,
+.navbar .cart,
+.navbar .nav-icon {
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.navbar .wishlist:hover,
+.navbar .cart:hover,
+.navbar .nav-icon:hover {
+
+    transform: scale(1.08);
+}
+
+
+/* =====================================================
+   PREMIUM BOTTOM GLOW
+   ===================================================== */
+
+header::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 10%;
+    right: 10%;
+    bottom: -10px;
+
+    height: 18px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 150, 170, 0.20),
+        rgba(170, 145, 255, 0.20),
+        transparent
+    );
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    header {
+
+        background: linear-gradient(
+            135deg,
+            #fff0e7,
+            #f8e5f2,
+            #e8e0ff
+        ) !important;
+
+        box-shadow:
+            0 8px 25px rgba(80, 55, 110, 0.12);
+    }
+
+}
