@@ -27,7 +27,51 @@
         href="../assets/css/style.css"
     >
 
+    <style>
+
+        /* =====================================================
+           PASSWORD SHOW / HIDE
+           ===================================================== */
+
+        .password-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-wrapper input {
+            width: 100%;
+            padding-right: 50px;
+            box-sizing: border-box;
+        }
+
+        .toggle-password {
+            position: absolute;
+
+            right: 12px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 20px;
+
+            padding: 5px;
+
+            z-index: 5;
+        }
+
+        .toggle-password:hover {
+            opacity: 0.7;
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
@@ -38,6 +82,7 @@
     <div class="register-box">
 
         <h2>Create Account 🚀</h2>
+        <h1 style="color:red;">TEST123</h1>
 
         <p>Join Toyland Today</p>
 
@@ -53,7 +98,9 @@
                 placeholder="Full Name"
                 required
             >
-
+<span style="color:red !important; font-size:30px !important; display:block !important; position:relative !important; z-index:99999 !important;">
+    👁️ TEST
+</span>
 
             <!-- EMAIL + SEND OTP -->
 
@@ -113,26 +160,72 @@
                 required
             >
 
+<!-- PASSWORD -->
 
-            <!-- PASSWORD -->
+<div style="position: relative; width: 100%;">
 
-            <input
-                type="password"
-                id="register-password"
-                placeholder="Password"
-                required
-            >
+    <input
+        type="password"
+        id="register-password"
+        placeholder="Password"
+        required
+        style="
+            width: 100%;
+            padding-right: 55px;
+            box-sizing: border-box;
+        "
+    >
+
+    <span
+        onclick="togglePassword('register-password', this)"
+        style="
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 9999;
+            user-select: none;
+            display: block;
+        "
+    >👁️</span>
+
+</div>
 
 
-            <!-- CONFIRM PASSWORD -->
+<!-- CONFIRM PASSWORD -->
 
-            <input
-                type="password"
-                id="register-confirm-password"
-                placeholder="Confirm Password"
-                required
-            >
+<div style="position: relative; width: 100%;">
 
+    <input
+        type="password"
+        id="register-confirm-password"
+        placeholder="Confirm Password"
+        required
+        style="
+            width: 100%;
+            padding-right: 55px;
+            box-sizing: border-box;
+        "
+    >
+
+    <span
+        onclick="togglePassword('register-confirm-password', this)"
+        style="
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 9999;
+            user-select: none;
+            display: block;
+        "
+    >👁️</span>
+
+</div>
 
             <!-- CREATE ACCOUNT -->
 
@@ -170,6 +263,108 @@
 <script src="../assets/js/register.js"></script>
 
 
+<!-- =====================================================
+     PASSWORD SHOW / HIDE SCRIPT
+     ===================================================== -->
+
+<script>
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    ".toggle-password"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            const targetId =
+                button.getAttribute(
+                    "data-target"
+                );
+
+
+            const passwordInput =
+                document.getElementById(
+                    targetId
+                );
+
+
+            if (!passwordInput) {
+                return;
+            }
+
+
+            if (
+                passwordInput.type ===
+                "password"
+            ) {
+
+                passwordInput.type =
+                    "text";
+
+                button.textContent =
+                    "🙈";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                passwordInput.type =
+                    "password";
+
+                button.textContent =
+                    "👁️";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+<script>
+
+function togglePassword(inputId, icon) {
+
+    const input =
+        document.getElementById(inputId);
+
+    if (!input) {
+        return;
+    }
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        icon.textContent = "🙈";
+
+    } else {
+
+        input.type = "password";
+
+        icon.textContent = "👁️";
+
+    }
+
+}
+
+</script>
 </body>
 
 </html>
