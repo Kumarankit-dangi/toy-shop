@@ -920,57 +920,70 @@ loadProducts();
 updateCartCount();
 
 updateWishlistCount();
-document.addEventListener("DOMContentLoaded", function () {
+// =====================================================
+// SEARCH / FILTER EVENTS
+// =====================================================
 
-    const searchInput =
-        document.getElementById("search-box");
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    const categoryInput =
-        document.getElementById("category-filter");
+        const searchInput =
+            document.getElementById(
+                "search-box"
+            );
 
-    const sortInput =
-        document.getElementById("sort-filter");
+        const categoryInput =
+            document.getElementById(
+                "category-filter"
+            );
+
+        const sortInput =
+            document.getElementById(
+                "sort-filter"
+            );
 
 
-    if (searchInput) {
+        if (searchInput) {
 
-        searchInput.addEventListener(
-            "input",
-            function () {
+            searchInput.addEventListener(
+                "input",
+                function () {
 
-                applyFilters();
+                    applyFilters();
 
-            }
-        );
+                }
+            );
+
+        }
+
+
+        if (categoryInput) {
+
+            categoryInput.addEventListener(
+                "change",
+                function () {
+
+                    applyFilters();
+
+                }
+            );
+
+        }
+
+
+        if (sortInput) {
+
+            sortInput.addEventListener(
+                "change",
+                function () {
+
+                    applyFilters();
+
+                }
+            );
+
+        }
 
     }
-
-
-    if (categoryInput) {
-
-        categoryInput.addEventListener(
-            "change",
-            function () {
-
-                applyFilters();
-
-            }
-        );
-
-    }
-
-
-    if (sortInput) {
-
-        sortInput.addEventListener(
-            "change",
-            function () {
-
-                applyFilters();
-
-            }
-        );
-
-    }
-
-});
+);
