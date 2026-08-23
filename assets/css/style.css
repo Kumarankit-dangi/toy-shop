@@ -13352,3 +13352,57 @@ section:has(.category-container) {
 
     display: block !important;
 }
+/* =====================================================
+   ABOUT PAGE - FINAL FIX
+   TEXT LEFT + IMAGE RIGHT + FULL IMAGE
+===================================================== */
+
+body:has(.about) .about {
+    display: grid !important;
+
+    grid-template-columns: 52% 48% !important;
+
+    align-items: center !important;
+
+    width: 100% !important;
+}
+
+
+/* TEXT LEFT */
+
+body:has(.about) .about-content {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+
+    width: 100% !important;
+}
+
+
+/* IMAGE RIGHT */
+
+body:has(.about) .about-image {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+
+    width: 100% !important;
+
+    display: flex !important;
+
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+
+/* TEDDY - SMALLER + FULLY VISIBLE */
+
+body:has(.about) .about-image img {
+    width: 400px !important;
+    height: 400px !important;
+
+    max-width: 100% !important;
+    max-height: 400px !important;
+
+    object-fit: contain !important;
+
+    display: block !important;
+}
