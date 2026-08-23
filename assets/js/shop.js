@@ -508,10 +508,10 @@ function displayProducts(productList) {
 
                 <!-- PRODUCT IMAGE -->
 
-                <img
-                    src="../assets/images/${getImageName(product)}"
-                    alt="${product.name}"
-                >
+               <img
+    src="${getImageName(product)}"
+    alt="${product.name}"
+>
 
 
                 <!-- PRODUCT NAME -->
