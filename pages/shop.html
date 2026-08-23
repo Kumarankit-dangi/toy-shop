@@ -79,80 +79,124 @@
 </head>
 
 <body>
-
 <header>
 
     <nav class="navbar">
 
+        <!-- LOGO -->
         <div class="logo">
             <a href="../index.html">
                 🧸 Toyland
             </a>
         </div>
 
+
+        <!-- NAVIGATION -->
         <ul class="nav-links">
 
             <li>
-                <a href="../index.html">Home</a>
+                <a href="../index.html">
+                    Home
+                </a>
             </li>
 
             <li>
-                <a href="shop.html">Shop</a>
+                <a href="shop.html">
+                    Shop
+                </a>
             </li>
 
             <li>
-                <a href="#">Categories</a>
+                <a href="#">
+                    Categories
+                </a>
             </li>
 
             <li>
-                <a href="about.html">About</a>
+                <a href="about.html">
+                    About
+                </a>
             </li>
 
             <li>
-                <a href="contact.html">Contact</a>
+                <a href="contact.html">
+                    Contact
+                </a>
             </li>
 
         </ul>
-<div class="nav-icons">
 
-    <!-- SEARCH -->
-    <a href="shop.html" title="Search">
-        🔍
-    </a>
 
-    <!-- WISHLIST -->
-    <a href="wishlist.html" title="Wishlist">
-        ❤️
-    </a>
+        <!-- RIGHT SIDE ICONS -->
+        <div class="nav-icons">
 
-    <!-- CART -->
-    <a href="cart.html" title="Cart">
-        🛒
-    </a>
+            <!-- SEARCH -->
+            <a
+                href="shop.html"
+                title="Search"
+            >
+                🔍
+            </a>
 
-    <!-- MY ORDERS -->
-    <a
-        href="my-orders.html"
-        title="My Orders"
-    >
-        📦 My Orders
-    </a>
 
-    <!-- PROFILE -->
-    <a
-        href="account.html"
-        title="My Account"
-        class="profile-link"
-    >
-        🔴 A
-    </a>
+            <!-- WISHLIST -->
+            <a
+                href="wishlist.html"
+                title="Wishlist"
+            >
+                ❤️
+            </a>
 
-</div>
+
+            <!-- CART -->
+            <a
+                href="cart.html"
+                title="Cart"
+            >
+                🛒
+                <span id="cart-count">
+                    0
+                </span>
+            </a>
+
+
+            <!-- PROFILE -->
+            <div id="auth-area">
+
+                <a
+                    href="account.html"
+                    class="profile-link"
+                    title="My Account"
+                >
+                    A
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE LOGIN / PROFILE -->
+        <div
+            id="mobile-auth-area"
+            class="mobile-auth-area"
+        >
+        </div>
+
+
+        <!-- MOBILE MENU -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            type="button"
+        >
+            ☰
+        </button>
 
     </nav>
 
 </header>
-
 
 <main>
 
