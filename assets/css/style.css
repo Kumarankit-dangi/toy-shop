@@ -9842,3 +9842,268 @@ header::after {
     }
 
 }
+/* =====================================================
+   WHY CHOOSE TOYLAND - PREMIUM PASTEL CARDS
+===================================================== */
+
+.why-choose {
+    background: linear-gradient(
+        135deg,
+        #ffe1e8 0%,
+        #f8e5ff 50%,
+        #ddd6ff 100%
+    );
+
+    padding: 70px 4%;
+    border-radius: 45px;
+}
+
+
+/* SECTION TITLE */
+
+.why-choose .section-title h2 {
+    color: #20243a;
+    font-weight: 800;
+}
+
+.why-choose .section-title p {
+    color: #596078;
+}
+
+
+/* CARDS CONTAINER */
+
+.features-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 35px;
+
+    margin-top: 50px;
+}
+
+
+/* =====================================================
+   PREMIUM FEATURE CARDS
+===================================================== */
+
+.feature-card {
+
+    border-radius: 28px;
+
+    padding: 40px 25px;
+
+    min-height: 260px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    border: 2px solid rgba(255,255,255,0.8);
+
+    box-shadow:
+        0 15px 35px rgba(100, 80, 130, 0.12);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+/* HOVER */
+
+.feature-card:hover {
+
+    transform:
+        translateY(-10px);
+
+    box-shadow:
+        0 22px 45px rgba(100, 80, 130, 0.20);
+
+}
+
+
+/* =====================================================
+   1. FREE SHIPPING
+===================================================== */
+
+.feature-card:nth-child(1) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd9c7,
+            #ffb8c8
+        );
+
+}
+
+
+/* =====================================================
+   2. SECURE PAYMENT
+===================================================== */
+
+.feature-card:nth-child(2) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #d9ebff,
+            #9ec8ff
+        );
+
+}
+
+
+/* =====================================================
+   3. PREMIUM QUALITY
+===================================================== */
+
+.feature-card:nth-child(3) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0b8,
+            #ffd86b
+        );
+
+}
+
+
+/* =====================================================
+   4. SUPPORT
+===================================================== */
+
+.feature-card:nth-child(4) {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f0d8ff,
+            #c9a8ff
+        );
+
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.feature-card .feature-icon {
+
+    width: 90px;
+
+    height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.55);
+
+    backdrop-filter:
+        blur(8px);
+
+    font-size: 45px;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 8px 20px rgba(80,60,100,0.08);
+
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.feature-card h3 {
+
+    color: #292b38;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.feature-card p {
+
+    color: #596078;
+
+    font-size: 17px;
+
+    line-height: 1.6;
+
+    max-width: 280px;
+
+    margin: 0;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .features-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .why-choose {
+
+        padding: 50px 20px;
+
+        border-radius: 25px;
+
+    }
+
+    .features-container {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+    .feature-card {
+
+        min-height: 230px;
+
+    }
+
+}
