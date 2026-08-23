@@ -13750,3 +13750,104 @@ body:has(.about) .about-image img {
         display: block !important;
     }
 }
+/* =====================================================
+   ABOUT PAGE - FINAL DESKTOP LAYOUT
+===================================================== */
+
+@media (min-width: 769px) {
+
+    .about {
+        position: relative !important;
+
+        display: grid !important;
+
+        grid-template-columns: 50% 50% !important;
+
+        align-items: center !important;
+
+        width: 100% !important;
+
+        min-height: 600px !important;
+
+        padding: 70px 5% 70px 8% !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* =========================
+       LEFT TEXT
+    ========================= */
+
+    .about-content {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        max-width: 650px !important;
+
+        position: relative !important;
+
+        z-index: 5 !important;
+    }
+
+
+    .about-content h1 {
+        margin: 0 0 25px 0 !important;
+    }
+
+
+    .about-content p {
+        max-width: 650px !important;
+    }
+
+
+    /* =========================
+       RIGHT IMAGE AREA
+    ========================= */
+
+    .about-image {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+        height: 100% !important;
+
+        display: flex !important;
+
+        justify-content: flex-end !important;
+
+        align-items: center !important;
+
+        position: relative !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        z-index: 2 !important;
+    }
+
+
+    /* =========================
+       ONE LARGE TEDDY
+    ========================= */
+
+    .about-image img {
+        display: block !important;
+
+        width: 520px !important;
+        height: 520px !important;
+
+        max-width: 520px !important;
+        max-height: 520px !important;
+
+        object-fit: contain !important;
+
+        object-position: center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+}
