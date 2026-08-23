@@ -181,17 +181,22 @@ updateWishlistCount();
 
 function getImageName(product) {
 
-    if (
-        product.image === "teddy.jpg"
-    ) {
-
-        return "teddy-bear.png";
-
+    if (!product || !product.image) {
+        return "";
     }
 
+    // Old teddy image name
+    if (product.image === "teddy.jpg") {
+        return "../assets/images/teddy-bear.png";
+    }
 
-    return product.image || "";
+    // If admin/database already stores full assets path
+    if (product.image.startsWith("assets/")) {
+        return "../" + product.image;
+    }
 
+    // If database stores only filename
+    return "../assets/images/" + product.image;
 }
 
 
