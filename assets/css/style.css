@@ -10106,4 +10106,22 @@ header::after {
 
     }
 
+}.feature-card {
+    background: linear-gradient(
+        135deg,
+        #fff0f5,
+        #f3e8ff
+    ) !important;
+
+    border: 1px solid rgba(255, 105, 135, 0.25);
+    box-shadow: 0 10px 30px rgba(120, 80, 150, 0.12);
+}.feature-box {
+    background: linear-gradient(
+        135deg,
+        #fff0f5,
+        #f3e8ff
+    ) !important;
+
+    border: 1px solid rgba(255, 105, 135, 0.25);
+    box-shadow: 0 10px 30px rgba(120, 80, 150, 0.12);
 }
