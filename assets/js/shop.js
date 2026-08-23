@@ -5,15 +5,12 @@ const API_URL =
 let products = [];
 
 
-// =====================================================
-// LOAD PRODUCTS
-// =====================================================
-
 async function loadProducts() {
 
     try {
-                // =================================================
-        // RESET SHOP FILTERS WHEN COMING FROM SHOP NOW
+
+        // =================================================
+        // RESET SHOP PAGE WHEN COMING FROM SHOP NOW
         // =================================================
 
         const urlParams =
@@ -21,9 +18,11 @@ async function loadProducts() {
                 window.location.search
             );
 
-        if (
-            urlParams.get("reset") === "true"
-        ) {
+        const isReset =
+            urlParams.get("reset") === "true";
+
+
+        if (isReset) {
 
             const searchInput =
                 document.getElementById(
@@ -42,26 +41,45 @@ async function loadProducts() {
 
 
             if (searchInput) {
+
                 searchInput.value = "";
+
+                searchInput.setAttribute(
+                    "value",
+                    ""
+                );
+
             }
 
 
             if (categoryInput) {
+
                 categoryInput.value = "all";
+
             }
 
 
             if (sortInput) {
+
                 sortInput.value = "default";
+
             }
 
+
+            // Remove reset parameter from URL
+            window.history.replaceState(
+                {},
+                document.title,
+                window.location.pathname
+            );
+
         }
+
 
         const response =
             await fetch(
                 `${API_URL}/api/products`
             );
-
 
         if (!response.ok) {
 
