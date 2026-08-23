@@ -30,42 +30,58 @@
     <style>
 
         /* =====================================================
-           PASSWORD SHOW / HIDE
+           PASSWORD FIELD
            ===================================================== */
 
         .password-wrapper {
             position: relative;
             width: 100%;
+            margin: 0;
         }
 
         .password-wrapper input {
             width: 100%;
-            padding-right: 50px;
+            padding-right: 55px !important;
             box-sizing: border-box;
         }
 
-        .toggle-password {
+        .password-eye {
             position: absolute;
 
-            right: 12px;
+            right: 15px;
             top: 50%;
 
             transform: translateY(-50%);
 
-            border: none;
-            background: transparent;
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: none !important;
+            outline: none !important;
+
+            background: transparent !important;
+
+            padding: 0 !important;
+            margin: 0 !important;
 
             cursor: pointer;
 
-            font-size: 20px;
+            font-size: 19px;
 
-            padding: 5px;
+            z-index: 1000;
 
-            z-index: 5;
+            line-height: 1;
+
+            box-shadow: none !important;
         }
 
-        .toggle-password:hover {
-            opacity: 0.7;
+        .password-eye:hover {
+            background: transparent !important;
+            transform: translateY(-50%) scale(1.08);
         }
 
     </style>
@@ -82,7 +98,6 @@
     <div class="register-box">
 
         <h2>Create Account 🚀</h2>
-        <h1 style="color:red;">TEST123</h1>
 
         <p>Join Toyland Today</p>
 
@@ -90,7 +105,9 @@
         <form id="register-form">
 
 
-            <!-- FULL NAME -->
+            <!-- =================================================
+                 FULL NAME
+                 ================================================= -->
 
             <input
                 type="text"
@@ -98,60 +115,23 @@
                 placeholder="Full Name"
                 required
             >
-<span style="color:red !important; font-size:30px !important; display:block !important; position:relative !important; z-index:99999 !important;">
-    👁️ TEST
-</span>
-
-            <!-- EMAIL + SEND OTP -->
-
-            <div class="input-with-button">
-
-                <input
-                    type="email"
-                    id="register-email"
-                    placeholder="Email Address"
-                    required
-                >
-
-                <button
-                    type="button"
-                    id="send-email-otp"
-                    class="otp-inline-btn"
-                >
-                    Send OTP
-                </button>
-
-            </div>
 
 
-            <!-- EMAIL OTP -->
+            <!-- =================================================
+                 EMAIL
+                 ================================================= -->
 
-            <div
-                id="email-otp-section"
-                class="input-with-button"
-                style="display: none;"
+            <input
+                type="email"
+                id="register-email"
+                placeholder="Email Address"
+                required
             >
 
-                <input
-                    type="text"
-                    id="register-otp"
-                    placeholder="Enter OTP"
-                    maxlength="6"
-                    inputmode="numeric"
-                >
 
-                <button
-                    type="button"
-                    id="verify-email-otp"
-                    class="otp-inline-btn"
-                >
-                    Verify
-                </button>
-
-            </div>
-
-
-            <!-- PHONE -->
+            <!-- =================================================
+                 PHONE
+                 ================================================= -->
 
             <input
                 type="tel"
@@ -160,74 +140,60 @@
                 required
             >
 
-<!-- PASSWORD -->
 
-<div style="position: relative; width: 100%;">
+            <!-- =================================================
+                 PASSWORD
+                 ================================================= -->
 
-    <input
-        type="password"
-        id="register-password"
-        placeholder="Password"
-        required
-        style="
-            width: 100%;
-            padding-right: 55px;
-            box-sizing: border-box;
-        "
-    >
+            <div class="password-wrapper">
 
-    <span
-        onclick="togglePassword('register-password', this)"
-        style="
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 9999;
-            user-select: none;
-            display: block;
-        "
-    >👁️</span>
+                <input
+                    type="password"
+                    id="register-password"
+                    placeholder="Password"
+                    required
+                >
 
-</div>
+                <button
+                    type="button"
+                    class="password-eye"
+                    onclick="togglePassword('register-password', this)"
+                    aria-label="Show password"
+                >
+                    👁️
+                </button>
+
+            </div>
 
 
-<!-- CONFIRM PASSWORD -->
+            <!-- =================================================
+                 CONFIRM PASSWORD
+                 ================================================= -->
 
-<div style="position: relative; width: 100%;">
+            <div class="password-wrapper">
 
-    <input
-        type="password"
-        id="register-confirm-password"
-        placeholder="Confirm Password"
-        required
-        style="
-            width: 100%;
-            padding-right: 55px;
-            box-sizing: border-box;
-        "
-    >
+                <input
+                    type="password"
+                    id="register-confirm-password"
+                    placeholder="Confirm Password"
+                    required
+                >
 
-    <span
-        onclick="togglePassword('register-confirm-password', this)"
-        style="
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 20px;
-            z-index: 9999;
-            user-select: none;
-            display: block;
-        "
-    >👁️</span>
+                <button
+                    type="button"
+                    class="password-eye"
+                    onclick="togglePassword('register-confirm-password', this)"
+                    aria-label="Show password"
+                >
+                    👁️
+                </button>
 
-</div>
+            </div>
 
-            <!-- CREATE ACCOUNT -->
+
+            <!-- =================================================
+                 CREATE ACCOUNT
+                 ================================================= -->
 
             <button
                 type="submit"
@@ -239,6 +205,10 @@
 
         </form>
 
+
+        <!-- =====================================================
+             LOGIN LINK
+             ===================================================== -->
 
         <p class="login-link">
 
@@ -258,113 +228,66 @@
 </main>
 
 
+<!-- =========================================================
+     MAIN JAVASCRIPT
+     ========================================================= -->
+
 <script src="../assets/js/main.js"></script>
+
+
+<!-- =========================================================
+     REGISTER JAVASCRIPT
+     ========================================================= -->
 
 <script src="../assets/js/register.js"></script>
 
 
-<!-- =====================================================
-     PASSWORD SHOW / HIDE SCRIPT
-     ===================================================== -->
+<!-- =========================================================
+     PASSWORD SHOW / HIDE
+     ========================================================= -->
 
 <script>
 
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            const button =
-                event.target.closest(
-                    ".toggle-password"
-                );
-
-
-            if (!button) {
-                return;
-            }
-
-
-            const targetId =
-                button.getAttribute(
-                    "data-target"
-                );
-
-
-            const passwordInput =
-                document.getElementById(
-                    targetId
-                );
-
-
-            if (!passwordInput) {
-                return;
-            }
-
-
-            if (
-                passwordInput.type ===
-                "password"
-            ) {
-
-                passwordInput.type =
-                    "text";
-
-                button.textContent =
-                    "🙈";
-
-                button.setAttribute(
-                    "aria-label",
-                    "Hide password"
-                );
-
-            } else {
-
-                passwordInput.type =
-                    "password";
-
-                button.textContent =
-                    "👁️";
-
-                button.setAttribute(
-                    "aria-label",
-                    "Show password"
-                );
-
-            }
-
-        }
-    );
-
-</script>
-
-<script>
-
-function togglePassword(inputId, icon) {
+function togglePassword(inputId, button) {
 
     const input =
         document.getElementById(inputId);
+
 
     if (!input) {
         return;
     }
 
+
     if (input.type === "password") {
 
         input.type = "text";
 
-        icon.textContent = "🙈";
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
 
     } else {
 
         input.type = "password";
 
-        icon.textContent = "👁️";
+        button.textContent = "👁️";
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
 
     }
 
 }
 
 </script>
+
+
 </body>
 
 </html>
