@@ -7862,3 +7862,243 @@ img {
     }
 
 }
+/* =====================================================
+   TOYLAND PREMIUM NAVBAR
+   ===================================================== */
+
+header,
+.navbar,
+nav {
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 241, 234, 0.96),
+            rgba(250, 232, 246, 0.96),
+            rgba(235, 227, 255, 0.96)
+        ) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+
+    box-shadow:
+        0 8px 30px rgba(90, 60, 120, 0.10);
+
+    position: relative;
+    z-index: 1000;
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+.logo,
+.logo a {
+
+    color: #ff6570 !important;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 3px 12px rgba(255, 100, 115, 0.12);
+}
+
+
+/* =====================================================
+   NAV LINKS
+   ===================================================== */
+
+nav a,
+.navbar a {
+
+    color: #26304a !important;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+nav a:hover,
+.navbar a:hover {
+
+    color: #ff6570 !important;
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   SEARCH BOX
+   ===================================================== */
+
+.search-box,
+.search-container {
+
+    background:
+        rgba(255, 255, 255, 0.60) !important;
+
+    border: 1px solid rgba(255, 105, 120, 0.35);
+
+    box-shadow:
+        0 6px 20px rgba(100, 70, 130, 0.08);
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* Search button */
+
+.search-box button,
+.search-container button {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6570,
+            #ff7d91
+        ) !important;
+
+    color: white !important;
+
+    border: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.search-box button:hover,
+.search-container button:hover {
+
+    transform: scale(1.05);
+
+    box-shadow:
+        0 8px 20px rgba(255, 100, 120, 0.25);
+}
+
+
+/* =====================================================
+   CART / WISHLIST ICONS
+   ===================================================== */
+
+.cart-icon,
+.wishlist-icon,
+.nav-icon {
+
+    color: #ff6570;
+
+    transition:
+        transform 0.25s ease;
+}
+
+
+.cart-icon:hover,
+.wishlist-icon:hover,
+.nav-icon:hover {
+
+    transform: translateY(-2px) scale(1.08);
+}
+
+
+/* =====================================================
+   USER AVATAR
+   ===================================================== */
+
+.user-avatar,
+.profile-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff6872,
+            #a487ff
+        ) !important;
+
+    color: white !important;
+
+    box-shadow:
+        0 6px 18px rgba(140, 100, 180, 0.18);
+}
+
+
+/* =====================================================
+   CART BADGE
+   ===================================================== */
+
+.cart-count,
+.cart-badge {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff5968,
+            #ff7b91
+        ) !important;
+
+    color: white !important;
+
+    box-shadow:
+        0 4px 10px rgba(255, 80, 100, 0.22);
+}
+
+
+/* =====================================================
+   PREMIUM NAVBAR GLOW
+   ===================================================== */
+
+header::after,
+.navbar::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 15%;
+    right: 15%;
+    bottom: -8px;
+
+    height: 16px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 170, 180, 0.22),
+            rgba(180, 160, 255, 0.22),
+            transparent
+        );
+
+    filter: blur(12px);
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   MOBILE NAVBAR
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+    header,
+    .navbar,
+    nav {
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(255, 240, 232, 0.97),
+                rgba(247, 231, 246, 0.97),
+                rgba(235, 226, 255, 0.97)
+            ) !important;
+
+        box-shadow:
+            0 8px 25px rgba(80, 55, 110, 0.12);
+    }
+
+}
