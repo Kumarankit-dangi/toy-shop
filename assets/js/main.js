@@ -758,22 +758,26 @@ function updateAuthUI() {
     // NOT LOGGED IN
     // =================================================
 
-    if (
-        !token ||
-        !userData
-    ) {
+   if (
+    !token ||
+    !userData
+) {
 
-        authArea.innerHTML = `
+    authArea.innerHTML = `
 
-            <a href="pages/login.html">
-                Login
-            </a>
+        <a
+            href="pages/account.html"
+            class="profile-link"
+            title="My Account"
+        >
+            🔴 A
+        </a>
 
-        `;
+    `;
 
-        return;
+    return;
 
-    }
+}
 
 
     // =================================================
