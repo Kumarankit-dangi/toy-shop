@@ -763,17 +763,17 @@ function updateAuthUI() {
     !userData
 ) {
 
-    authArea.innerHTML = `
+   authArea.innerHTML = `
 
-        <a
-            href="pages/account.html"
-            class="profile-link"
-            title="My Account"
-        >
-            🔴 A
-        </a>
+    <a
+        href="pages/account.html"
+        class="profile-link"
+        title="My Account"
+    >
+        A
+    </a>
 
-    `;
+`;
 
     return;
 

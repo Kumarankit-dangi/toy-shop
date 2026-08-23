@@ -12643,3 +12643,46 @@ body:has(#orders-container) {
         0 15px 30px
         rgba(180,70,220,0.28);
 }
+/* =====================================================
+   PROFILE LETTER - RED CIRCLE
+===================================================== */
+
+.profile-link {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ff5f6d !important;
+    color: #ffffff !important;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    border: none;
+
+    transition: 0.3s ease;
+}
+
+
+/* Hover */
+
+.profile-link:hover {
+    background: #ff4757 !important;
+    color: #ffffff !important;
+
+    transform: translateY(-2px) scale(1.05);
+}
+
+
+/* Make sure the A stays centered */
+
+.profile-link::first-letter {
+    color: #ffffff;
+}
