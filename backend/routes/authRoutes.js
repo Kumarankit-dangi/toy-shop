@@ -12,11 +12,14 @@ const {
 
 const router = express.Router();
 
+
 // =====================================================
 // SEND REGISTRATION OTP
 // =====================================================
 
 router.post("/send-otp", async (req, res) => {
+
+    console.log("STEP 1: OTP ROUTE HIT");
 
     try {
 
@@ -83,7 +86,7 @@ router.post("/send-otp", async (req, res) => {
 
 
         // =================================================
-        // MOBILE - SMS COMING NEXT
+        // MOBILE OTP - LATER
         // =================================================
 
         if (isMobile) {
@@ -106,7 +109,9 @@ router.post("/send-otp", async (req, res) => {
 
         const existingUser =
             await User.findOne({
+
                 email: identifier
+
             });
 
 
@@ -136,6 +141,11 @@ router.post("/send-otp", async (req, res) => {
             hashOTP(otp);
 
 
+        console.log(
+            "STEP 2: OTP GENERATED"
+        );
+
+
         // =================================================
         // REMOVE OLD OTP
         // =================================================
@@ -147,6 +157,11 @@ router.post("/send-otp", async (req, res) => {
             purpose: "register"
 
         });
+
+
+        console.log(
+            "STEP 3: OLD OTP REMOVED"
+        );
 
 
         // =================================================
@@ -172,13 +187,23 @@ router.post("/send-otp", async (req, res) => {
         });
 
 
+        console.log(
+            "STEP 4: OTP SAVED"
+        );
+
+
         // =================================================
-        // SEND EMAIL
+        // SEND EMAIL OTP
         // =================================================
 
         await sendRegistrationOTP(
             identifier,
             otp
+        );
+
+
+        console.log(
+            "STEP 5: EMAIL SENT"
         );
 
 
@@ -200,7 +225,7 @@ router.post("/send-otp", async (req, res) => {
     } catch (error) {
 
         console.error(
-            "Send OTP Error:",
+            "❌ OTP ERROR FULL:",
             error
         );
 
@@ -210,13 +235,21 @@ router.post("/send-otp", async (req, res) => {
             success: false,
 
             message:
-                "Unable to send OTP."
+                error.message ||
+                "Internal server error",
+
+            error:
+                error.code ||
+                error.name ||
+                "UNKNOWN_ERROR"
 
         });
 
     }
 
 });
+
+
 // =====================================================
 // VERIFY REGISTRATION OTP
 // =====================================================
@@ -225,53 +258,110 @@ router.post("/verify-otp", async (req, res) => {
 
     try {
 
-        const { contact, otp } = req.body;
+        const {
+            contact,
+            otp
+        } = req.body;
 
-        if (!contact || !otp) {
+
+        // =================================================
+        // VALIDATE
+        // =================================================
+
+        if (
+            !contact ||
+            !otp
+        ) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "Email and OTP are required."
+
+                message:
+                    "Email and OTP are required."
+
             });
 
         }
 
+
         const identifier =
-            contact.trim().toLowerCase();
+            contact
+                .trim()
+                .toLowerCase();
+
+
+        // =================================================
+        // FIND OTP
+        // =================================================
 
         const verification =
             await VerificationOTP.findOne({
+
                 identifier,
+
                 purpose: "register"
+
             });
+
 
         if (!verification) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "OTP expired or not found. Please request a new OTP."
+
+                message:
+                    "OTP expired or not found. Please request a new OTP."
+
             });
 
         }
 
-        // Maximum 5 attempts
-        if (verification.attempts >= 5) {
+
+        // =================================================
+        // MAXIMUM 5 ATTEMPTS
+        // =================================================
+
+        if (
+            verification.attempts >= 5
+        ) {
 
             await VerificationOTP.deleteOne({
-                _id: verification._id
+
+                _id:
+                    verification._id
+
             });
 
+
             return res.status(429).json({
+
                 success: false,
-                message: "Too many incorrect attempts. Please request a new OTP."
+
+                message:
+                    "Too many incorrect attempts. Please request a new OTP."
+
             });
 
         }
+
+
+        // =================================================
+        // HASH ENTERED OTP
+        // =================================================
 
         const enteredOtpHash =
             hashOTP(
-                otp.toString().trim()
+                otp
+                    .toString()
+                    .trim()
             );
+
+
+        // =================================================
+        // CHECK OTP
+        // =================================================
 
         if (
             enteredOtpHash !==
@@ -282,23 +372,42 @@ router.post("/verify-otp", async (req, res) => {
 
             await verification.save();
 
+
             return res.status(400).json({
+
                 success: false,
-                message: "Invalid OTP."
+
+                message:
+                    "Invalid OTP."
+
             });
 
         }
 
-        // OTP is correct
+
+        // =================================================
+        // OTP CORRECT
+        // =================================================
+
         await VerificationOTP.deleteOne({
-            _id: verification._id
+
+            _id:
+                verification._id
+
         });
 
+
         return res.json({
+
             success: true,
-            message: "OTP verified successfully.",
+
+            message:
+                "OTP verified successfully.",
+
             verified: true
+
         });
+
 
     } catch (error) {
 
@@ -307,18 +416,24 @@ router.post("/verify-otp", async (req, res) => {
             error
         );
 
+
         return res.status(500).json({
+
             success: false,
-            message: "OTP verification failed."
+
+            message:
+                "OTP verification failed."
+
         });
 
     }
 
 });
 
-// ==========================================
+
+// =====================================================
 // REGISTER USER
-// ==========================================
+// =====================================================
 
 router.post("/register", async (req, res) => {
 
@@ -331,19 +446,31 @@ router.post("/register", async (req, res) => {
         } = req.body;
 
 
-        if (!name || !email || !password) {
+        // =================================================
+        // VALIDATE
+        // =================================================
+
+        if (
+            !name ||
+            !email ||
+            !password
+        ) {
 
             return res.status(400).json({
 
                 success: false,
 
                 message:
-                    "Name, email and password are required"
+                    "Name, email and password are required."
 
             });
 
         }
 
+
+        // =================================================
+        // CHECK EXISTING USER
+        // =================================================
 
         const existingUser =
             await User.findOne({
@@ -361,12 +488,16 @@ router.post("/register", async (req, res) => {
                 success: false,
 
                 message:
-                    "User already exists"
+                    "User already exists."
 
             });
 
         }
 
+
+        // =================================================
+        // CREATE USER
+        // =================================================
 
         const user =
             new User({
@@ -384,12 +515,16 @@ router.post("/register", async (req, res) => {
         await user.save();
 
 
-        res.status(201).json({
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        return res.status(201).json({
 
             success: true,
 
             message:
-                "User registered successfully",
+                "User registered successfully.",
 
             user: {
 
@@ -418,18 +553,20 @@ router.post("/register", async (req, res) => {
         );
 
 
-        res.status(500).json({
+        return res.status(500).json({
 
             success: false,
 
             message:
-                "Server error"
+                "Server error."
 
         });
 
     }
 
 });
+
+
 // =====================================================
 // OTP HELPERS
 // =====================================================
@@ -437,7 +574,10 @@ router.post("/register", async (req, res) => {
 function generateOTP() {
 
     return crypto
-        .randomInt(100000, 1000000)
+        .randomInt(
+            100000,
+            1000000
+        )
         .toString();
 
 }
@@ -452,9 +592,10 @@ function hashOTP(otp) {
 
 }
 
-// ==========================================
+
+// =====================================================
 // LOGIN USER
-// ==========================================
+// =====================================================
 
 router.post("/login", async (req, res) => {
 
@@ -466,19 +607,30 @@ router.post("/login", async (req, res) => {
         } = req.body;
 
 
-        if (!email || !password) {
+        // =================================================
+        // VALIDATE
+        // =================================================
+
+        if (
+            !email ||
+            !password
+        ) {
 
             return res.status(400).json({
 
                 success: false,
 
                 message:
-                    "Email and password are required"
+                    "Email and password are required."
 
             });
 
         }
 
+
+        // =================================================
+        // FIND USER
+        // =================================================
 
         const user =
             await User.findOne({
@@ -496,17 +648,24 @@ router.post("/login", async (req, res) => {
                 success: false,
 
                 message:
-                    "Invalid email or password"
+                    "Invalid email or password."
 
             });
 
         }
 
 
+        // =================================================
+        // CHECK PASSWORD
+        // =================================================
+
         const isPasswordCorrect =
             await bcrypt.compare(
+
                 password,
+
                 user.password
+
             );
 
 
@@ -517,12 +676,16 @@ router.post("/login", async (req, res) => {
                 success: false,
 
                 message:
-                    "Invalid email or password"
+                    "Invalid email or password."
 
             });
 
         }
 
+
+        // =================================================
+        // CREATE JWT
+        // =================================================
 
         const token =
             jwt.sign(
@@ -549,12 +712,16 @@ router.post("/login", async (req, res) => {
             );
 
 
-        res.json({
+        // =================================================
+        // LOGIN SUCCESS
+        // =================================================
+
+        return res.json({
 
             success: true,
 
             message:
-                "Login successful",
+                "Login successful.",
 
             token,
 
@@ -585,12 +752,12 @@ router.post("/login", async (req, res) => {
         );
 
 
-        res.status(500).json({
+        return res.status(500).json({
 
             success: false,
 
             message:
-                "Server error"
+                "Server error."
 
         });
 
@@ -599,16 +766,18 @@ router.post("/login", async (req, res) => {
 });
 
 
-// ==========================================
+// =====================================================
 // GET ALL USERS
 // ADMIN ONLY
-// ==========================================
+// =====================================================
 
 router.get("/users", async (req, res) => {
 
     try {
 
-        // Get Authorization header
+        // =================================================
+        // AUTHORIZATION HEADER
+        // =================================================
 
         const authHeader =
             req.headers.authorization;
@@ -624,32 +793,43 @@ router.get("/users", async (req, res) => {
                 success: false,
 
                 message:
-                    "Authentication required"
+                    "Authentication required."
 
             });
 
         }
 
 
-        // Extract token
+        // =================================================
+        // GET TOKEN
+        // =================================================
 
         const token =
-            authHeader.split(" ")[1];
+            authHeader
+                .split(" ")[1];
 
 
-        // Verify JWT
+        // =================================================
+        // VERIFY TOKEN
+        // =================================================
 
         const decoded =
             jwt.verify(
+
                 token,
+
                 process.env.JWT_SECRET
+
             );
 
 
-        // Check admin role
+        // =================================================
+        // CHECK ADMIN
+        // =================================================
 
         if (
-            decoded.role !== "admin"
+            decoded.role !==
+            "admin"
         ) {
 
             return res.status(403).json({
@@ -657,14 +837,16 @@ router.get("/users", async (req, res) => {
                 success: false,
 
                 message:
-                    "Admin access required"
+                    "Admin access required."
 
             });
 
         }
 
 
-        // Get users
+        // =================================================
+        // GET USERS
+        // =================================================
 
         const users =
             await User.find({})
@@ -674,11 +856,13 @@ router.get("/users", async (req, res) => {
                 )
 
                 .sort({
+
                     createdAt: -1
+
                 });
 
 
-        res.json({
+        return res.json({
 
             success: true,
 
@@ -708,7 +892,7 @@ router.get("/users", async (req, res) => {
                 success: false,
 
                 message:
-                    "Invalid token"
+                    "Invalid token."
 
             });
 
@@ -725,19 +909,19 @@ router.get("/users", async (req, res) => {
                 success: false,
 
                 message:
-                    "Token expired"
+                    "Token expired."
 
             });
 
         }
 
 
-        res.status(500).json({
+        return res.status(500).json({
 
             success: false,
 
             message:
-                "Failed to get users"
+                "Failed to get users."
 
         });
 
@@ -746,8 +930,8 @@ router.get("/users", async (req, res) => {
 });
 
 
-// ==========================================
+// =====================================================
 // EXPORT ROUTER
-// ==========================================
+// =====================================================
 
 module.exports = router;

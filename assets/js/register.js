@@ -397,3 +397,69 @@ if (registerForm) {
     );
 
 }
+// =====================================================
+// SHOW / HIDE PASSWORD
+// =====================================================
+
+document.addEventListener(
+    "click",
+    function (event) {
+
+        const button =
+            event.target.closest(
+                ".toggle-password"
+            );
+
+        if (!button) {
+            return;
+        }
+
+
+        const targetId =
+            button.dataset.target;
+
+
+        const passwordInput =
+            document.getElementById(
+                targetId
+            );
+
+
+        if (!passwordInput) {
+            return;
+        }
+
+
+        if (
+            passwordInput.type ===
+            "password"
+        ) {
+
+            passwordInput.type =
+                "text";
+
+            button.textContent =
+                "🙈";
+
+            button.setAttribute(
+                "aria-label",
+                "Hide password"
+            );
+
+        } else {
+
+            passwordInput.type =
+                "password";
+
+            button.textContent =
+                "👁️";
+
+            button.setAttribute(
+                "aria-label",
+                "Show password"
+            );
+
+        }
+
+    }
+);
