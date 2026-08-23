@@ -2,12 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <head>
 
     <meta charset="UTF-8">
 
@@ -67,6 +61,8 @@
     >
 
 
+    <!-- STYLESHEET -->
+
     <link
         rel="stylesheet"
         href="../assets/css/style.css"
@@ -74,63 +70,92 @@
 
 </head>
 
-    <link rel="stylesheet"
-        href="../assets/css/style.css">
-</head>
 
 <body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header>
 
     <nav class="navbar">
 
+
         <!-- LOGO -->
+
         <div class="logo">
+
             <a href="../index.html">
                 🧸 Toyland
             </a>
+
         </div>
 
 
         <!-- NAVIGATION -->
+
         <ul class="nav-links">
 
+
             <li>
+
                 <a href="../index.html">
                     Home
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="shop.html">
                     Shop
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="#">
                     Categories
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="about.html">
                     About
                 </a>
+
             </li>
 
+
             <li>
+
                 <a href="contact.html">
                     Contact
                 </a>
+
             </li>
+
 
         </ul>
 
 
-        <!-- RIGHT SIDE ICONS -->
+        <!-- =================================================
+             RIGHT SIDE ICONS
+        ================================================= -->
+
         <div class="nav-icons">
 
+
             <!-- SEARCH -->
+
             <a
                 href="shop.html"
                 title="Search"
@@ -140,6 +165,7 @@
 
 
             <!-- WISHLIST -->
+
             <a
                 href="wishlist.html"
                 title="Wishlist"
@@ -149,18 +175,23 @@
 
 
             <!-- CART -->
+
             <a
                 href="cart.html"
                 title="Cart"
             >
+
                 🛒
+
                 <span id="cart-count">
                     0
                 </span>
+
             </a>
 
 
             <!-- PROFILE -->
+
             <div id="auth-area">
 
                 <a
@@ -173,10 +204,14 @@
 
             </div>
 
+
         </div>
 
 
-        <!-- MOBILE LOGIN / PROFILE -->
+        <!-- =================================================
+             MOBILE LOGIN / PROFILE
+        ================================================= -->
+
         <div
             id="mobile-auth-area"
             class="mobile-auth-area"
@@ -184,7 +219,10 @@
         </div>
 
 
-        <!-- MOBILE MENU -->
+        <!-- =================================================
+             MOBILE MENU
+        ================================================= -->
+
         <button
             class="menu-toggle"
             id="menu-toggle"
@@ -194,39 +232,59 @@
             ☰
         </button>
 
+
     </nav>
 
 </header>
 
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
-    <!-- SHOP HEADER -->
+
+    <!-- =================================================
+         SHOP HEADER
+    ================================================= -->
 
     <section class="shop-header">
+
 
         <h1>
             Our Toy Collection
         </h1>
 
+
         <p>
             Discover premium toys for kids of all ages.
         </p>
 
+
     </section>
 
 
-    <!-- SEARCH / FILTER / SORT -->
+
+    <!-- =================================================
+         SEARCH / FILTER / SORT
+    ================================================= -->
 
     <section class="shop-filter">
 
+
+        <!-- SEARCH -->
+
         <input
-    type="search"
-    id="search-box"
-    name="toy-search"
-    class="search-box"
-    placeholder="Search toys..."
-    autocomplete="off"
->
+            type="search"
+            id="search-box"
+            name="toy-search"
+            class="search-box"
+            placeholder="Search toys..."
+            autocomplete="off"
+        >
+
 
 
         <!-- CATEGORY -->
@@ -236,31 +294,39 @@
             class="filter-box"
         >
 
+
             <option value="all">
                 All Categories
             </option>
+
 
             <option value="Soft Toys">
                 Soft Toys
             </option>
 
+
             <option value="Toy Cars">
                 Toy Cars
             </option>
+
 
             <option value="Dolls">
                 Dolls
             </option>
 
+
             <option value="Building Toys">
                 Building Toys
             </option>
+
 
             <option value="Construction Toys">
                 Construction Toys
             </option>
 
+
         </select>
+
 
 
         <!-- SORT -->
@@ -270,42 +336,60 @@
             class="filter-box"
         >
 
+
             <option value="default">
                 Sort By
             </option>
+
 
             <option value="low">
                 Price Low to High
             </option>
 
+
             <option value="high">
                 Price High to Low
             </option>
+
 
             <option value="newest">
                 Newest
             </option>
 
+
         </select>
+
 
     </section>
 
 
-    <!-- PRODUCTS -->
+
+    <!-- =================================================
+         PRODUCTS
+    ================================================= -->
 
     <section class="shop-products">
+
 
         <div
             class="product-container"
             id="product-container"
         ></div>
 
+
     </section>
+
 
 </main>
 
 
+
+<!-- =====================================================
+     SHOP JAVASCRIPT
+===================================================== -->
+
 <script src="../assets/js/shop.js"></script>
+
 
 </body>
 
