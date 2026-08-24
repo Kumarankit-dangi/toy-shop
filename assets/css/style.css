@@ -16774,68 +16774,64 @@ body:has(.about) .about-image img {
         overflow: visible !important;
     }
 
+/* ===============================
+   MOBILE TOYLAND LOGO - FIX
+================================ */
 
-    /* ================= TOYLAND LOGO ================= */
+.navbar .logo {
+    flex: 0 1 auto !important;
 
-    .navbar .logo {
-        position: absolute !important;
+    width: auto !important;
+    max-width: 145px !important;
+    min-width: 0 !important;
 
-        left: 24px !important;
-        top: 50% !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-        transform: translateY(-50%) !important;
+    position: relative !important;
+    z-index: 5 !important;
 
-        width: auto !important;
-        height: auto !important;
+    overflow: visible !important;
+}
 
-        margin: 0 !important;
-        padding: 0 !important;
+.navbar .logo a {
+    display: flex !important;
+    align-items: center !important;
 
-        z-index: 20 !important;
-    }
+    width: auto !important;
 
-    .navbar .logo a {
-        display: block !important;
+    font-size: 24px !important;
+    line-height: 1 !important;
 
-        font-size: 28px !important;
-        line-height: 1 !important;
+    white-space: nowrap !important;
 
-        white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-        margin: 0 !important;
-        padding: 0 !important;
+    text-decoration: none !important;
+}
+    /* ===============================
+   MOBILE RIGHT ICONS - FIX
+================================ */
 
-        text-decoration: none !important;
-    }
+.navbar .nav-icons {
+    flex: 0 0 auto !important;
 
+    display: flex !important;
+    align-items: center !important;
 
-    /* ================= RIGHT ICONS ================= */
+    gap: 3px !important;
 
-    .navbar .nav-icons {
+    margin-left: auto !important;
+    margin-right: 0 !important;
 
-        position: absolute !important;
+    padding: 0 !important;
 
-        right: 66px !important;
-        top: 50% !important;
+    width: auto !important;
 
-        transform: translateY(-50%) !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: flex-end !important;
-
-        gap: 7px !important;
-
-        width: auto !important;
-        height: auto !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        z-index: 30 !important;
-    }
-
+    position: relative !important;
+    z-index: 20 !important;
+}
 
     /* SEARCH HIDE */
 
@@ -16934,11 +16930,11 @@ body:has(.about) .about-image img {
 
     transform: translateY(-50%) !important;
 
-    width: 38px !important;
-    height: 38px !important;
+    width: 40px !important;
+    height: 40px !important;
 
-    min-width: 38px !important;
-    max-width: 38px !important;
+    min-width: 40x !important;
+    max-width: 40px !important;
 
     margin: 0 !important;
     padding: 0 !important;
