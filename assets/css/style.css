@@ -14063,3 +14063,64 @@ body:has(.about) .about-image img {
     }
 
 }
+/* =====================================================
+   MOBILE HAMBURGER MENU - FINAL STYLE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .menu-toggle {
+        width: 52px !important;
+        height: 52px !important;
+
+        padding: 0 !important;
+
+        background: #ff6b6b !important;
+        border: none !important;
+        border-radius: 12px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        justify-content: center !important;
+        align-items: center !important;
+
+        gap: 6px !important;
+
+        cursor: pointer !important;
+
+        box-shadow:
+            0 6px 15px rgba(255, 107, 107, 0.30) !important;
+    }
+
+
+    /* THREE WHITE LINES */
+
+    .menu-toggle span {
+        display: block !important;
+
+        width: 28px !important;
+        height: 4px !important;
+
+        background: #ffffff !important;
+
+        border-radius: 4px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* HOVER / TAP */
+
+    .menu-toggle:hover {
+        background: #ff5757 !important;
+        transform: translateY(-1px);
+    }
+
+
+    .menu-toggle:active {
+        transform: scale(0.96);
+    }
+
+}
