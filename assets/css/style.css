@@ -14213,3 +14213,446 @@ body:has(.about) .about-image img {
     }
 
 }
+/* =====================================================
+   TOYLAND - FINAL REAL MOBILE RESPONSIVE
+   NORMAL PHONE VIEW
+===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* =========================
+       GLOBAL
+    ========================= */
+
+    html {
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    body {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box !important;
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .navbar,
+    nav {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        padding: 14px 16px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
+        position: relative !important;
+    }
+
+
+    /* LOGO */
+
+    .logo {
+        max-width: 60% !important;
+        flex-shrink: 1 !important;
+    }
+
+    .logo a {
+        font-size: 26px !important;
+        white-space: nowrap !important;
+    }
+
+
+    /* DESKTOP NAV HIDE */
+
+    .nav-icons {
+        display: none !important;
+    }
+
+
+    /* =========================
+       HAMBURGER
+    ========================= */
+
+    .menu-toggle {
+        display: flex !important;
+
+        width: 52px !important;
+        height: 52px !important;
+
+        flex-shrink: 0 !important;
+
+        margin-left: auto !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        flex-direction: column !important;
+        gap: 6px !important;
+
+        background: #ff6b6b !important;
+        border: none !important;
+        border-radius: 12px !important;
+
+        position: relative !important;
+
+        z-index: 100000 !important;
+    }
+
+    .menu-toggle span {
+        display: block !important;
+
+        width: 28px !important;
+        height: 4px !important;
+
+        background: #fff !important;
+
+        border-radius: 4px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    .nav-links {
+        position: fixed !important;
+
+        top: 0 !important;
+        left: -100% !important;
+
+        width: 78% !important;
+        max-width: 320px !important;
+
+        height: 100vh !important;
+
+        margin: 0 !important;
+        padding: 80px 0 20px !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        background: #fff !important;
+
+        z-index: 99999 !important;
+
+        overflow-y: auto !important;
+
+        transition: left 0.3s ease !important;
+    }
+
+    .nav-links.active {
+        left: 0 !important;
+    }
+
+    .nav-links li {
+        width: 100% !important;
+    }
+
+    .nav-links a {
+        display: block !important;
+
+        width: 100% !important;
+
+        padding: 16px 24px !important;
+
+        font-size: 17px !important;
+
+        color: #333 !important;
+
+        text-decoration: none !important;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    main {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        padding: 50px 20px !important;
+
+        text-align: center !important;
+    }
+
+    .hero-content,
+    .hero-image {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(38px, 10vw, 58px) !important;
+        line-height: 1.1 !important;
+    }
+
+    .hero p {
+        font-size: 18px !important;
+        line-height: 1.6 !important;
+    }
+
+
+    /* =========================
+       SECTIONS
+    ========================= */
+
+    section {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+
+    /* =========================
+       CATEGORIES
+    ========================= */
+
+    .categories,
+    .category-container,
+    .category-grid {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 14px !important;
+
+        padding: 20px !important;
+    }
+
+
+    /* =========================
+       PRODUCTS
+    ========================= */
+
+    .products,
+    .product-container,
+    .product-grid,
+    .products-container {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 14px !important;
+
+        padding: 16px !important;
+    }
+
+    .product-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .product-card img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 150px !important;
+        object-fit: contain !important;
+    }
+
+
+    /* =========================
+       SHOP HEADER
+    ========================= */
+
+    .shop-header,
+    .shop-header section {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .shop-header h1 {
+        font-size: 38px !important;
+        line-height: 1.2 !important;
+        text-align: center !important;
+    }
+
+
+    /* =========================
+       SHOP FILTER
+    ========================= */
+
+    .shop-filter {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        gap: 12px !important;
+
+        padding: 20px !important;
+    }
+
+    .shop-filter input,
+    .shop-filter select,
+    .filter-box,
+    #search-box,
+    #category-filter,
+    #sort-filter {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+    /* =========================
+       FEATURED
+    ========================= */
+
+    .featured-products,
+    .featured-section,
+    .products-section {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /* =========================
+       TESTIMONIALS
+    ========================= */
+
+    .testimonial-container,
+    .testimonials-container,
+    .testimonial-grid {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 18px !important;
+
+        padding: 20px !important;
+    }
+
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        padding: 30px 20px !important;
+
+        text-align: center !important;
+    }
+
+
+    /* =========================
+       NEWSLETTER
+    ========================= */
+
+    .newsletter {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        padding: 50px 20px !important;
+    }
+
+    .newsletter form {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        gap: 10px !important;
+    }
+
+    .newsletter input,
+    .newsletter button {
+        width: 100% !important;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+    }
+
+    .footer-container {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 30px !important;
+
+        padding: 30px 20px !important;
+    }
+}
