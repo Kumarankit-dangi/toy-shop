@@ -14877,4 +14877,51 @@ body:has(.about) .about-image img {
         font-size: 13px !important;
         padding: 10px !important;
     }
+}/* =====================================================
+   MOBILE - RESTORE ORIGINAL IMAGE VISUAL SIZE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* SHOP BY CATEGORY */
+
+    .category-card {
+        overflow: visible !important;
+    }
+
+    .category-card img {
+        width: 180px !important;
+        height: 180px !important;
+
+        max-width: none !important;
+
+        object-fit: contain !important;
+
+        transform: scale(1.45) !important;
+        transform-origin: center center !important;
+
+        margin: 20px auto !important;
+    }
+
+
+    /* FEATURED PRODUCTS */
+
+    .product-card {
+        overflow: visible !important;
+    }
+
+    .product-card img {
+        width: 180px !important;
+        height: 180px !important;
+
+        max-width: none !important;
+
+        object-fit: contain !important;
+
+        transform: scale(1.45) !important;
+        transform-origin: center center !important;
+
+        margin: 20px auto !important;
+    }
+
 }
