@@ -14124,3 +14124,79 @@ body:has(.about) .about-image img {
     }
 
 }
+/* =====================================================
+   SHOP PAGE - MOBILE FILTERS
+   SEARCH / CATEGORY / SORT
+===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    .shop-filters {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        gap: 14px !important;
+
+        padding: 20px 16px !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    /* SEARCH */
+
+    .shop-filters #search-box {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 58px !important;
+
+        padding: 0 18px !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 30px !important;
+
+        font-size: 17px !important;
+    }
+
+
+    /* CATEGORY */
+
+    .shop-filters #category-filter {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 58px !important;
+
+        padding: 0 18px !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 14px !important;
+
+        font-size: 17px !important;
+    }
+
+
+    /* SORT */
+
+    .shop-filters #sort-filter {
+        width: 100% !important;
+        max-width: 100% !important;
+
+        height: 58px !important;
+
+        padding: 0 18px !important;
+
+        box-sizing: border-box !important;
+
+        border-radius: 14px !important;
+
+        font-size: 17px !important;
+    }
+
+}
