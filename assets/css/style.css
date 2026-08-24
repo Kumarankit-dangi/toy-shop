@@ -15108,11 +15108,25 @@ body:has(.about) .about-image img {
     }
 }
 /* =====================================================
-   MOBILE HAMBURGER - FINAL
+   MOBILE NAVBAR - CLEAN FINAL
 ===================================================== */
 
 @media screen and (max-width: 768px) {
 
+    /* HEADER / NAVBAR */
+    header,
+    .header,
+    nav,
+    .navbar {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+    }
+
+
+    /* HAMBURGER BUTTON */
     #menu-toggle {
         width: 48px !important;
         height: 48px !important;
@@ -15120,28 +15134,38 @@ body:has(.about) .about-image img {
         padding: 0 !important;
         margin: 0 !important;
 
+        position: absolute !important;
+
+        right: 16px !important;
+        top: 50% !important;
+
+        transform: translateY(-50%) !important;
+
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
 
-        position: absolute !important;
-        right: 15px !important;
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-
         background: #ff6b6b !important;
+
         border: none !important;
         border-radius: 12px !important;
 
         color: #333 !important;
 
         font-size: 30px !important;
-        font-weight: 400 !important;
         line-height: 1 !important;
 
-        z-index: 1000000 !important;
+        z-index: 999999 !important;
+
         box-sizing: border-box !important;
         cursor: pointer !important;
     }
 
+
+    /* DON'T MOVE BUTTON WHEN HOVER/CLICK */
+    #menu-toggle:hover,
+    #menu-toggle:active {
+        transform: translateY(-50%) !important;
+        background: #ff6b6b !important;
+    }
 }
