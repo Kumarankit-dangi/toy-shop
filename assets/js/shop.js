@@ -1032,3 +1032,55 @@ else {
     setupShopFilters();
 
 }
+// =====================================================
+// LIVE SEARCH FIX
+// =====================================================
+
+document.addEventListener("input", function (event) {
+
+    if (
+        event.target &&
+        event.target.id === "search-box"
+    ) {
+
+        const searchValue =
+            event.target.value
+                .trim()
+                .toLowerCase();
+
+
+        let filteredProducts =
+            products.filter(product => {
+
+                const name =
+                    String(
+                        product.name || ""
+                    ).toLowerCase();
+
+                const description =
+                    String(
+                        product.description || ""
+                    ).toLowerCase();
+
+                const category =
+                    String(
+                        product.category || ""
+                    ).toLowerCase();
+
+
+                return (
+                    name.includes(searchValue) ||
+                    description.includes(searchValue) ||
+                    category.includes(searchValue)
+                );
+
+            });
+
+
+        displayProducts(
+            filteredProducts
+        );
+
+    }
+
+});
