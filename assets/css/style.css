@@ -14540,3 +14540,132 @@ body:has(.about) .about-image img {
     }
 
 }
+/* =====================================================
+   FINAL PHONE DESKTOP VIEW
+   DESKTOP LAYOUT + AUTO SCALE TO PHONE SCREEN
+   ===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    html {
+        width: 100%;
+        min-width: 100%;
+        overflow-x: hidden;
+    }
+
+
+    body {
+        width: 1200px;
+        min-width: 1200px;
+
+        margin: 0;
+
+        /*
+         * Scale the complete desktop website
+         * to fit the phone screen.
+         */
+        zoom: calc(100vw / 1200);
+
+        overflow-x: hidden;
+    }
+
+
+    /* =================================================
+       HEADER
+    ================================================= */
+
+    header {
+        width: 1200px;
+        min-width: 1200px;
+    }
+
+
+    nav {
+        width: 1200px;
+        min-width: 1200px;
+    }
+
+
+    /* DESKTOP NAVIGATION */
+
+    .nav-links {
+        display: flex !important;
+    }
+
+
+    .my-orders-link {
+        display: flex !important;
+    }
+
+
+    /* DESKTOP SEARCH */
+
+    .nav-icons .search-box {
+        display: flex !important;
+    }
+
+
+    /* NO MOBILE MENU */
+
+    .menu-toggle {
+        display: none !important;
+    }
+
+
+    /* =================================================
+       MAIN
+    ================================================= */
+
+    main {
+        width: 1200px;
+        min-width: 1200px;
+    }
+
+
+    /* =================================================
+       SHOP FILTERS
+    ================================================= */
+
+    .shop-filters {
+        width: 100%;
+
+        display: flex !important;
+        flex-direction: row !important;
+
+        align-items: center;
+        gap: 20px;
+    }
+
+
+    /* =================================================
+       PRODUCT GRID
+    ================================================= */
+
+    .product-container {
+        width: 100%;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 25px !important;
+    }
+
+
+    .product-card {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+
+    /* =================================================
+       FOOTER
+    ================================================= */
+
+    footer {
+        width: 1200px;
+        min-width: 1200px;
+    }
+
+}
