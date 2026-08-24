@@ -14918,7 +14918,7 @@ body:has(.about) .about-image img {
 
         object-fit: contain !important;
 
-        transform: scale(1.45) !important;
+        transform: scale(1.30) !important;
         transform-origin: center center !important;
 
         margin: 20px auto !important;
