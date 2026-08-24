@@ -4370,12 +4370,14 @@ color:white;
         cursor: pointer;
     }
 
+.menu-toggle {
+    position: relative !important;
+    z-index: 10 !important;
 
-    .menu-toggle {
-        position: relative !important;
+    flex-shrink: 0 !important;
 
-        z-index: 100000 !important;
-    }
+    margin-left: 20px !important;
+}
 
 }
 /* =====================================================
@@ -4800,18 +4802,24 @@ color:white;
 
 @media (max-width: 768px) {
 
-    /* Navbar */
     .navbar {
-        position: sticky !important;
-        top: 0;
-        width: 100%;
-        min-height: 72px;
-        padding: 16px 20px !important;
-        display: flex;
-        align-items: center;
-        z-index: 10000;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 20px !important;
     }
 
+    .logo {
+        flex-shrink: 1 !important;
+        min-width: 0 !important;
+    }
+
+    .menu-toggle {
+        flex-shrink: 0 !important;
+        margin-left: auto !important;
+    }
+
+}
 
     /* Logo */
     .logo {
