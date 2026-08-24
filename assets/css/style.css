@@ -15120,4 +15120,36 @@ body:has(.about) .about-image img {
         width: 100% !important;
         font-size: 14px !important;
     }
+}/* =====================================================
+   MOBILE - ADD TO CART BUTTON FIX
+===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    .product-card .cart-btn,
+    .product-card button,
+    .add-to-cart {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        height: 58px !important;
+        min-height: 58px !important;
+
+        padding: 0 10px !important;
+        margin: 12px 0 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        font-size: 18px !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+
+        border-radius: 18px !important;
+        box-sizing: border-box !important;
+
+        white-space: normal !important;
+    }
 }
