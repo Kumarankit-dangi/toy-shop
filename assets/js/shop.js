@@ -1040,6 +1040,7 @@ document.addEventListener(
     "input",
     function (event) {
 
+        // Only search box
         if (
             !event.target ||
             event.target.id !== "search-box"
@@ -1048,6 +1049,7 @@ document.addEventListener(
         }
 
 
+        // Get search text
         const search =
             String(
                 event.target.value || ""
@@ -1056,7 +1058,11 @@ document.addEventListener(
                 .toLowerCase();
 
 
-        // EMPTY SEARCH = SHOW ALL
+        // =================================================
+        // EMPTY SEARCH
+        // Show ALL products
+        // =================================================
+
         if (search === "") {
 
             displayProducts(
@@ -1068,7 +1074,10 @@ document.addEventListener(
         }
 
 
+        // =================================================
         // SEARCH PRODUCTS
+        // =================================================
+
         const filteredProducts =
             products.filter(
                 product => {
@@ -1104,13 +1113,9 @@ document.addEventListener(
             );
 
 
-        console.log(
-            "LIVE SEARCH:",
-            search,
-            "RESULTS:",
-            filteredProducts.length
-        );
-
+        // =================================================
+        // DISPLAY SEARCH RESULTS
+        // =================================================
 
         displayProducts(
             filteredProducts
