@@ -608,13 +608,21 @@ function loadCategoryFromURL() {
 
 
 // =====================================================
+// START
+// =====================================================
+
+loadProducts();
+
+updateCartCount();
+
+updateWishlistCount();
+
+
+// =====================================================
 // SEARCH + CATEGORY + SORT
 // =====================================================
 
 function applyFilters() {
-
-    console.log("FILTER FUNCTION CALLED");
-
 
     const searchInput =
         document.getElementById("search-box");
@@ -629,8 +637,8 @@ function applyFilters() {
     const search =
         searchInput
             ? searchInput.value
-                .toLowerCase()
                 .trim()
+                .toLowerCase()
             : "";
 
 
@@ -646,77 +654,80 @@ function applyFilters() {
             : "default";
 
 
-    console.log("SEARCH:", search);
-    console.log("CATEGORY:", category);
-    console.log("SORT:", sort);
-    console.log("TOTAL PRODUCTS:", products.length);
-
-
     // =================================================
     // FILTER
     // =================================================
 
     let filteredProducts =
-        products.filter(product => {
-
-            const name =
-                String(
-                    product.name || ""
-                )
-                .toLowerCase()
-                .trim();
+        [...products];
 
 
-            const description =
-                String(
-                    product.description || ""
-                )
-                .toLowerCase()
-                .trim();
+    // SEARCH
+    if (search) {
+
+        filteredProducts =
+            filteredProducts.filter(product => {
+
+                const name =
+                    String(
+                        product.name || ""
+                    )
+                    .toLowerCase();
+
+                const description =
+                    String(
+                        product.description || ""
+                    )
+                    .toLowerCase();
+
+                const productCategory =
+                    String(
+                        product.category || ""
+                    )
+                    .toLowerCase();
 
 
-            const productCategory =
-                String(
-                    product.category || ""
-                )
-                .toLowerCase()
-                .trim();
+                return (
+                    name.includes(search) ||
+                    description.includes(search) ||
+                    productCategory.includes(search)
+                );
+
+            });
+
+    }
 
 
-            // SEARCH MATCH
+    // =================================================
+    // CATEGORY
+    // =================================================
 
-            const searchMatch =
-                search === "" ||
-                name.includes(search) ||
-                description.includes(search) ||
-                productCategory.includes(search);
+    if (
+        category &&
+        category.toLowerCase() !== "all"
+    ) {
+
+        filteredProducts =
+            filteredProducts.filter(product => {
+
+                const productCategory =
+                    String(
+                        product.category || ""
+                    )
+                    .trim()
+                    .toLowerCase();
 
 
-            // CATEGORY MATCH
-
-            let categoryMatch = true;
-
-
-            if (
-                category &&
-                category.toLowerCase() !== "all"
-            ) {
-
-                categoryMatch =
+                return (
                     productCategory ===
                     category
+                        .trim()
                         .toLowerCase()
-                        .trim();
+                );
 
-            }
+            });
 
-
-            return (
-                searchMatch &&
-                categoryMatch
-            );
-
-        });
+    }
 
 
     // =================================================
@@ -727,43 +738,31 @@ function applyFilters() {
 
         filteredProducts.sort(
             (a, b) =>
-                Number(a.price) -
-                Number(b.price)
+                Number(a.price || 0) -
+                Number(b.price || 0)
         );
 
     }
-
 
     else if (sort === "high") {
 
         filteredProducts.sort(
             (a, b) =>
-                Number(b.price) -
-                Number(a.price)
+                Number(b.price || 0) -
+                Number(a.price || 0)
         );
 
     }
-
 
     else if (sort === "newest") {
 
         filteredProducts.sort(
             (a, b) =>
-                new Date(
-                    b.createdAt || 0
-                ) -
-                new Date(
-                    a.createdAt || 0
-                )
+                new Date(b.createdAt || 0) -
+                new Date(a.createdAt || 0)
         );
 
     }
-
-
-    console.log(
-        "FILTERED PRODUCTS:",
-        filteredProducts
-    );
 
 
     // =================================================
@@ -776,171 +775,6 @@ function applyFilters() {
 
 }
 
-// =====================================================
-// ADD TO CART
-// =====================================================
-
-function addToCart(productId) {
-
-    const product =
-        products.find(
-            item =>
-                String(item._id) ===
-                String(productId)
-        );
-
-
-    if (!product) {
-
-        alert(
-            "Product not found!"
-        );
-
-        return;
-
-    }
-
-
-    const price =
-        Number(product.price);
-
-
-    if (
-        !Number.isFinite(price) ||
-        price <= 0
-    ) {
-
-        alert(
-            "Invalid product price."
-        );
-
-        return;
-
-    }
-
-
-    let cart =
-        JSON.parse(
-            localStorage.getItem("cart")
-        ) || [];
-
-
-    const existingProduct =
-        cart.find(
-            item =>
-                String(item._id) ===
-                String(product._id)
-        );
-
-
-    if (existingProduct) {
-
-        existingProduct.quantity =
-            Number(
-                existingProduct.quantity || 0
-            ) + 1;
-
-    }
-
-
-    else {
-
-        cart.push({
-
-            _id:
-                product._id,
-
-            name:
-                product.name,
-
-            description:
-                product.description || "",
-
-            price:
-                price,
-
-            image:
-                getImageName(product),
-
-            quantity:
-                1
-
-        });
-
-    }
-
-
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
-
-
-    // UPDATE CART COUNT
-
-    updateCartCount();
-
-
-    alert(
-        `${product.name} added to cart 🛒`
-    );
-
-}
-
-
-// =====================================================
-// CART COUNT
-// =====================================================
-
-function updateCartCount() {
-
-    const cartCount =
-        document.getElementById(
-            "cart-count"
-        );
-
-
-    if (!cartCount) return;
-
-
-    const cart =
-        JSON.parse(
-            localStorage.getItem("cart")
-        ) || [];
-
-
-    const totalQuantity =
-        cart.reduce(
-            (total, item) =>
-                total +
-                Number(
-                    item.quantity || 0
-                ),
-            0
-        );
-
-
-    cartCount.textContent =
-        totalQuantity;
-
-}
-
-
-// =====================================================
-// START
-// =====================================================
-
-loadProducts();
-
-updateCartCount();
-
-updateWishlistCount();
-// SEARCH + CATEGORY + SORT
-function applyFilters() {
-
-    // yahan mera diya hua NEW applyFilters code
-}
-
 
 // =====================================================
 // SEARCH / FILTER EVENTS
@@ -951,13 +785,19 @@ document.addEventListener(
     function () {
 
         const searchInput =
-            document.getElementById("search-box");
+            document.getElementById(
+                "search-box"
+            );
 
         const categoryInput =
-            document.getElementById("category-filter");
+            document.getElementById(
+                "category-filter"
+            );
 
         const sortInput =
-            document.getElementById("sort-filter");
+            document.getElementById(
+                "sort-filter"
+            );
 
 
         if (searchInput) {
@@ -965,7 +805,9 @@ document.addEventListener(
             searchInput.addEventListener(
                 "input",
                 function () {
+
                     applyFilters();
+
                 }
             );
 
@@ -977,7 +819,9 @@ document.addEventListener(
             categoryInput.addEventListener(
                 "change",
                 function () {
+
                     applyFilters();
+
                 }
             );
 
@@ -989,7 +833,9 @@ document.addEventListener(
             sortInput.addEventListener(
                 "change",
                 function () {
+
                     applyFilters();
+
                 }
             );
 
