@@ -806,16 +806,16 @@ function applyFilters() {
             : "";
 
 
-    const category =
-        categoryInput
-            ? String(
-                categoryInput.value || "all"
-            )
-                .trim()
-                .toLowerCase()
-            : "all";
-
-
+   const category =
+    categoryInput
+        ? String(
+            categoryInput.value || "all"
+        )
+            .trim()
+            .toLowerCase()
+            .replace(/[-_]+/g, " ")
+            .replace(/\s+/g, " ")
+        : "all";
     const sort =
         sortInput
             ? String(
