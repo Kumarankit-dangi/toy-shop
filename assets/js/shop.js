@@ -124,6 +124,47 @@ async function loadProducts() {
                     Number(product.price)
 
             }));
+            // =====================================================
+// ENABLE CATEGORY + SORT FILTERS
+// =====================================================
+
+const categoryFilter =
+    document.getElementById(
+        "category-filter"
+    );
+
+const sortFilter =
+    document.getElementById(
+        "sort-filter"
+    );
+
+
+if (categoryFilter) {
+
+    categoryFilter.addEventListener(
+        "change",
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+}
+
+
+if (sortFilter) {
+
+    sortFilter.addEventListener(
+        "change",
+        function () {
+
+            applyFilters();
+
+        }
+    );
+
+}
 initLiveSearch();
 
         console.log(
