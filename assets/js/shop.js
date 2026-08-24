@@ -1033,93 +1033,87 @@ else {
 
 }
 // =====================================================
-// LIVE SEARCH FIX
+// LIVE SEARCH
+// =====================================================
+
+function liveSearchProducts() {
+
+    const searchBox =
+        document.getElementById("search-box");
+
+    if (!searchBox) {
+        return;
+    }
+
+    const search =
+        searchBox.value
+            .trim()
+            .toLowerCase();
+
+
+    // EMPTY SEARCH
+    // Show all 39 products
+    if (search === "") {
+
+        displayProducts(products);
+
+        return;
+    }
+
+
+    // FILTER PRODUCTS
+    const filteredProducts =
+        products.filter(function (product) {
+
+            const name =
+                String(
+                    product.name || ""
+                ).toLowerCase();
+
+            const description =
+                String(
+                    product.description || ""
+                ).toLowerCase();
+
+            const category =
+                String(
+                    product.category || ""
+                ).toLowerCase();
+
+
+            return (
+                name.includes(search) ||
+                description.includes(search) ||
+                category.includes(search)
+            );
+
+        });
+
+
+    // SHOW SEARCH RESULT
+    displayProducts(
+        filteredProducts
+    );
+
+}
+
+
+// =====================================================
+// SEARCH INPUT EVENT
 // =====================================================
 
 document.addEventListener(
     "input",
     function (event) {
 
-        // Only search box
         if (
-            !event.target ||
-            event.target.id !== "search-box"
+            event.target &&
+            event.target.id === "search-box"
         ) {
-            return;
-        }
 
-
-        // Get search text
-        const search =
-            String(
-                event.target.value || ""
-            )
-                .trim()
-                .toLowerCase();
-
-
-        // =================================================
-        // EMPTY SEARCH
-        // Show ALL products
-        // =================================================
-
-        if (search === "") {
-
-            displayProducts(
-                products
-            );
-
-            return;
+            liveSearchProducts();
 
         }
-
-
-        // =================================================
-        // SEARCH PRODUCTS
-        // =================================================
-
-        const filteredProducts =
-            products.filter(
-                product => {
-
-                    const name =
-                        String(
-                            product.name || ""
-                        )
-                            .toLowerCase();
-
-
-                    const description =
-                        String(
-                            product.description || ""
-                        )
-                            .toLowerCase();
-
-
-                    const category =
-                        String(
-                            product.category || ""
-                        )
-                            .toLowerCase();
-
-
-                    return (
-                        name.includes(search) ||
-                        description.includes(search) ||
-                        category.includes(search)
-                    );
-
-                }
-            );
-
-
-        // =================================================
-        // DISPLAY SEARCH RESULTS
-        // =================================================
-
-        displayProducts(
-            filteredProducts
-        );
 
     },
     true
