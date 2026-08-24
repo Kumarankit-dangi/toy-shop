@@ -1199,3 +1199,104 @@ document.addEventListener(
 
     }
 );
+// =====================================================
+// NAVBAR SEARCH
+// =====================================================
+
+function initNavbarSearch() {
+
+    const searchInput =
+        document.getElementById(
+            "search-input"
+        );
+
+    const searchButton =
+        document.getElementById(
+            "search-button"
+        );
+
+
+    if (!searchInput) {
+        return;
+    }
+
+
+    function performSearch() {
+
+        const search =
+            searchInput.value.trim();
+
+
+        // EMPTY SEARCH
+        if (search === "") {
+
+            window.location.href =
+                "pages/shop.html?reset=true";
+
+            return;
+
+        }
+
+
+        // GO TO SHOP WITH SEARCH
+        window.location.href =
+            "pages/shop.html?search=" +
+            encodeURIComponent(search);
+
+    }
+
+
+    // SEARCH BUTTON
+
+    if (searchButton) {
+
+        searchButton.addEventListener(
+            "click",
+            performSearch
+        );
+
+    }
+
+
+    // ENTER KEY
+
+    searchInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                event.preventDefault();
+
+                performSearch();
+
+            }
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// INITIALIZE NAVBAR SEARCH
+// =====================================================
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initNavbarSearch
+    );
+
+}
+
+else {
+
+    initNavbarSearch();
+
+}
