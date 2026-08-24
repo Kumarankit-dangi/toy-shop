@@ -1145,3 +1145,284 @@ function initLiveSearch() {
 
 }
 
+// =====================================================
+// FINAL CATEGORY + SORT FIX
+// =====================================================
+
+document.addEventListener(
+    "change",
+    function (event) {
+
+        // Only handle Category and Sort dropdowns
+        if (
+            !event.target ||
+            (
+                event.target.id !== "category-filter" &&
+                event.target.id !== "sort-filter"
+            )
+        ) {
+            return;
+        }
+
+
+        console.log(
+            "FILTER CHANGED:",
+            event.target.id,
+            event.target.value
+        );
+
+
+        // Make sure products are available
+        if (
+            !Array.isArray(products) ||
+            products.length === 0
+        ) {
+
+            console.warn(
+                "Products are not loaded yet"
+            );
+
+            return;
+
+        }
+
+
+        const searchBox =
+            document.getElementById(
+                "search-box"
+            );
+
+        const categoryBox =
+            document.getElementById(
+                "category-filter"
+            );
+
+        const sortBox =
+            document.getElementById(
+                "sort-filter"
+            );
+
+
+        const search =
+            searchBox
+                ? String(
+                    searchBox.value || ""
+                )
+                    .trim()
+                    .toLowerCase()
+                : "";
+
+
+        const category =
+            categoryBox
+                ? String(
+                    categoryBox.value || "all"
+                )
+                    .trim()
+                    .toLowerCase()
+                : "all";
+
+
+        const sort =
+            sortBox
+                ? String(
+                    sortBox.value || "default"
+                )
+                    .trim()
+                    .toLowerCase()
+                : "default";
+
+
+        console.log(
+            "SEARCH:",
+            search
+        );
+
+        console.log(
+            "CATEGORY:",
+            category
+        );
+
+        console.log(
+            "SORT:",
+            sort
+        );
+
+
+        // =================================================
+        // START WITH ALL 39 PRODUCTS
+        // =================================================
+
+        let result =
+            [...products];
+
+
+        // =================================================
+        // SEARCH
+        // =================================================
+
+        if (search !== "") {
+
+            result =
+                result.filter(
+                    function (product) {
+
+                        const name =
+                            String(
+                                product.name || ""
+                            )
+                                .toLowerCase();
+
+
+                        const description =
+                            String(
+                                product.description || ""
+                            )
+                                .toLowerCase();
+
+
+                        const productCategory =
+                            String(
+                                product.category || ""
+                            )
+                                .toLowerCase();
+
+
+                        return (
+                            name.includes(search) ||
+                            description.includes(search) ||
+                            productCategory.includes(search)
+                        );
+
+                    }
+                );
+
+        }
+
+
+        // =================================================
+        // CATEGORY
+        // =================================================
+
+        if (
+            category !== "" &&
+            category !== "all"
+        ) {
+
+            result =
+                result.filter(
+                    function (product) {
+
+                        const productCategory =
+                            String(
+                                product.category || ""
+                            )
+                                .trim()
+                                .toLowerCase()
+                                .replace(
+                                    /[-_]+/g,
+                                    " "
+                                );
+
+
+                        const selectedCategory =
+                            category
+                                .trim()
+                                .toLowerCase()
+                                .replace(
+                                    /[-_]+/g,
+                                    " "
+                                );
+
+
+                        return (
+                            productCategory ===
+                            selectedCategory
+                        );
+
+                    }
+                );
+
+        }
+
+
+        // =================================================
+        // SORT
+        // =================================================
+
+        if (sort === "low") {
+
+            result.sort(
+                function (a, b) {
+
+                    return (
+                        Number(
+                            a.price || 0
+                        ) -
+                        Number(
+                            b.price || 0
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        else if (sort === "high") {
+
+            result.sort(
+                function (a, b) {
+
+                    return (
+                        Number(
+                            b.price || 0
+                        ) -
+                        Number(
+                            a.price || 0
+                        )
+                    );
+
+                }
+            );
+
+        }
+
+
+        else if (sort === "newest") {
+
+            result.sort(
+                function (a, b) {
+
+                    return (
+                        new Date(
+                            b.createdAt || 0
+                        ).getTime() -
+                        new Date(
+                            a.createdAt || 0
+                        ).getTime()
+                    );
+
+                }
+            );
+
+        }
+
+
+        // =================================================
+        // SHOW RESULTS
+        // =================================================
+
+        console.log(
+            "FILTER RESULTS:",
+            result.length
+        );
+
+
+        displayProducts(
+            result
+        );
+
+    }
+);
