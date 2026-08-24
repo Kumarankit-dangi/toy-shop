@@ -74,134 +74,94 @@
 
 
 <header>
-<nav class="navbar">
+    <nav class="navbar">
 
-    <!-- LOGO -->
-    <div class="logo">
-        <a href="index.html">
-            🧸 Toyland
-        </a>
-    </div>
+        <!-- LOGO -->
+        <div class="logo">
+            <a href="index.html">🧸 Toyland</a>
+        </div>
 
+        <!-- DESKTOP NAV LINKS -->
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="pages/shop.html">Shop</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="pages/about.html">About</a></li>
+            <li><a href="pages/contact.html">Contact</a></li>
+        </ul>
 
-    <!-- DESKTOP NAV LINKS -->
-    <ul class="nav-links">
+        <!-- RIGHT SIDE -->
+        <div class="nav-icons">
 
-        <li>
-            <a href="#home">Home</a>
-        </li>
+            <!-- SEARCH -->
+            <div class="search-box">
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Search toys..."
+                    autocomplete="off"
+                >
 
-        <li>
-            <a href="pages/shop.html">Shop</a>
-        </li>
+                <button
+                    type="button"
+                    id="search-button"
+                    title="Search"
+                >
+                    🔍
+                </button>
+            </div>
 
-        <li>
-            <a href="#categories">Categories</a>
-        </li>
+            <!-- WISHLIST -->
+            <a
+                href="pages/wishlist.html"
+                class="wishlist-link"
+            >
+                ❤️
+                <span id="wishlist-count">0</span>
+            </a>
 
-        <li>
-            <a href="pages/about.html">About</a>
-        </li>
+            <!-- CART -->
+            <a
+                href="pages/cart.html"
+                class="cart-icon"
+            >
+                🛒
+                <span id="cart-count">0</span>
+            </a>
 
-        <li>
-            <a href="pages/contact.html">Contact</a>
-        </li>
+            <!-- MY ORDERS -->
+            <a
+                href="pages/my-orders.html"
+                class="my-orders-link"
+            >
+                📦 My Orders
+            </a>
 
-    </ul>
+            <!-- PROFILE -->
+            <div id="auth-area">
+                <a
+                    href="pages/account.html"
+                    class="profile-link"
+                    title="My Account"
+                >
+                    A
+                </a>
+            </div>
 
+        </div>
 
-    <!-- RIGHT SIDE -->
-    <div class="nav-icons">
+        <!-- MOBILE MENU BUTTON -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            type="button"
+        >
+            ☰
+        </button>
 
-  <!-- SEARCH -->
-<div class="search-box">
-
-    <input
-        type="search"
-        id="search-input"
-        placeholder="Search toys..."
-        autocomplete="off"
-    >
-
-    <button
-        type="button"
-        id="search-button"
-        title="Search"
-    >
-        🔍
-    </button>
-
-</div>
-
-
-<!-- WISHLIST -->
-<a
-    href="pages/wishlist.html"
-    class="wishlist-link"
->
-    ❤️
-    <span id="wishlist-count">0</span>
-</a>
-
-
-<!-- CART -->
-<a
-    href="pages/cart.html"
-    class="cart-icon"
->
-    🛒
-    <span id="cart-count">0</span>
-</a>
-
-
-<!-- MY ORDERS -->
-<a
-    href="pages/my-orders.html"
-    class="my-orders-link"
->
-    📦 My Orders
-</a>
-
-
-<!-- PROFILE -->
-<div id="auth-area">
-
-    <a
-        href="pages/account.html"
-        class="profile-link"
-        title="My Account"
-    >
-        A
-    </a>
-
-</div>
-
-</div>
-
-
-<!-- MOBILE LOGIN / PROFILE -->
-<div
-    id="mobile-auth-area"
-    class="mobile-auth-area"
->
-</div>
-
-
-<!-- MOBILE MENU BUTTON -->
-<button
-    class="menu-toggle"
-    id="menu-toggle"
-    aria-label="Open menu"
-    type="button"
->
-    ☰
-</button>
-
-</nav>
-
+    </nav>
 </header>
-
-
 <main>
 
 
