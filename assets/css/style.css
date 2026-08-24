@@ -15664,4 +15664,81 @@ body:has(.about) .about-image img {
         box-sizing: border-box !important;
     }
 
+}/* =====================================================
+   MOBILE NAVBAR - FINAL COMPACT FIX
+===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* NAVBAR HEIGHT ONLY */
+    .navbar {
+        height: 120px !important;
+        min-height: 120px !important;
+        padding: 0 12px !important;
+    }
+
+    /* LOGO */
+    .navbar .logo a {
+        font-size: 26px !important;
+    }
+
+    /* RIGHT ICONS */
+    .navbar .nav-icons {
+        gap: 4px !important;
+        margin-right: 50px !important;
+    }
+
+    /* WISHLIST + CART */
+    .navbar .wishlist-link,
+    .navbar .cart-icon {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        font-size: 18px !important;
+    }
+
+    /* A */
+    .navbar .profile-link {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        font-size: 19px !important;
+    }
+
+    /* HAMBURGER */
+    .navbar #menu-toggle {
+        width: 44px !important;
+        height: 44px !important;
+
+        right: 10px !important;
+
+        font-size: 25px !important;
+        border-radius: 11px !important;
+    }
+
+
+    /* =================================================
+       SHOP PAGE - REMOVE EMPTY WHITE BLOCK
+    ================================================= */
+
+    .navbar .search-box {
+        display: none !important;
+    }
+
+    .navbar .mobile-auth-area {
+        display: none !important;
+    }
+
+    /* Prevent hidden elements from taking space */
+    .navbar .search-box,
+    .navbar .search-box *,
+    .navbar .mobile-auth-area {
+        width: 0 !important;
+        height: 0 !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
 }
