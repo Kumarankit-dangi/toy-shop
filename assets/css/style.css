@@ -3236,15 +3236,6 @@ color:white;
     }
 
 
-    /* =========================
-       CART BUTTON
-    ========================= */
-
-    .cart-btn {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
 }
 /* =====================================================
    FINAL MOBILE HOMEPAGE FIX
@@ -3363,10 +3354,7 @@ color:white;
         z-index: 10;
     }
 
-    /* Add to cart */
-    .product-card .cart-btn {
-        width: 100%;
-    }
+   
 
 }
 /* =====================================================
@@ -3450,10 +3438,7 @@ color:white;
         object-fit: contain;
     }
 
-    /* Cart */
-    .products .cart-btn {
-        width: 100% !important;
-    }
+   
 
 }
 /* =====================================================
@@ -6078,10 +6063,7 @@ color:white;
         margin-left: 5px;
     }
 
-    .cart-btn {
-        width: 100% !important;
-        padding: 12px;
-    }
+  
 
 
     
@@ -8898,45 +8880,6 @@ header::after {
 
 
 /* =====================================================
-   ADD TO CART
-===================================================== */
-
-.product-card .cart-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff626d,
-            #ff7d91
-        ) !important;
-
-    color: white !important;
-
-    border: none !important;
-
-    border-radius: 11px !important;
-
-    font-weight: 700;
-
-    box-shadow:
-        0 8px 20px rgba(255, 95, 110, 0.18);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-.product-card .cart-btn:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 25px rgba(255, 95, 110, 0.30);
-}
-
-
-/* =====================================================
    PREMIUM SECTION BACKGROUND
 ===================================================== */
 
@@ -9155,43 +9098,6 @@ header::after {
 }
 
 
-/* =====================================================
-   ADD TO CART BUTTON
-===================================================== */
-
-.product-container .cart-btn {
-
-    background:
-        linear-gradient(
-            135deg,
-            #ff626d,
-            #ff7d91
-        ) !important;
-
-    color: #ffffff !important;
-
-    border: none !important;
-
-    border-radius: 11px !important;
-
-    font-weight: 700;
-
-    box-shadow:
-        0 8px 20px rgba(255,95,110,0.18);
-
-    transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-
-.product-container .cart-btn:hover {
-
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 25px rgba(255,95,110,0.30);
-}
 
 
 /* =====================================================
@@ -14872,11 +14778,7 @@ body:has(.about) .about-image img {
         overflow-wrap: break-word !important;
     }
 
-    .product-card .cart-btn {
-        width: 100% !important;
-        font-size: 13px !important;
-        padding: 10px !important;
-    }
+   
 }/* =====================================================
    MOBILE - RESTORE ORIGINAL IMAGE VISUAL SIZE
 ===================================================== */
@@ -15116,25 +15018,18 @@ body:has(.about) .about-image img {
         line-height: 1.2 !important;
     }
 
-    .products .cart-btn {
-        width: 100% !important;
-        font-size: 14px !important;
-    }
-}/* =====================================================
-   MOBILE - ADD TO CART BUTTON FIX
+    
+}
+/* =====================================================
+   MOBILE - ADD TO CART FINAL
 ===================================================== */
 
 @media screen and (max-width: 768px) {
 
-    .product-card .cart-btn,
-    .product-card button,
-    .add-to-cart {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
+    .product-card .cart-btn {
 
+        width: 100% !important;
         height: 58px !important;
-        min-height: 58px !important;
 
         padding: 0 10px !important;
         margin: 12px 0 0 !important;
@@ -15143,13 +15038,13 @@ body:has(.about) .about-image img {
         align-items: center !important;
         justify-content: center !important;
 
-        font-size: 18px !important;
-        line-height: 1.2 !important;
-        font-weight: 700 !important;
-
-        border-radius: 18px !important;
         box-sizing: border-box !important;
 
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        line-height: 1.2 !important;
+
+        border-radius: 18px !important;
         white-space: normal !important;
     }
 }
