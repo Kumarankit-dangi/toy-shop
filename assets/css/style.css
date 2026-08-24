@@ -15108,40 +15108,129 @@ body:has(.about) .about-image img {
     }
 }
 /* =====================================================
-   MOBILE NAVBAR - CLEAN FINAL
+   SHOP PAGE - MOBILE NAVBAR FINAL FIX
 ===================================================== */
 
 @media screen and (max-width: 768px) {
 
-    /* HEADER / NAVBAR */
+    /* NAVBAR */
     header,
-    .header,
-    nav,
     .navbar {
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
-        box-sizing: border-box !important;
+
+        height: 90px !important;
+
+        padding: 0 16px !important;
+        margin: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+
         position: relative !important;
+
+        box-sizing: border-box !important;
+        overflow: visible !important;
     }
 
 
-    /* HAMBURGER BUTTON */
-    #menu-toggle {
-        width: 48px !important;
-        height: 48px !important;
+    /* =========================
+       REMOVE DESKTOP NAV
+    ========================= */
 
-        padding: 0 !important;
+    .nav-links,
+    .nav-icons,
+    .search-box,
+    .search-box input,
+    #search-input,
+    #search-button,
+    .my-orders-link {
+        display: none !important;
+    }
+
+
+    /* =========================
+       TOYLAND LOGO
+    ========================= */
+
+    .navbar .logo {
+        display: block !important;
+
+        position: static !important;
+
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: calc(100% - 70px) !important;
+
+        height: auto !important;
+
         margin: 0 !important;
+        padding: 0 !important;
+
+        transform: none !important;
+
+        flex: 0 1 auto !important;
+        flex-shrink: 1 !important;
+    }
+
+
+    .navbar .logo a {
+        display: block !important;
+
+        width: auto !important;
+        height: auto !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        white-space: nowrap !important;
+
+        font-size: 30px !important;
+        line-height: 1.2 !important;
+    }
+
+
+    /* =========================
+       REMOVE WHITE SPACE
+    ========================= */
+
+    .navbar::before,
+    .navbar::after {
+        display: none !important;
+        content: none !important;
+    }
+
+
+    /* =========================
+       HAMBURGER
+    ========================= */
+
+    #menu-toggle,
+    .menu-toggle {
+
+        display: flex !important;
 
         position: absolute !important;
 
-        right: 16px !important;
         top: 50% !important;
+        right: 16px !important;
 
         transform: translateY(-50%) !important;
 
-        display: flex !important;
+        width: 48px !important;
+        height: 48px !important;
+
+        min-width: 48px !important;
+        max-width: 48px !important;
+
+        min-height: 48px !important;
+        max-height: 48px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
         align-items: center !important;
         justify-content: center !important;
 
@@ -15152,20 +15241,29 @@ body:has(.about) .about-image img {
 
         color: #333 !important;
 
-        font-size: 30px !important;
+        font-size: 28px !important;
+        font-weight: 400 !important;
         line-height: 1 !important;
 
         z-index: 999999 !important;
 
         box-sizing: border-box !important;
-        cursor: pointer !important;
+
+        overflow: hidden !important;
     }
 
 
-    /* DON'T MOVE BUTTON WHEN HOVER/CLICK */
     #menu-toggle:hover,
-    #menu-toggle:active {
+    #menu-toggle:active,
+    .menu-toggle:hover,
+    .menu-toggle:active {
         transform: translateY(-50%) !important;
         background: #ff6b6b !important;
+    }
+
+
+    /* MOBILE AUTH HIDE */
+    #mobile-auth-area {
+        display: none !important;
     }
 }
