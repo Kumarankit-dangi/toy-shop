@@ -1300,32 +1300,3 @@ else {
     initNavbarSearch();
 
 }
-document.addEventListener("DOMContentLoaded", function () {
-
-    const menuToggle = document.getElementById("menu-toggle");
-    const navLinks = document.querySelector(".navbar .nav-links");
-
-    if (!menuToggle || !navLinks) {
-        return;
-    }
-
-    menuToggle.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        navLinks.classList.toggle("active");
-    });
-
-    // Menu ke bahar tap karne par close
-    document.addEventListener("click", function (e) {
-
-        if (
-            !navLinks.contains(e.target) &&
-            !menuToggle.contains(e.target)
-        ) {
-            navLinks.classList.remove("active");
-        }
-
-    });
-
-});
