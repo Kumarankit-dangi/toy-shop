@@ -131,87 +131,95 @@ async function loadProducts() {
             products
         );
 
-const categoryFromURL =
-    loadCategoryFromURL();
+
+        const categoryFromURL =
+            loadCategoryFromURL();
 
 
-// =================================================
-// CATEGORY FROM URL
-// =================================================
+        // =================================================
+        // CATEGORY FROM URL
+        // =================================================
 
-if (categoryFromURL) {
+        if (categoryFromURL) {
 
-    const filteredProducts =
-        products.filter(product => {
+            const filteredProducts =
+                products.filter(product => {
 
-            return (
-                String(product.category || "")
-                    .trim()
-                    .toLowerCase()
-                ===
-                String(categoryFromURL)
-                    .trim()
-                    .toLowerCase()
+                    return (
+                        String(product.category || "")
+                            .trim()
+                            .toLowerCase()
+                        ===
+                        String(categoryFromURL)
+                            .trim()
+                            .toLowerCase()
+                    );
+
+                });
+
+
+            displayProducts(
+                filteredProducts
             );
 
-        });
-
-    displayProducts(
-        filteredProducts
-    );
-
-}
+        }
 
 
-// =================================================
-// NORMAL SHOP / SHOP NOW
-// =================================================
+        // =================================================
+        // NORMAL SHOP / SHOP NOW
+        // =================================================
 
-else {
+        else {
 
-    // IMPORTANT:
-    // Shop Now should always show ALL products
+            // IMPORTANT:
+            // Shop Now should always show ALL products
 
-    const searchInput =
-        document.getElementById(
-            "search-box"
-        );
+            const searchInput =
+                document.getElementById(
+                    "search-box"
+                );
 
-    const categoryInput =
-        document.getElementById(
-            "category-filter"
-        );
+            const categoryInput =
+                document.getElementById(
+                    "category-filter"
+                );
 
-    const sortInput =
-        document.getElementById(
-            "sort-filter"
-        );
-
-
-    if (searchInput) {
-        searchInput.value = "";
-    }
+            const sortInput =
+                document.getElementById(
+                    "sort-filter"
+                );
 
 
-    if (categoryInput) {
-        categoryInput.value = "all";
-    }
+            if (searchInput) {
+
+                searchInput.value = "";
+
+            }
 
 
-    if (sortInput) {
-        sortInput.value = "default";
-    }
+            if (categoryInput) {
+
+                categoryInput.value = "all";
+
+            }
 
 
-    // SHOW ALL PRODUCTS
-    displayProducts(
-        products
-    );
+            if (sortInput) {
 
-}
+                sortInput.value = "default";
+
+            }
 
 
-updateWishlistCount();
+            // SHOW ALL PRODUCTS
+            displayProducts(
+                products
+            );
+
+        }
+
+
+        updateWishlistCount();
 
 
     } catch (error) {
@@ -224,6 +232,8 @@ updateWishlistCount();
     }
 
 }
+
+
 // =====================================================
 // GET IMAGE
 // =====================================================
@@ -231,51 +241,88 @@ updateWishlistCount();
 function getImageName(product) {
 
     if (!product || !product.image) {
+
         return "";
+
     }
 
-    let image = String(product.image).trim();
+
+    let image =
+        String(product.image).trim();
+
 
     // External image URL
+
     if (
         image.startsWith("http://") ||
         image.startsWith("https://")
     ) {
+
         return image;
+
     }
+
 
     // Old teddy image
+
     if (image === "teddy.jpg") {
+
         return "/assets/images/teddy-bear.png";
+
     }
+
 
     // Remove any old relative path
-    image = image
-        .replace(/^(\.\.\/)+/, "")
-        .replace(/^(\.\/)+/, "")
-        .replace(/^\/+/, "");
+
+    image =
+        image
+            .replace(/^(\.\.\/)+/, "")
+            .replace(/^(\.\/)+/, "")
+            .replace(/^\/+/, "");
+
 
     // If database contains assets/images/
-    if (image.startsWith("assets/images/")) {
-        image = image.replace(
-            "assets/images/",
-            ""
-        );
+
+    if (
+        image.startsWith(
+            "assets/images/"
+        )
+    ) {
+
+        image =
+            image.replace(
+                "assets/images/",
+                ""
+            );
+
     }
+
 
     // If database contains assets/
-    if (image.startsWith("assets/")) {
-        image = image.replace(
-            "assets/",
-            ""
-        );
+
+    if (
+        image.startsWith(
+            "assets/"
+        )
+    ) {
+
+        image =
+            image.replace(
+                "assets/",
+                ""
+            );
+
     }
 
+
     // Final correct path
-    return "/assets/images/" + image;
+
+    return (
+        "/assets/images/" +
+        image
+    );
+
 }
-
-
 
 
 // =====================================================
@@ -285,7 +332,9 @@ function getImageName(product) {
 function getWishlist() {
 
     return JSON.parse(
-        localStorage.getItem("wishlist")
+        localStorage.getItem(
+            "wishlist"
+        )
     ) || [];
 
 }
@@ -489,6 +538,7 @@ function displayProducts(productList) {
     // =================================================
 
     if (
+        !Array.isArray(productList) ||
         productList.length === 0
     ) {
 
@@ -559,10 +609,10 @@ function displayProducts(productList) {
 
                 <!-- PRODUCT IMAGE -->
 
-               <img
-    src="${getImageName(product)}"
-    alt="${product.name}"
->
+                <img
+                    src="${getImageName(product)}"
+                    alt="${product.name}"
+                >
 
 
                 <!-- PRODUCT NAME -->
@@ -616,6 +666,8 @@ function displayProducts(productList) {
     updateWishlistCount();
 
 }
+
+
 // =====================================================
 // CATEGORY FROM HOMEPAGE
 // =====================================================
@@ -627,13 +679,16 @@ function loadCategoryFromURL() {
             window.location.search
         );
 
+
     const categoryFromURL =
         params.get("category");
+
 
     console.log(
         "CATEGORY FROM URL:",
         categoryFromURL
     );
+
 
     if (!categoryFromURL) {
 
@@ -641,10 +696,12 @@ function loadCategoryFromURL() {
 
     }
 
+
     const categoryInput =
         document.getElementById(
             "category-filter"
         );
+
 
     if (categoryInput) {
 
@@ -652,6 +709,7 @@ function loadCategoryFromURL() {
             categoryFromURL;
 
     }
+
 
     return categoryFromURL;
 
@@ -668,38 +726,71 @@ updateCartCount();
 
 updateWishlistCount();
 
+
+// =====================================================
+// SEARCH + CATEGORY + SORT
+// =====================================================
+
 function applyFilters() {
 
     const searchInput =
-        document.getElementById("search-box");
+        document.getElementById(
+            "search-box"
+        );
+
 
     const categoryInput =
-        document.getElementById("category-filter");
+        document.getElementById(
+            "category-filter"
+        );
+
 
     const sortInput =
-        document.getElementById("sort-filter");
+        document.getElementById(
+            "sort-filter"
+        );
 
+
+    // =================================================
+    // GET CURRENT VALUES
+    // =================================================
 
     const search =
         searchInput
-            ? searchInput.value.trim().toLowerCase()
+            ? String(
+                searchInput.value || ""
+            )
+                .trim()
+                .toLowerCase()
             : "";
 
 
     const category =
         categoryInput
-            ? categoryInput.value.trim().toLowerCase()
+            ? String(
+                categoryInput.value || "all"
+            )
+                .trim()
+                .toLowerCase()
             : "all";
 
 
     const sort =
         sortInput
-            ? sortInput.value
+            ? String(
+                sortInput.value || "default"
+            )
             : "default";
 
 
-    // Start with ALL products
-    let filteredProducts = [...products];
+    // =================================================
+    // START WITH ALL PRODUCTS
+    // =================================================
+
+    let filteredProducts =
+        Array.isArray(products)
+            ? [...products]
+            : [];
 
 
     // =================================================
@@ -709,28 +800,38 @@ function applyFilters() {
     if (search !== "") {
 
         filteredProducts =
-            filteredProducts.filter(product => {
+            filteredProducts.filter(
+                product => {
 
-                const name =
-                    String(product.name || "")
-                        .toLowerCase();
-
-                const description =
-                    String(product.description || "")
-                        .toLowerCase();
-
-                const productCategory =
-                    String(product.category || "")
-                        .toLowerCase();
+                    const name =
+                        String(
+                            product.name || ""
+                        )
+                            .toLowerCase();
 
 
-                return (
-                    name.includes(search) ||
-                    description.includes(search) ||
-                    productCategory.includes(search)
-                );
+                    const description =
+                        String(
+                            product.description || ""
+                        )
+                            .toLowerCase();
 
-            });
+
+                    const productCategory =
+                        String(
+                            product.category || ""
+                        )
+                            .toLowerCase();
+
+
+                    return (
+                        name.includes(search) ||
+                        description.includes(search) ||
+                        productCategory.includes(search)
+                    );
+
+                }
+            );
 
     }
 
@@ -745,17 +846,24 @@ function applyFilters() {
     ) {
 
         filteredProducts =
-            filteredProducts.filter(product => {
+            filteredProducts.filter(
+                product => {
 
-                return (
-                    String(product.category || "")
-                        .trim()
-                        .toLowerCase()
-                    ===
-                    category
-                );
+                    const productCategory =
+                        String(
+                            product.category || ""
+                        )
+                            .trim()
+                            .toLowerCase();
 
-            });
+
+                    return (
+                        productCategory ===
+                        category
+                    );
+
+                }
+            );
 
     }
 
@@ -767,29 +875,65 @@ function applyFilters() {
     if (sort === "low") {
 
         filteredProducts.sort(
-            (a, b) =>
-                Number(a.price || 0) -
-                Number(b.price || 0)
+            (a, b) => {
+
+                return (
+                    Number(
+                        a.price || 0
+                    ) -
+                    Number(
+                        b.price || 0
+                    )
+                );
+
+            }
         );
 
     }
+
 
     else if (sort === "high") {
 
         filteredProducts.sort(
-            (a, b) =>
-                Number(b.price || 0) -
-                Number(a.price || 0)
+            (a, b) => {
+
+                return (
+                    Number(
+                        b.price || 0
+                    ) -
+                    Number(
+                        a.price || 0
+                    )
+                );
+
+            }
         );
 
     }
 
+
     else if (sort === "newest") {
 
         filteredProducts.sort(
-            (a, b) =>
-                new Date(b.createdAt || 0) -
-                new Date(a.createdAt || 0)
+            (a, b) => {
+
+                const dateA =
+                    new Date(
+                        a.createdAt || 0
+                    ).getTime();
+
+
+                const dateB =
+                    new Date(
+                        b.createdAt || 0
+                    ).getTime();
+
+
+                return (
+                    dateB - dateA
+                );
+
+            }
         );
 
     }
@@ -799,9 +943,12 @@ function applyFilters() {
     // DISPLAY
     // =================================================
 
-    displayProducts(filteredProducts);
+    displayProducts(
+        filteredProducts
+    );
 
 }
+
 
 // =====================================================
 // SEARCH / FILTER EVENTS
@@ -816,16 +963,22 @@ document.addEventListener(
                 "search-box"
             );
 
+
         const categoryInput =
             document.getElementById(
                 "category-filter"
             );
+
 
         const sortInput =
             document.getElementById(
                 "sort-filter"
             );
 
+
+        // =================================================
+        // SEARCH
+        // =================================================
 
         if (searchInput) {
 
@@ -841,6 +994,10 @@ document.addEventListener(
         }
 
 
+        // =================================================
+        // CATEGORY
+        // =================================================
+
         if (categoryInput) {
 
             categoryInput.addEventListener(
@@ -854,6 +1011,10 @@ document.addEventListener(
 
         }
 
+
+        // =================================================
+        // SORT
+        // =================================================
 
         if (sortInput) {
 
