@@ -15021,431 +15021,23 @@ body:has(.about) .about-image img {
     
 }
 /* =====================================================
-   MOBILE PRODUCT CARDS - ALL EQUAL
+   TOYLAND - CLEAN MOBILE NAVBAR
+   PHONE ONLY
 ===================================================== */
 
 @media screen and (max-width: 768px) {
 
-    .product-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-
-        gap: 14px !important;
-        padding: 15px !important;
-        margin: 0 !important;
-
-        align-items: stretch !important;
-        box-sizing: border-box !important;
-    }
-
-    .product-card {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: none !important;
-
-        height: auto !important;
-        min-height: 0 !important;
-
-        padding: 12px !important;
-        margin: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: stretch !important;
-
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .product-card img {
-        width: 100% !important;
-        height: 180px !important;
-
-        object-fit: contain !important;
-
-        margin: 15px auto !important;
-        flex-shrink: 0 !important;
-    }
-
-    .product-card h3 {
-        min-height: 48px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        margin: 10px 0 !important;
-        text-align: center !important;
-    }
-
-    .product-card .rating {
-        min-height: 22px !important;
-        margin: 8px 0 !important;
-    }
-
-    .product-card .price {
-        min-height: 35px !important;
-        margin: 8px 0 !important;
-    }
-
-    .product-card .cart-btn {
-        width: 100% !important;
-        height: 58px !important;
-        min-height: 58px !important;
-
-        margin-top: auto !important;
-        padding: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        box-sizing: border-box !important;
-    }
-}
-/* =====================================================
-   SHOP PAGE - MOBILE NAVBAR FINAL FIX
-===================================================== */
-
-@media screen and (max-width: 768px) {
-
-    /* NAVBAR */
-    header,
-    .navbar {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-
-        height: 90px !important;
-
-        padding: 0 16px !important;
-        margin: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-
-        position: relative !important;
-
-        box-sizing: border-box !important;
-        overflow: visible !important;
-    }
-
-
-    /* =========================
-       REMOVE DESKTOP NAV
-    ========================= */
-
-    .nav-links,
-    .nav-icons,
-    .search-box,
-    .search-box input,
-    #search-input,
-    #search-button,
-    .my-orders-link {
-        display: none !important;
-    }
-
-
-    /* =========================
-       TOYLAND LOGO
-    ========================= */
-
-    .navbar .logo {
-        display: block !important;
-
-        position: static !important;
-
-        width: auto !important;
-        min-width: 0 !important;
-        max-width: calc(100% - 70px) !important;
-
-        height: auto !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        transform: none !important;
-
-        flex: 0 1 auto !important;
-        flex-shrink: 1 !important;
-    }
-
-
-    .navbar .logo a {
-        display: block !important;
-
-        width: auto !important;
-        height: auto !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        white-space: nowrap !important;
-
-        font-size: 30px !important;
-        line-height: 1.2 !important;
-    }
-
-
-    /* =========================
-       REMOVE WHITE SPACE
-    ========================= */
-
-    .navbar::before,
-    .navbar::after {
-        display: none !important;
-        content: none !important;
-    }
-
-
-    /* =========================
-       HAMBURGER
-    ========================= */
-
-    #menu-toggle,
-    .menu-toggle {
-
-        display: flex !important;
-
-        position: absolute !important;
-
-        top: 50% !important;
-        right: 16px !important;
-
-        transform: translateY(-50%) !important;
-
-        width: 48px !important;
-        height: 48px !important;
-
-        min-width: 48px !important;
-        max-width: 48px !important;
-
-        min-height: 48px !important;
-        max-height: 48px !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        background: #ff6b6b !important;
-
-        border: none !important;
-        border-radius: 12px !important;
-
-        color: #333 !important;
-
-        font-size: 28px !important;
-        font-weight: 400 !important;
-        line-height: 1 !important;
-
-        z-index: 999999 !important;
-
-        box-sizing: border-box !important;
-
-        overflow: hidden !important;
-    }
-
-
-    #menu-toggle:hover,
-    #menu-toggle:active,
-    .menu-toggle:hover,
-    .menu-toggle:active {
-        transform: translateY(-50%) !important;
-        background: #ff6b6b !important;
-    }
-
-
-    /* MOBILE AUTH HIDE */
-    #mobile-auth-area {
-        display: none !important;
-    }
-}
-/* =====================================================
-   FINAL MOBILE NAVBAR FIX
-   DO NOT DELETE EXISTING HTML
-===================================================== */
-
-@media screen and (max-width: 768px) {
-
-    /* NAVBAR */
-    .navbar {
-        width: 100% !important;
-        min-width: 0 !important;
-        height: 160px !important;
-        position: relative !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        padding: 0 18px !important;
-        box-sizing: border-box !important;
-    }
-
-    /* LOGO */
-    .navbar .logo {
-        display: block !important;
-        position: relative !important;
-        z-index: 1000001 !important;
-    }
-
-    .navbar .logo a {
-        font-size: 30px !important;
-        white-space: nowrap !important;
-    }
-
-
-    /* RIGHT SIDE ICONS */
-    .navbar .nav-icons {
-        display: flex !important;
-        align-items: center !important;
-        gap: 10px !important;
-        margin-left: auto !important;
-        margin-right: 58px !important;
-        position: relative !important;
-        z-index: 1000001 !important;
-    }
-
-    /* SEARCH MOBILE ME HIDE */
-    .navbar .search-box {
-        display: none !important;
-    }
-
-    /* MY ORDERS MOBILE ME HIDE */
-    .navbar .my-orders-link {
-        display: none !important;
-    }
-
-    /* WISHLIST */
-    .navbar .wishlist-link {
-        display: flex !important;
-        align-items: center !important;
-        font-size: 22px !important;
-        white-space: nowrap !important;
-    }
-
-    /* CART */
-    .navbar .cart-icon {
-        display: flex !important;
-        align-items: center !important;
-        font-size: 22px !important;
-        white-space: nowrap !important;
-    }
-
-    /* A PROFILE */
-    .navbar .profile-link {
-        width: 48px !important;
-        height: 48px !important;
-        min-width: 48px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        border-radius: 50% !important;
-        font-size: 22px !important;
-        font-weight: 700 !important;
-    }
-
-
-    /* =================================================
-       HAMBURGER
-    ================================================= */
-
-    #menu-toggle {
-        position: absolute !important;
-
-        width: 48px !important;
-        height: 48px !important;
-
-        right: 12px !important;
-        top: 50% !important;
-
-        transform: translateY(-50%) !important;
-
-        padding: 0 !important;
-        margin: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        font-size: 28px !important;
-        line-height: 1 !important;
-
-        background: #ff6b6b !important;
-        color: #333 !important;
-
-        border: none !important;
-        border-radius: 12px !important;
-
-        z-index: 1000002 !important;
-        box-sizing: border-box !important;
-    }
-
-
-    /* =================================================
-       MOBILE MENU
-    ================================================= */
-
-    .navbar .nav-links {
-        position: absolute !important;
-
-        top: 100% !important;
-        left: 0 !important;
-
-        width: 100% !important;
-        max-width: 100% !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        background: #ffffff !important;
-
-        z-index: 1000000 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    .navbar .nav-links li {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .navbar .nav-links li a {
-        display: flex !important;
-        align-items: center !important;
-
-        width: 100% !important;
-        min-height: 58px !important;
-
-        padding: 0 28px !important;
-
-        box-sizing: border-box !important;
-
-        font-size: 20px !important;
-    }
-}
-/* =====================================================
-   TOYLAND - FINAL MOBILE NAVBAR
-===================================================== */
-
-@media screen and (max-width: 768px) {
-
-    /* ===============================
-       NAVBAR
-    =============================== */
+    /* ==============================
+       HEADER
+    ============================== */
 
     header {
         width: 100% !important;
         min-width: 0 !important;
         max-width: 100% !important;
+
+        position: relative !important;
+        z-index: 10000 !important;
     }
 
     .navbar {
@@ -15453,38 +15045,40 @@ body:has(.about) .about-image img {
         min-width: 0 !important;
         max-width: 100% !important;
 
-        height: 160px !important;
+        height: 74px !important;
+        min-height: 74px !important;
 
         display: flex !important;
         align-items: center !important;
 
-        position: relative !important;
-
-        padding: 0 16px !important;
+        padding: 0 12px !important;
+        margin: 0 !important;
 
         box-sizing: border-box !important;
+
+        position: relative !important;
     }
 
 
-    /* ===============================
+    /* ==============================
        LOGO
-    =============================== */
+    ============================== */
 
     .navbar .logo {
-        position: relative !important;
-
-        flex-shrink: 0 !important;
-
-        z-index: 10 !important;
+        flex: 1 !important;
+        min-width: 0 !important;
 
         margin: 0 !important;
         padding: 0 !important;
+
+        overflow: hidden !important;
     }
 
     .navbar .logo a {
         display: block !important;
 
-        font-size: 30px !important;
+        font-size: 28px !important;
+        line-height: 1 !important;
 
         white-space: nowrap !important;
 
@@ -15492,33 +15086,36 @@ body:has(.about) .about-image img {
     }
 
 
-    /* ===============================
-       RIGHT ICONS
-    =============================== */
+    /* ==============================
+       DESKTOP MENU HIDE
+    ============================== */
 
-    .navbar .nav-icons {
-
-        display: flex !important;
-
-        align-items: center !important;
-
-        gap: 8px !important;
-
-        margin-left: auto !important;
-
-        margin-right: 64px !important;
-
-        position: relative !important;
-
-        z-index: 20 !important;
-
-        height: auto !important;
-
-        width: auto !important;
+    .navbar > .nav-links {
+        display: none !important;
     }
 
 
-    /* SEARCH HIDE ON PHONE */
+    /* ==============================
+       RIGHT ICONS
+    ============================== */
+
+    .navbar .nav-icons {
+        display: flex !important;
+        align-items: center !important;
+
+        gap: 2px !important;
+
+        width: auto !important;
+        height: 100% !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        flex-shrink: 0 !important;
+    }
+
+
+    /* SEARCH HIDE */
 
     .navbar .search-box {
         display: none !important;
@@ -15532,134 +15129,159 @@ body:has(.about) .about-image img {
     }
 
 
-    /* WISHLIST */
+    /* ==============================
+       WISHLIST
+    ============================== */
 
     .navbar .wishlist-link {
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
         width: 38px !important;
         height: 38px !important;
 
-        font-size: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
 
         margin: 0 !important;
         padding: 0 !important;
 
-        white-space: nowrap !important;
+        font-size: 20px !important;
+
+        flex-shrink: 0 !important;
     }
 
 
-    /* CART */
+    /* ==============================
+       CART
+    ============================== */
 
     .navbar .cart-icon {
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
         width: 38px !important;
         height: 38px !important;
 
-        font-size: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
 
         margin: 0 !important;
         padding: 0 !important;
 
-        white-space: nowrap !important;
+        font-size: 20px !important;
+
+        flex-shrink: 0 !important;
     }
 
 
-    /* PROFILE A */
+    /* ==============================
+       PROFILE A
+    ============================== */
 
     .navbar #auth-area {
+        width: 42px !important;
+        height: 42px !important;
+
         display: block !important;
 
         margin: 0 !important;
         padding: 0 !important;
+
+        flex-shrink: 0 !important;
     }
 
     .navbar .profile-link {
-
-        width: 48px !important;
-        height: 48px !important;
-
-        min-width: 48px !important;
+        width: 42px !important;
+        height: 42px !important;
 
         display: flex !important;
-
         align-items: center !important;
         justify-content: center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
 
         border-radius: 50% !important;
 
-        font-size: 22px !important;
+        font-size: 19px !important;
         font-weight: 700 !important;
 
-        margin: 0 !important;
-        padding: 0 !important;
+        box-sizing: border-box !important;
     }
 
 
-    /* ===============================
+    /* ==============================
        HAMBURGER
-    =============================== */
+    ============================== */
 
     .navbar #menu-toggle {
 
-        position: absolute !important;
+        position: relative !important;
 
-        right: 16px !important;
-        top: 50% !important;
+        top: auto !important;
+        right: auto !important;
+        left: auto !important;
+        bottom: auto !important;
 
-        transform: translateY(-50%) !important;
+        transform: none !important;
 
-        width: 48px !important;
-        height: 48px !important;
+        width: 44px !important;
+        height: 44px !important;
 
-        min-width: 48px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
 
+        max-width: 44px !important;
+        max-height: 44px !important;
+
+        margin: 0 0 0 6px !important;
         padding: 0 !important;
-        margin: 0 !important;
 
         display: flex !important;
-
         align-items: center !important;
         justify-content: center !important;
-
-        font-size: 28px !important;
-        line-height: 1 !important;
 
         background: #ff6b6b !important;
 
         color: #333 !important;
 
         border: none !important;
+        border-radius: 11px !important;
 
-        border-radius: 12px !important;
-
-        z-index: 99999 !important;
+        font-size: 27px !important;
+        line-height: 1 !important;
 
         box-sizing: border-box !important;
+
+        flex-shrink: 0 !important;
+
+        z-index: 100000 !important;
     }
 
 
-    /* ===============================
-       MOBILE MENU
-    =============================== */
+    .navbar #menu-toggle:hover,
+    .navbar #menu-toggle:focus,
+    .navbar #menu-toggle:active {
+        transform: none !important;
+        outline: none !important;
+    }
 
-    .navbar .nav-links {
+
+    /* =================================================
+       MOBILE MENU OPEN
+    ================================================= */
+
+    .navbar .nav-links.active,
+    .navbar .nav-links.show,
+    .navbar .nav-links.open {
+
+        display: flex !important;
+
+        flex-direction: column !important;
 
         position: absolute !important;
 
-        top: 100% !important;
-        left: 0 !important;
+        top: 74px !important;
+        left: 12px !important;
 
-        width: 100% !important;
+        width: calc(100% - 24px) !important;
 
         height: auto !important;
         min-height: 0 !important;
@@ -15670,38 +15292,36 @@ body:has(.about) .about-image img {
 
         background: #ffffff !important;
 
-        display: none !important;
+        border-radius: 0 0 12px 12px !important;
 
-        flex-direction: column !important;
-
-        z-index: 99998 !important;
+        overflow: hidden !important;
 
         box-sizing: border-box !important;
+
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12) !important;
+
+        z-index: 99999 !important;
     }
 
 
-    /* WHEN JS OPENS MENU */
+    /* ==============================
+       MENU ITEMS
+    ============================== */
 
-    .navbar .nav-links.active,
-    .navbar .nav-links.show,
-    .navbar .nav-links.open {
-
-        display: flex !important;
-    }
-
-
-    /* MENU ITEMS */
-
-    .navbar .nav-links li {
+    .navbar .nav-links.active li,
+    .navbar .nav-links.show li,
+    .navbar .nav-links.open li {
 
         width: 100% !important;
 
-        height: 64px !important;
-
-        min-height: 64px !important;
+        height: 58px !important;
+        min-height: 58px !important;
 
         margin: 0 !important;
         padding: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
 
         border-bottom: 1px solid #eeeeee !important;
 
@@ -15709,22 +15329,32 @@ body:has(.about) .about-image img {
     }
 
 
-    .navbar .nav-links li a {
+    .navbar .nav-links.active li:last-child,
+    .navbar .nav-links.show li:last-child,
+    .navbar .nav-links.open li:last-child {
+        border-bottom: none !important;
+    }
+
+
+    .navbar .nav-links.active li a,
+    .navbar .nav-links.show li a,
+    .navbar .nav-links.open li a {
 
         width: 100% !important;
-        height: 64px !important;
+        height: 58px !important;
 
         display: flex !important;
-
         align-items: center !important;
 
-        padding: 0 48px !important;
-
         margin: 0 !important;
+        padding: 0 24px !important;
 
-        font-size: 20px !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
 
         box-sizing: border-box !important;
+
+        text-decoration: none !important;
     }
 
 }
