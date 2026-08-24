@@ -1036,51 +1036,86 @@ else {
 // LIVE SEARCH FIX
 // =====================================================
 
-document.addEventListener("input", function (event) {
+document.addEventListener(
+    "input",
+    function (event) {
 
-    if (
-        event.target &&
-        event.target.id === "search-box"
-    ) {
+        if (
+            !event.target ||
+            event.target.id !== "search-box"
+        ) {
+            return;
+        }
 
-        const searchValue =
-            event.target.value
+
+        const search =
+            String(
+                event.target.value || ""
+            )
                 .trim()
                 .toLowerCase();
 
 
-        let filteredProducts =
-            products.filter(product => {
+        // EMPTY SEARCH = SHOW ALL
+        if (search === "") {
 
-                const name =
-                    String(
-                        product.name || ""
-                    ).toLowerCase();
+            displayProducts(
+                products
+            );
 
-                const description =
-                    String(
-                        product.description || ""
-                    ).toLowerCase();
+            return;
 
-                const category =
-                    String(
-                        product.category || ""
-                    ).toLowerCase();
+        }
 
 
-                return (
-                    name.includes(searchValue) ||
-                    description.includes(searchValue) ||
-                    category.includes(searchValue)
-                );
+        // SEARCH PRODUCTS
+        const filteredProducts =
+            products.filter(
+                product => {
 
-            });
+                    const name =
+                        String(
+                            product.name || ""
+                        )
+                            .toLowerCase();
+
+
+                    const description =
+                        String(
+                            product.description || ""
+                        )
+                            .toLowerCase();
+
+
+                    const category =
+                        String(
+                            product.category || ""
+                        )
+                            .toLowerCase();
+
+
+                    return (
+                        name.includes(search) ||
+                        description.includes(search) ||
+                        category.includes(search)
+                    );
+
+                }
+            );
+
+
+        console.log(
+            "LIVE SEARCH:",
+            search,
+            "RESULTS:",
+            filteredProducts.length
+        );
 
 
         displayProducts(
             filteredProducts
         );
 
-    }
-
-});
+    },
+    true
+);
