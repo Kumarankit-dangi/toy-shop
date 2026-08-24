@@ -131,9 +131,13 @@ async function loadProducts() {
             products
         );
 
-
-        const categoryFromURL =
+const categoryFromURL =
     loadCategoryFromURL();
+
+
+// =================================================
+// CATEGORY FROM URL
+// =================================================
 
 if (categoryFromURL) {
 
@@ -152,13 +156,60 @@ if (categoryFromURL) {
 
         });
 
-    displayProducts(filteredProducts);
-
-} else {
-
-    applyFilters();
+    displayProducts(
+        filteredProducts
+    );
 
 }
+
+
+// =================================================
+// NORMAL SHOP / SHOP NOW
+// =================================================
+
+else {
+
+    // IMPORTANT:
+    // Shop Now should always show ALL products
+
+    const searchInput =
+        document.getElementById(
+            "search-box"
+        );
+
+    const categoryInput =
+        document.getElementById(
+            "category-filter"
+        );
+
+    const sortInput =
+        document.getElementById(
+            "sort-filter"
+        );
+
+
+    if (searchInput) {
+        searchInput.value = "";
+    }
+
+
+    if (categoryInput) {
+        categoryInput.value = "all";
+    }
+
+
+    if (sortInput) {
+        sortInput.value = "default";
+    }
+
+
+    // SHOW ALL PRODUCTS
+    displayProducts(
+        products
+    );
+
+}
+
 
 updateWishlistCount();
 
