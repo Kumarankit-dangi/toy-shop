@@ -15021,57 +15021,89 @@ body:has(.about) .about-image img {
     
 }
 /* =====================================================
-   MOBILE - ADD TO CART FINAL
+   MOBILE PRODUCT CARDS - ALL EQUAL
 ===================================================== */
 
 @media screen and (max-width: 768px) {
 
-    .product-card .cart-btn {
+    .product-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
 
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 14px !important;
+        padding: 15px !important;
+        margin: 0 !important;
+
+        align-items: stretch !important;
+        box-sizing: border-box !important;
+    }
+
+    .product-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+
+        padding: 12px !important;
+        margin: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .product-card img {
+        width: 100% !important;
+        height: 180px !important;
+
+        object-fit: contain !important;
+
+        margin: 15px auto !important;
+        flex-shrink: 0 !important;
+    }
+
+    .product-card h3 {
+        min-height: 48px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        margin: 10px 0 !important;
+        text-align: center !important;
+    }
+
+    .product-card .rating {
+        min-height: 22px !important;
+        margin: 8px 0 !important;
+    }
+
+    .product-card .price {
+        min-height: 35px !important;
+        margin: 8px 0 !important;
+    }
+
+    .product-card .cart-btn {
         width: 100% !important;
         height: 58px !important;
+        min-height: 58px !important;
 
-        padding: 0 10px !important;
-        margin: 12px 0 0 !important;
+        margin-top: auto !important;
+        padding: 0 !important;
 
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
 
         box-sizing: border-box !important;
-
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        line-height: 1.2 !important;
-
-        border-radius: 18px !important;
-        white-space: normal !important;
-    }
-}
-@media screen and (max-width: 768px) {
-
-    /* Educational Toys - 2nd card */
-    .product-card:nth-child(2) img {
-        width: 100% !important;
-        height: 180px !important;
-        object-fit: contain !important;
-    }
-
-    /* Electronic Toys - 4th card */
-    .product-card:nth-child(4) img {
-        width: 100% !important;
-        height: 180px !important;
-        object-fit: contain !important;
-    }
-
-    /* Same button size */
-    .product-card:nth-child(2) .cart-btn,
-    .product-card:nth-child(4) .cart-btn {
-        width: 100% !important;
-        height: 58px !important;
-        padding: 0 !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
     }
 }
