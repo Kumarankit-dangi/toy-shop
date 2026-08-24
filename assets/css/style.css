@@ -14796,8 +14796,8 @@ body:has(.about) .about-image img {
 
     .category-card img {
         width: 100% !important;
-        max-width: 130px !important;
-        height: 130px !important;
+        max-width: 180px !important;
+        height: 180px !important;
 
         object-fit: contain !important;
         margin: 0 auto 12px !important;
@@ -14859,8 +14859,8 @@ body:has(.about) .about-image img {
 
     .product-card img {
         width: 100% !important;
-        max-width: 140px !important;
-        height: 140px !important;
+        max-width: 180px !important;
+        height: 180px !important;
 
         object-fit: contain !important;
         margin: 15px auto !important;
