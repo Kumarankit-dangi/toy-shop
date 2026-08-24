@@ -15048,3 +15048,30 @@ body:has(.about) .about-image img {
         white-space: normal !important;
     }
 }
+@media screen and (max-width: 768px) {
+
+    /* Educational Toys - 2nd card */
+    .product-card:nth-child(2) img {
+        width: 100% !important;
+        height: 180px !important;
+        object-fit: contain !important;
+    }
+
+    /* Electronic Toys - 4th card */
+    .product-card:nth-child(4) img {
+        width: 100% !important;
+        height: 180px !important;
+        object-fit: contain !important;
+    }
+
+    /* Same button size */
+    .product-card:nth-child(2) .cart-btn,
+    .product-card:nth-child(4) .cart-btn {
+        width: 100% !important;
+        height: 58px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+}
