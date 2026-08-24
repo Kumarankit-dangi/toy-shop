@@ -949,85 +949,117 @@ function applyFilters() {
 
 }
 
-
 // =====================================================
 // SEARCH / FILTER EVENTS
 // =====================================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+function setupShopFilters() {
 
-        const searchInput =
-            document.getElementById(
-                "search-box"
-            );
+    const searchInput =
+        document.getElementById(
+            "search-box"
+        );
 
+    const categoryInput =
+        document.getElementById(
+            "category-filter"
+        );
 
-        const categoryInput =
-            document.getElementById(
-                "category-filter"
-            );
-
-
-        const sortInput =
-            document.getElementById(
-                "sort-filter"
-            );
+    const sortInput =
+        document.getElementById(
+            "sort-filter"
+        );
 
 
-        // =================================================
-        // SEARCH
-        // =================================================
+    // =================================================
+    // SEARCH
+    // =================================================
 
-        if (searchInput) {
+    if (searchInput) {
 
-            searchInput.addEventListener(
-                "input",
-                function () {
+        searchInput.addEventListener(
+            "input",
+            function () {
 
-                    applyFilters();
+                console.log(
+                    "SEARCH:",
+                    searchInput.value
+                );
 
-                }
-            );
+                applyFilters();
 
-        }
-
-
-        // =================================================
-        // CATEGORY
-        // =================================================
-
-        if (categoryInput) {
-
-            categoryInput.addEventListener(
-                "change",
-                function () {
-
-                    applyFilters();
-
-                }
-            );
-
-        }
-
-
-        // =================================================
-        // SORT
-        // =================================================
-
-        if (sortInput) {
-
-            sortInput.addEventListener(
-                "change",
-                function () {
-
-                    applyFilters();
-
-                }
-            );
-
-        }
+            }
+        );
 
     }
-);
+
+
+    // =================================================
+    // CATEGORY
+    // =================================================
+
+    if (categoryInput) {
+
+        categoryInput.addEventListener(
+            "change",
+            function () {
+
+                console.log(
+                    "CATEGORY:",
+                    categoryInput.value
+                );
+
+                applyFilters();
+
+            }
+        );
+
+    }
+
+
+    // =================================================
+    // SORT
+    // =================================================
+
+    if (sortInput) {
+
+        sortInput.addEventListener(
+            "change",
+            function () {
+
+                console.log(
+                    "SORT:",
+                    sortInput.value
+                );
+
+                applyFilters();
+
+            }
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// START FILTER EVENTS
+// =====================================================
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        setupShopFilters
+    );
+
+}
+
+else {
+
+    setupShopFilters();
+
+}
