@@ -16830,7 +16830,7 @@ body:has(.about) .about-image img {
     width: auto !important;
 
     position: relative !important;
-    z-index: 20 !important;
+    z-index: 10 !important;
 }
 
     /* SEARCH HIDE */
@@ -16930,11 +16930,11 @@ body:has(.about) .about-image img {
 
     transform: translateY(-50%) !important;
 
-    width: 40px !important;
-    height: 40px !important;
+    width: 50px !important;
+    height: 50px !important;
 
-    min-width: 40x !important;
-    max-width: 40px !important;
+    min-width: 50x !important;
+    max-width: 50px !important;
 
     margin: 0 !important;
     padding: 0 !important;
