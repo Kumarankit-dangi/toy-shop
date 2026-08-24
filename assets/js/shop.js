@@ -956,19 +956,13 @@ function applyFilters() {
 function setupShopFilters() {
 
     const searchInput =
-        document.getElementById(
-            "search-box"
-        );
+        document.getElementById("search-box");
 
     const categoryInput =
-        document.getElementById(
-            "category-filter"
-        );
+        document.getElementById("category-filter");
 
     const sortInput =
-        document.getElementById(
-            "sort-filter"
-        );
+        document.getElementById("sort-filter");
 
 
     // =================================================
@@ -977,19 +971,11 @@ function setupShopFilters() {
 
     if (searchInput) {
 
-        searchInput.addEventListener(
-            "input",
-            function () {
+        searchInput.oninput = function () {
 
-                console.log(
-                    "SEARCH:",
-                    searchInput.value
-                );
+            applyFilters();
 
-                applyFilters();
-
-            }
-        );
+        };
 
     }
 
@@ -1000,19 +986,11 @@ function setupShopFilters() {
 
     if (categoryInput) {
 
-        categoryInput.addEventListener(
-            "change",
-            function () {
+        categoryInput.onchange = function () {
 
-                console.log(
-                    "CATEGORY:",
-                    categoryInput.value
-                );
+            applyFilters();
 
-                applyFilters();
-
-            }
-        );
+        };
 
     }
 
@@ -1023,19 +1001,11 @@ function setupShopFilters() {
 
     if (sortInput) {
 
-        sortInput.addEventListener(
-            "change",
-            function () {
+        sortInput.onchange = function () {
 
-                console.log(
-                    "SORT:",
-                    sortInput.value
-                );
+            applyFilters();
 
-                applyFilters();
-
-            }
-        );
+        };
 
     }
 
@@ -1043,12 +1013,11 @@ function setupShopFilters() {
 
 
 // =====================================================
-// START FILTER EVENTS
+// INITIALIZE FILTERS
 // =====================================================
 
 if (
-    document.readyState ===
-    "loading"
+    document.readyState === "loading"
 ) {
 
     document.addEventListener(
