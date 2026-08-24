@@ -16923,46 +16923,44 @@ body:has(.about) .about-image img {
     }
 
 
-    /* ================= ☰ BUTTON ================= */
+   /* ================= ☰ BUTTON ================= */
 
-    .navbar #menu-toggle {
+.navbar #menu-toggle {
 
-        position: absolute !important;
+    position: absolute !important;
 
-        right: 12px !important;
-        top: 50% !important;
+    right: 12px !important;
+    top: 50% !important;
 
-        transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
 
-        width: 42px !important;
-        height: 42px !important;
+    width: 38px !important;
+    height: 38px !important;
 
-        min-width: 42px !important;
-        max-width: 42px !important;
+    min-width: 38px !important;
+    max-width: 38px !important;
 
-        margin: 0 !important;
-        padding: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 
-        display: flex !important;
+    display: flex !important;
 
-        align-items: center !important;
-        justify-content: center !important;
+    align-items: center !important;
+    justify-content: center !important;
 
-        font-size: 24px !important;
-        line-height: 1 !important;
+    font-size: 22px !important;
+    line-height: 1 !important;
 
-        background: #ff6b6b !important;
-        color: #333 !important;
+    background: #ff6b6b !important;
+    color: #333 !important;
 
-        border: none !important;
-        border-radius: 11px !important;
+    border: none !important;
+    border-radius: 10px !important;
 
-        z-index: 1000002 !important;
+    z-index: 1000002 !important;
 
-        box-sizing: border-box !important;
-    }
-
-
+    box-sizing: border-box !important;
+}
     /* ☰ NEVER MOVES */
 
     .navbar #menu-toggle:hover,
