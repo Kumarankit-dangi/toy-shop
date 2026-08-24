@@ -30,85 +30,145 @@
 </head>
 <body>
 
+
 <header>
     <nav class="navbar">
 
+        <!-- LOGO -->
         <div class="logo">
-            <a href="../index.html">🧸 Toyland</a>
+            <a href="../index.html">
+                🧸 Toyland
+            </a>
         </div>
 
-   <ul class="nav-links">
 
-    <li>
-        <a href="../index.html">
-            Home
-        </a>
-    </li>
+        <!-- MOBILE / DESKTOP NAV LINKS -->
+        <ul class="nav-links">
 
-    <li>
-        <a href="shop.html">
-            Shop
-        </a>
-    </li>
+            <li>
+                <a href="../index.html">
+                    Home
+                </a>
+            </li>
 
-    <li>
-        <a href="#">
-            Categories
-        </a>
-    </li>
+            <li>
+                <a href="shop.html">
+                    Shop
+                </a>
+            </li>
 
-    <li>
-        <a href="about.html">
-            About
-        </a>
-    </li>
+            <li>
+                <a href="../index.html#categories">
+                    Categories
+                </a>
+            </li>
 
-    <li>
-        <a href="contact.html">
-            Contact
-        </a>
-    </li>
+            <li>
+                <a href="about.html">
+                    About
+                </a>
+            </li>
 
-</ul>
-<div class="nav-icons">
+            <li>
+                <a href="contact.html">
+                    Contact
+                </a>
+            </li>
 
-    <!-- SEARCH -->
-    <a href="shop.html" title="Search">
-        🔍
-    </a>
+        </ul>
 
-    <!-- WISHLIST -->
-    <a
-        href="wishlist.html"
-        title="Wishlist"
-    >
-        ❤️
-    </a>
 
-    <!-- CART -->
-    <a
-        href="cart.html"
-        title="Cart"
-    >
-        🛒
-    </a>
+        <!-- RIGHT SIDE -->
+        <div class="nav-icons">
 
-    <!-- MY ORDERS -->
-    <a
-        href="my-orders.html"
-        title="My Orders"
-    >
-        📦 My Orders
-    </a>
-<!-- PROFILE -->
-<div id="auth-area">
+            <!-- SEARCH -->
+            <div class="search-box">
 
-</div>
+                <input
+                    type="search"
+                    id="search-input"
+                    placeholder="Search toys..."
+                    autocomplete="off"
+                >
 
-</div>
+                <button
+                    type="button"
+                    id="search-button"
+                    title="Search"
+                >
+                    🔍
+                </button>
+
+            </div>
+
+
+            <!-- WISHLIST -->
+            <a
+                href="wishlist.html"
+                class="wishlist-link"
+                title="Wishlist"
+            >
+                ❤️
+                <span id="wishlist-count">0</span>
+            </a>
+
+
+            <!-- CART -->
+            <a
+                href="cart.html"
+                class="cart-icon"
+                title="Cart"
+            >
+                🛒
+                <span id="cart-count">0</span>
+            </a>
+
+
+            <!-- MY ORDERS -->
+            <a
+                href="my-orders.html"
+                class="my-orders-link"
+            >
+                📦 My Orders
+            </a>
+
+
+            <!-- PROFILE -->
+            <div id="auth-area">
+
+                <a
+                    href="account.html"
+                    class="profile-link"
+                    title="My Account"
+                >
+                    A
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE LOGIN / PROFILE -->
+        <div
+            id="mobile-auth-area"
+            class="mobile-auth-area"
+        >
+        </div>
+
+
+        <!-- MOBILE MENU BUTTON -->
+        <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            type="button"
+        >
+            ☰
+        </button>
+
     </nav>
 </header>
-
 
 <main>
 
