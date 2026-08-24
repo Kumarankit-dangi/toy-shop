@@ -124,7 +124,7 @@ async function loadProducts() {
                     Number(product.price)
 
             }));
-
+initLiveSearch();
 
         console.log(
             "PRODUCTS:",
@@ -1104,20 +1104,3 @@ function initLiveSearch() {
 
 }
 
-
-// =====================================================
-// INITIALIZE
-// =====================================================
-
-if (document.readyState === "loading") {
-
-    document.addEventListener(
-        "DOMContentLoaded",
-        initLiveSearch
-    );
-
-} else {
-
-    initLiveSearch();
-
-}
