@@ -12839,19 +12839,7 @@ body:has(.shop-header) {
 
 @media (max-width: 768px) {
 
-    /* -----------------------------------------
-       ENTIRE WEBSITE
-    ----------------------------------------- */
-
-    html {
-        min-width: 1200px !important;
-    }
-
-    body {
-        min-width: 1200px !important;
-        width: 1200px !important;
-        overflow-x: auto !important;
-    }
+   
 
 
     /* -----------------------------------------
@@ -12937,21 +12925,7 @@ body:has(.shop-header) {
     }
 
 
-    /* -----------------------------------------
-       CATEGORIES
-    ----------------------------------------- */
-
-    .categories,
-    .category-container,
-    .category-grid {
-        width: 1100px !important;
-        min-width: 1100px !important;
-
-        display: grid !important;
-        grid-template-columns:
-            repeat(4, 1fr) !important;
-    }
-
+    
 
     /* -----------------------------------------
        PRODUCTS
@@ -14468,27 +14442,8 @@ body:has(.about) .about-image img {
     }
 
 
-    /* =========================
-       PRODUCTS
-    ========================= */
-
-    .products,
-    .product-container,
-    .product-grid,
-    .products-container {
-        width: 100% !important;
-        min-width: 0 !important;
-        max-width: 100% !important;
-
-        display: grid !important;
-
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-
-        gap: 14px !important;
-
-        padding: 16px !important;
-    }
-
+   
+    
     .product-card {
         width: 100% !important;
         min-width: 0 !important;
@@ -14654,5 +14609,128 @@ body:has(.about) .about-image img {
         gap: 30px !important;
 
         padding: 30px 20px !important;
+    }
+}
+/* =====================================================
+   FINAL MOBILE FIX
+   ONLY FOR PHONE
+===================================================== */
+
+@media screen and (max-width: 768px) {
+
+    html,
+    body {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    main,
+    section {
+        max-width: 100% !important;
+    }
+
+    /* ===============================
+       SHOP BY CATEGORY
+    =============================== */
+
+    .shop-by-category,
+    .categories-section,
+    .category-section {
+        width: 100% !important;
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .category-container,
+    .category-grid,
+    .categories {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 15px !important;
+        padding: 20px !important;
+
+        box-sizing: border-box !important;
+    }
+
+    /* Category cards */
+    .category-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .category-card img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+
+
+    /* ===============================
+       FEATURED PRODUCTS
+    =============================== */
+
+    .featured-products,
+    .featured-section,
+    .products-section {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        overflow: hidden !important;
+    }
+
+    .product-container,
+    .product-grid,
+    .products-container {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+
+        gap: 15px !important;
+        padding: 20px !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .product-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .product-card img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 160px !important;
+
+        object-fit: contain !important;
+    }
+
+
+    /* ===============================
+       SECTION HEADINGS
+    =============================== */
+
+    .featured-products h2,
+    .featured-section h2,
+    .products-section h2 {
+        max-width: 100% !important;
+        font-size: 36px !important;
+        line-height: 1.1 !important;
+        text-align: center !important;
     }
 }
