@@ -15107,7 +15107,7 @@ body:has(.about) .about-image img {
         box-sizing: border-box !important;
     }
 }
-/* MOBILE HAMBURGER - SMALL & NEAT */
+/* MOBILE HAMBURGER - SAME SIZE AS A */
 
 @media screen and (max-width: 768px) {
 
@@ -15119,17 +15119,26 @@ body:has(.about) .about-image img {
         margin: 0 !important;
 
         display: flex !important;
+        flex-direction: column !important;
+
         align-items: center !important;
         justify-content: center !important;
 
         gap: 5px !important;
 
+        background: #ff6b6b !important;
+        border: none !important;
         border-radius: 12px !important;
 
+        box-sizing: border-box !important;
+
         font-size: 0 !important;
+        line-height: 0 !important;
     }
 
     .menu-toggle span {
+        display: block !important;
+
         width: 24px !important;
         height: 3px !important;
 
